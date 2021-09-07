@@ -7,6 +7,8 @@
 #include "Skybox.h"
 #include "Entity.h"
 #include <math.h>
+#include "glm/ext.hpp"
+#include "glm/gtx/string_cast.hpp"
 
 class Viewer {
 public:

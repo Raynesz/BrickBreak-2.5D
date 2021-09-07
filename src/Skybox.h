@@ -1,16 +1,16 @@
-#ifndef SKYBOX_CLASS_H
-#define SKYBOX_CLASS_H
+#ifndef SKYBOX_H
+#define SKYBOX_H
 
 #include <glad/glad.h>
 #include <stb/stb_image.h>
 #include <string>
 #include <iostream>
 #include <filesystem>
-#include<glm/glm.hpp>
-#include<glm/gtc/matrix_transform.hpp>
-#include<glm/gtc/type_ptr.hpp>
-#include<glm/gtx/rotate_vector.hpp>
-#include<glm/gtx/vector_angle.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/vector_angle.hpp>
 #include "Shader.h"
 #include "Camera.h"
 
@@ -51,7 +51,7 @@ class Skybox {
 			6, 2, 3
 		};
 
-		unsigned int skyboxVAO, cubemapTexture;
+		unsigned int skyboxVAO, cubemapTexture = 0;
 
 		void Initialize();
 		void useSkybox(std::string textureName);

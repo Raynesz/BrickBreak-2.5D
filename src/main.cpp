@@ -1,4 +1,4 @@
-//TODO: Entity objects hold the index of their model and shader in the respective viewer vectors.
+//TODO: Viewer responds to window resizing.
 //Issue: Right cubemap texture is flipped after first render.
 
 #include <iostream>
@@ -16,6 +16,9 @@ int main() {
 
 	viewer.addEntity("airplane", "airplane", "default");
 	viewer.addEntity("jupiter", "jupiter", "default");
+
+	viewer.entities[0].update(glm::vec3(30.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	viewer.entities[1].update(glm::vec3(-30.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	for (int i = 0; i < viewer.entities.size(); i++) {
 		std::cout << viewer.entities[i].name << std::endl;

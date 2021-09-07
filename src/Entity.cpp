@@ -8,6 +8,14 @@ Entity::Entity(std::string newName, int newModelIndex, int newShaderIndex) {
 	translation = glm::vec3(0.0f, 30.0f, 0.0f);
 	rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
+
+
+}
+
+void Entity::update(glm::vec3 t, glm::quat r, glm::vec3 s) {
+	translation = t;
+	rotation = r;
+	scale = s;
 }
 
 //void Entity::Draw(Camera& camera) {

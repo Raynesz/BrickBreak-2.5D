@@ -16,6 +16,8 @@ public:
 
 	Entity(std::string, int, int);
 
+	void update(glm::vec3, glm::quat, glm::vec3);
+
 	//void Draw(Camera& camera);
 
 };
