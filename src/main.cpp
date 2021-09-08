@@ -17,16 +17,13 @@ int main() {
 	viewer.addEntity("airplane", "airplane", "default");
 	viewer.addEntity("jupiter", "jupiter", "default");
 
-	viewer.entities[0].update(glm::vec3(30.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	viewer.entities[1].update(glm::vec3(-30.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-	for (int i = 0; i < viewer.entities.size(); i++) {
-		std::cout << viewer.entities[i].name << std::endl;
-	}
+	viewer.entities[1].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))
 	{
+		viewer.updateEntities();
+
 		displayFPS(viewer);
 
 		// Specify the color of the background

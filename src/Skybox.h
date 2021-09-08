@@ -51,7 +51,7 @@ class Skybox {
 			6, 2, 3
 		};
 
-		unsigned int skyboxVAO, cubemapTexture = 0;
+		unsigned int skyboxVAO = 0, cubemapTexture = 0;
 
 		void Initialize();
 		void useSkybox(std::string textureName);

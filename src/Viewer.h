@@ -41,6 +41,7 @@ public:
 	void addEntity(std::string, std::string, std::string);
 	void drawSkybox();
 	void drawEntities();
+	void updateEntities();
 	void Inputs();
 };
 

@@ -67,7 +67,6 @@ Viewer::~Viewer() {
 void Viewer::LoadModel(std::vector<std::string>& modelNames) {
 	for (int i = 0; i < modelNames.size(); i++) {
 		std::string modelPath = "res/models/" + modelNames[i] + "/scene.gltf";
-		std::cout << modelPath << std::endl;
 		Model modelData(modelPath.c_str());
 		models.push_back(modelStruct(modelNames[i], modelData));
 	}
@@ -103,7 +102,7 @@ void Viewer::useSkybox(std::string skyboxName) {
 }
 
 void Viewer::addEntity(std::string entityName, std::string modelID, std::string shaderID) {
-	int modelIndex, shaderIndex = 0;
+	int modelIndex = 0, shaderIndex = 0;
 	for (int i = 0; i < models.size(); i++) {
 		if (modelID == models[i].name) {
 			modelIndex = i;
@@ -126,20 +125,66 @@ void Viewer::drawSkybox() {
 
 void Viewer::drawEntities() {
 	for (int i = 0; i < entities.size(); i++) {
-		std::cout << glm::to_string(entities[i].rotation) << std::endl;
 		models[entities[i].modelIndex].model.Draw(shaders[entities[i].shaderIndex].program, camera, entities[i].translation, entities[i].rotation, entities[i].scale);
+	}
+}
+
+void Viewer::updateEntities() {
+	for (int i = 0; i < entities.size(); i++) {
+		entities[i].update();
 	}
 }
 
 void Viewer::Inputs() {
 	// Handles key inputs
-	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)						//UP
 	{
-		
+		//std::cout << "UP" << std::endl;
+		entities[0].speed.x = 0.02f;
+		//std::cout << entities[0].speed.x << std::endl;
 	}
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)					//DOWN
+	{
+		//std::cout << "DOWN" << std::endl;
+		entities[0].speed.x = -0.02f;
+	}
+	if ((glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE) && (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE))
+	{
+		//std::cout << "NO X" << std::endl;
+		entities[0].speed.x = 0.0f;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)						//LEFT
+	{
+		//std::cout << "LEFT" << std::endl;
+		entities[0].speed.z = -0.02f;
+	}
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//RIGHT
+	{
+		//std::cout << "RIGHT" << std::endl;
+		entities[0].speed.z = 0.02f;
+	}
+	if ((glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_RELEASE) && (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_RELEASE))
+	{
+		//std::cout << "NO Z" << std::endl;
+		entities[0].speed.z = 0.0f;
+	}
+
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
 	{
-		
+		//entities[0].speed = glm::vec3(0.0f, 0.05f, 0.0f);
+	}
+	else if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
+	{
+		//entities[0].speed = glm::vec3(0.0f, 0.0f, 0.0f);
+	}
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+	{
+		//entities[1].speed = glm::vec3(0.0f, -0.05f, 0.0f);
+	}
+	else if (glfwGetKey(window, GLFW_KEY_L) == GLFW_RELEASE)
+	{
+		//entities[1].speed = glm::vec3(0.0f, 0.0f, 0.0f);
 	}
 	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
 	{

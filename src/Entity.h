@@ -13,13 +13,12 @@ public:
 	glm::vec3 translation;
 	glm::quat rotation;
 	glm::vec3 scale;
+	glm::vec3 speed;
 
 	Entity(std::string, int, int);
 
-	void update(glm::vec3, glm::quat, glm::vec3);
-
-	//void Draw(Camera& camera);
-
+	void update();
+	void moveTo(glm::vec3);
 };
 
 #endif

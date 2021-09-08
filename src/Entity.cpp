@@ -5,19 +5,17 @@ Entity::Entity(std::string newName, int newModelIndex, int newShaderIndex) {
 	modelIndex = newModelIndex;
 	shaderIndex = newShaderIndex;
 
-	translation = glm::vec3(0.0f, 30.0f, 0.0f);
+	translation = glm::vec3(0.0f, 0.0f, 0.0f);
 	rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
 
-
+	speed = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
-void Entity::update(glm::vec3 t, glm::quat r, glm::vec3 s) {
-	translation = t;
-	rotation = r;
-	scale = s;
+void Entity::update() {
+	translation = glm::vec3(translation.x + speed.x, translation.y + speed.y, translation.z + speed.z);
 }
 
-//void Entity::Draw(Camera& camera) {
-//	model.Draw(shader, camera, translation, rotation, scale);
-//}
+void Entity::moveTo(glm::vec3 location) {
+	translation = location;
+}
