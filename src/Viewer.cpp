@@ -16,11 +16,20 @@ Viewer::Viewer(std::string wN, int w, int h) : camera(w, h, glm::vec3(0.0f, 0.0f
 		// So that means we only have the modern functions
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-		window = glfwCreateWindow(width, height, "BrickBreak 2.5D", NULL, NULL);
+		//glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+
+		
+		GLFWmonitor* primary = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(primary);
+
+		window = glfwCreateWindow(mode->width, mode->height, "BrickBreak 2.5D", NULL, NULL);
+
 		// Error check if the window fails to create
 		if (window == NULL)
 		{
+			std::cout << "here" << std::endl;
 			throw;
 		}
 
@@ -189,5 +198,9 @@ void Viewer::Inputs() {
 	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
 	{
 		useSkybox("");
+	}
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 }

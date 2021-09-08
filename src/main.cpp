@@ -1,4 +1,3 @@
-//TODO: Viewer responds to window resizing.
 //Issue: Right cubemap texture is flipped after first render.
 
 #include <iostream>
@@ -9,7 +8,7 @@ void initializeResources(Viewer&);
 void displayFPS(Viewer&);
 
 int main() {
-	Viewer viewer("BrickBreak 2.5D", 800, 800);
+	Viewer viewer("BrickBreak 2.5D", 1680, 1050);
 	initializeResources(viewer);
 
 	viewer.useSkybox("skyfly");
