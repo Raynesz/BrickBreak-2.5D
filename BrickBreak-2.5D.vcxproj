@@ -75,7 +75,7 @@
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
-    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak 2.5D\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
@@ -84,7 +84,7 @@
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
-    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak 2.5D\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
@@ -93,7 +93,7 @@
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
-    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak 2.5D\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
@@ -102,7 +102,7 @@
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
-    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak 2.5D\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
@@ -125,9 +125,8 @@
       </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>if not exist "$(TargetDir)res\shaders\" mkdir "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.vert" "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Command>
+      <Command>if not exist "$(TargetDir)res\" mkdir "$(TargetDir)res\"
+xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,9 +152,8 @@ copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Co
       </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>if not exist "$(TargetDir)res\shaders\" mkdir "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.vert" "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Command>
+      <Command>if not exist "$(TargetDir)res\" mkdir "$(TargetDir)res\"
+xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -177,9 +175,8 @@ copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Co
       </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>if not exist "$(TargetDir)res\shaders\" mkdir "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.vert" "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Command>
+      <Command>if not exist "$(TargetDir)res\" mkdir "$(TargetDir)res\"
+xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -205,9 +202,8 @@ copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Co
       </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>if not exist "$(TargetDir)res\shaders\" mkdir "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.vert" "$(TargetDir)res\shaders\"
-copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Command>
+      <Command>if not exist "$(TargetDir)res\" mkdir "$(TargetDir)res\"
+xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -229,6 +225,7 @@ copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Co
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\EBO.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Mesh.h" />
@@ -236,6 +233,7 @@ copy "$(SolutionDir)src\res\shaders\default.frag" "$(TargetDir)res\shaders\"</Co
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Skybox.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\util.h" />
     <ClInclude Include="src\VAO.h" />
     <ClInclude Include="src\VBO.h" />
     <ClInclude Include="src\Viewer.h" />

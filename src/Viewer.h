@@ -9,6 +9,8 @@
 #include <math.h>
 #include "glm/ext.hpp"
 #include "glm/gtx/string_cast.hpp"
+#include "constants.h"
+#include "util.h"
 
 class Viewer {
 public:
@@ -25,20 +27,23 @@ public:
 	std::vector<modelStruct> models = {};
 	std::vector<Entity> entities = {};
 
+	moveControl playerMove;
+
 	// Variables to create periodic event for FPS displaying
 	double prevTime = 0.0;
 	double crntTime = 0.0;
-	double timeDiff;
+	double timeDiff = 0.0;
 	// Keeps track of the amount of frames in timeDiff
 	unsigned int counter = 0;
 
-	Viewer(std::string, int, int);
+	Viewer(std::string);
 	~Viewer();
 
 	void LoadModel(std::vector<std::string>& modelNames);
 	void loadShader(std::vector<shaderInput>& shaderInputData);
 	void useSkybox(std::string skyboxName);
-	void addEntity(std::string, std::string, std::string);
+	void addEntity(std::string entityName, bool isPlayer, std::string modelID, std::string shaderID);
+	int g(std::string);
 	void drawSkybox();
 	void drawEntities();
 	void updateEntities();

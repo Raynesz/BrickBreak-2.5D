@@ -1,15 +1,11 @@
 #include "Viewer.h"
 
-Viewer::Viewer(std::string wN, int w, int h) : camera(w, h, glm::vec3(0.0f, 0.0f, 10.0f)) {
+Viewer::Viewer(std::string windowName) {
 	try {
-		windowName = wN;
-		width = w;
-		height = h;
 		// Initialize GLFW
 		glfwInit();
 
-		// Tell GLFW what version of OpenGL we are using 
-		// In this case we are using OpenGL 3.3
+		// Using OpenGL 3.3
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		// Tell GLFW we are using the CORE profile
@@ -20,11 +16,15 @@ Viewer::Viewer(std::string wN, int w, int h) : camera(w, h, glm::vec3(0.0f, 0.0f
 		//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
-		
+		Viewer::windowName = windowName;
+
 		GLFWmonitor* primary = glfwGetPrimaryMonitor();
 		const GLFWvidmode* mode = glfwGetVideoMode(primary);
 
-		window = glfwCreateWindow(mode->width, mode->height, "BrickBreak 2.5D", NULL, NULL);
+		width = mode->width;
+		height = mode->height;
+
+		window = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 
 		// Error check if the window fails to create
 		if (window == NULL)
@@ -36,11 +36,20 @@ Viewer::Viewer(std::string wN, int w, int h) : camera(w, h, glm::vec3(0.0f, 0.0f
 		// Introduce the window into the current context
 		glfwMakeContextCurrent(window);
 
+		GLFWimage images[1] = {};
+		images[0].pixels = stbi_load("res/img/ds.png", &images[0].width, &images[0].height, 0, 4); //rgba channels 
+		glfwSetWindowIcon(window, 1, images);
+		stbi_image_free(images[0].pixels);
+
+		//FreeConsole();
+
 		//Load GLAD so it configures OpenGL
 		gladLoadGL();
 		// Specify the viewport of OpenGL in the Window
 		// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 		glViewport(0, 0, width, height);
+
+		camera.Initialize(width, height, glm::vec3(0.0f, 0.0f, 10.0f));
 
 		skybox.Initialize();
 
@@ -110,7 +119,7 @@ void Viewer::useSkybox(std::string skyboxName) {
 	skybox.useSkybox(skyboxName);
 }
 
-void Viewer::addEntity(std::string entityName, std::string modelID, std::string shaderID) {
+void Viewer::addEntity(std::string entityName, bool isPlayer, std::string modelID, std::string shaderID) {
 	int modelIndex = 0, shaderIndex = 0;
 	for (int i = 0; i < models.size(); i++) {
 		if (modelID == models[i].name) {
@@ -124,8 +133,14 @@ void Viewer::addEntity(std::string entityName, std::string modelID, std::string 
 		}
 	}
 
-	Entity newEnt(entityName, modelIndex, shaderIndex);
+	Entity newEnt(entityName, isPlayer, modelIndex, shaderIndex);
 	entities.push_back(newEnt);
+}
+
+int Viewer::g(std::string entityName) {
+	for (int i = 0; i < entities.size(); i++) {
+		if (entityName == entities[i].name) return i;
+	}
 }
 
 void Viewer::drawSkybox() {
@@ -140,7 +155,10 @@ void Viewer::drawEntities() {
 
 void Viewer::updateEntities() {
 	for (int i = 0; i < entities.size(); i++) {
-		entities[i].update();
+		if (entities[i].isPlayer)
+			entities[i].update(playerMove);
+		else
+			entities[i].update();
 	}
 }
 
@@ -148,56 +166,57 @@ void Viewer::Inputs() {
 	// Handles key inputs
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)						//UP
 	{
-		//std::cout << "UP" << std::endl;
+		playerMove.forward = true;
 		entities[0].speed.x = 0.02f;
-		//std::cout << entities[0].speed.x << std::endl;
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)					//DOWN
 	{
-		//std::cout << "DOWN" << std::endl;
+		playerMove.back = true;
 		entities[0].speed.x = -0.02f;
 	}
 	if ((glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE) && (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE))
 	{
-		//std::cout << "NO X" << std::endl;
+		playerMove.forward = false;
+		playerMove.back = false;
 		entities[0].speed.x = 0.0f;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)						//LEFT
 	{
-		//std::cout << "LEFT" << std::endl;
+		playerMove.left = true;
 		entities[0].speed.z = -0.02f;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//RIGHT
 	{
-		//std::cout << "RIGHT" << std::endl;
+		playerMove.right = true;
 		entities[0].speed.z = 0.02f;
 	}
 	if ((glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_RELEASE) && (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_RELEASE))
 	{
-		//std::cout << "NO Z" << std::endl;
+		playerMove.left = false;
+		playerMove.right = false;
 		entities[0].speed.z = 0.0f;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
 	{
-		//entities[0].speed = glm::vec3(0.0f, 0.05f, 0.0f);
+		
 	}
 	else if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
 	{
-		//entities[0].speed = glm::vec3(0.0f, 0.0f, 0.0f);
+		
 	}
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 	{
-		//entities[1].speed = glm::vec3(0.0f, -0.05f, 0.0f);
+		useSkybox("space");
 	}
 	else if (glfwGetKey(window, GLFW_KEY_L) == GLFW_RELEASE)
 	{
-		//entities[1].speed = glm::vec3(0.0f, 0.0f, 0.0f);
+		
 	}
 	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
 	{
-		useSkybox("");
+		useSkybox("skyfly");
 	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{

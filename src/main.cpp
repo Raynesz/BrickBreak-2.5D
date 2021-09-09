@@ -1,4 +1,7 @@
-//Issue: Right cubemap texture is flipped after first render.
+// Issue: Right cubemap texture is flipped after first render.
+// Issue: Jumpy camera when moving and looking around.
+// Issue: Choose textures used by models.
+// TODO: Create textured sphere and cube model in Blender.
 
 #include <iostream>
 #include <string>
@@ -8,19 +11,27 @@ void initializeResources(Viewer&);
 void displayFPS(Viewer&);
 
 int main() {
-	Viewer viewer("BrickBreak 2.5D", 1680, 1050);
+	Viewer viewer("BrickBreak 2.5D");
 	initializeResources(viewer);
 
 	viewer.useSkybox("skyfly");
 
-	viewer.addEntity("airplane", "airplane", "default");
-	viewer.addEntity("jupiter", "jupiter", "default");
+	viewer.addEntity("crackedBrick", false, "crackedBrick", "default");
+	viewer.addEntity("airplane", true, "airplane", "default");
+	viewer.addEntity("map", false, "map", "default");
+	viewer.addEntity("jupiter", true, "jupiter", "default");
 
-	viewer.entities[1].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
+	viewer.entities[viewer.g("jupiter")].Scale(0.2f, 0.2f, 0.2f);
+	viewer.entities[viewer.g("jupiter")].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
+
+	viewer.entities[viewer.g("map")].moveTo(glm::vec3(30.0f, 0.0f, 0.0f));
+	viewer.entities[viewer.g("map")].Rotate(1.0, 0.0, 0.0, degToRad(180.0));
+	viewer.entities[viewer.g("map")].Scale(0.2f, 0.2f, 0.2f);
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))
 	{
+		viewer.entities[viewer.g("jupiter")].Rotate(0.0, 1.0, 0.0, degToRad(0.01));
 		viewer.updateEntities();
 
 		displayFPS(viewer);
@@ -49,7 +60,7 @@ int main() {
 }
 
 void initializeResources(Viewer& viewer) {
-	std::vector<std::string> models = {"airplane", "jupiter"};
+	std::vector<std::string> models = {"airplane", "jupiter", "map", "crackedBrick"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"), shaderInput("asteroid", "asteroid", "default")};
 
 	viewer.LoadModel(models);

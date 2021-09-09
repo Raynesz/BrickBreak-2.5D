@@ -60,7 +60,7 @@ void Model::traverseNode(unsigned int nextNode, glm::mat4 matrix)
 	glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
 	if (node.find("translation") != node.end())
 	{
-		float transValues[3];
+		float transValues[3] = {};
 		for (unsigned int i = 0; i < node["translation"].size(); i++)
 			transValues[i] = (node["translation"][i]);
 		translation = glm::make_vec3(transValues);
@@ -82,7 +82,7 @@ void Model::traverseNode(unsigned int nextNode, glm::mat4 matrix)
 	glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	if (node.find("scale") != node.end())
 	{
-		float scaleValues[3];
+		float scaleValues[3] = {};
 		for (unsigned int i = 0; i < node["scale"].size(); i++)
 			scaleValues[i] = (node["scale"][i]);
 		scale = glm::make_vec3(scaleValues);
@@ -91,7 +91,7 @@ void Model::traverseNode(unsigned int nextNode, glm::mat4 matrix)
 	glm::mat4 matNode = glm::mat4(1.0f);
 	if (node.find("matrix") != node.end())
 	{
-		float matValues[16];
+		float matValues[16] = {};
 		for (unsigned int i = 0; i < node["matrix"].size(); i++)
 			matValues[i] = (node["matrix"][i]);
 		matNode = glm::make_mat4(matValues);
