@@ -30,11 +30,9 @@ public:
 	moveControl playerMove;
 
 	// Variables to create periodic event for FPS displaying
-	double prevTime = 0.0;
-	double crntTime = 0.0;
-	double timeDiff = 0.0;
-	// Keeps track of the amount of frames in timeDiff
-	unsigned int counter = 0;
+	double previousTime = 0.0;
+	double currentTime = 0.0;
+	double dt = 0.0;
 
 	Viewer(std::string);
 	~Viewer();

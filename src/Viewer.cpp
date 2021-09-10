@@ -16,6 +16,8 @@ Viewer::Viewer(std::string windowName) {
 		//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
+		//glfwWindowHint(GLFW_SAMPLES, 4);
+
 		Viewer::windowName = windowName;
 
 		GLFWmonitor* primary = glfwGetPrimaryMonitor();
@@ -23,6 +25,7 @@ Viewer::Viewer(std::string windowName) {
 
 		width = mode->width;
 		height = mode->height;
+		//glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
 		window = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 
@@ -64,7 +67,7 @@ Viewer::Viewer(std::string windowName) {
 		glFrontFace(GL_CCW);
 
 		// Use this to disable VSync (not advized)
-		//glfwSwapInterval(0);
+		glfwSwapInterval(0);
 	} catch(const std::exception& e) {
 		std::cout << "Failed to create GLFW window"<< e.what() << std::endl;
 		glfwTerminate();
@@ -156,9 +159,9 @@ void Viewer::drawEntities() {
 void Viewer::updateEntities() {
 	for (int i = 0; i < entities.size(); i++) {
 		if (entities[i].isPlayer)
-			entities[i].update(playerMove);
+			entities[i].update(dt, playerMove);
 		else
-			entities[i].update();
+			entities[i].update(dt);
 	}
 }
 
@@ -167,35 +170,35 @@ void Viewer::Inputs() {
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)						//UP
 	{
 		playerMove.forward = true;
-		entities[0].speed.x = 0.02f;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE)
+	{
+		playerMove.forward = false;
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)					//DOWN
 	{
 		playerMove.back = true;
-		entities[0].speed.x = -0.02f;
 	}
-	if ((glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE) && (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE))
+	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE)
 	{
-		playerMove.forward = false;
 		playerMove.back = false;
-		entities[0].speed.x = 0.0f;
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)						//LEFT
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)						//UP
 	{
 		playerMove.left = true;
-		entities[0].speed.z = -0.02f;
 	}
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//RIGHT
-	{
-		playerMove.right = true;
-		entities[0].speed.z = 0.02f;
-	}
-	if ((glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_RELEASE) && (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_RELEASE))
+	else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_RELEASE)
 	{
 		playerMove.left = false;
+	}
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//DOWN
+	{
+		playerMove.right = true;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
+	{
 		playerMove.right = false;
-		entities[0].speed.z = 0.0f;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)

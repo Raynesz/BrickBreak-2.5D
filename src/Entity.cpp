@@ -9,28 +9,27 @@ Entity::Entity(std::string newName, bool isPlayer, int newModelIndex, int newSha
 	translation = glm::vec3(0.0f, 0.0f, 0.0f);
 	rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
-
-	speed = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
-void Entity::update() {
+void Entity::update(float deltaTime) {
 
 }
 
-void Entity::update(moveControl mC) {
+void Entity::update(float deltaTime, moveControl mC) {
+	glm::vec3 direction;
 	if (mC.forward)
-		speed.x = 0.02f;
+		translation += (deltaTime * speed) * orientation;
 	if (mC.back)
-		speed.x = -0.02f;
+		translation += (deltaTime * speed) * -orientation;
 	if (!mC.forward && !mC.back)
-		speed.x = 0.0f;
+		translation += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
 	if (mC.left)
-		speed.z = -0.02f;
+		translation += (deltaTime * speed) * -glm::normalize(glm::cross(orientation, up));
 	if (mC.right)
-		speed.z = 0.02f;
+		translation += (deltaTime * speed) * glm::normalize(glm::cross(orientation, up));
 	if (!mC.left && !mC.right)
-		speed.z = 0.0f;
-	translation = glm::vec3(translation.x + speed.x, translation.y + speed.y, translation.z + speed.z);
+		translation += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
+	//translation += (deltaTime * speed) * direction;
 }
 
 void Entity::moveTo(glm::vec3 location) {
