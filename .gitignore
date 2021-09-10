@@ -2,4 +2,7 @@
 Libraries
 Debug
 Release
+
+*.aps
+
 comments.cpp

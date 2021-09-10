@@ -115,7 +115,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
@@ -140,7 +140,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -165,7 +165,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
@@ -190,7 +190,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -230,6 +230,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\res\img\icon\resource.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Skybox.h" />
     <ClInclude Include="src\Texture.h" />
@@ -254,6 +255,12 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     </None>
     <None Include="src\res\shaders\skybox.frag" />
     <None Include="src\res\shaders\skybox.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\res\img\icon\BrickBreak-2.5D.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\res\img\icon\wall_icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

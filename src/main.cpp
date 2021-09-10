@@ -10,7 +10,7 @@
 void initializeResources(Viewer&);
 void displayFPS(Viewer&);
 
-int main() {
+int WinMain() {
 	Viewer viewer("BrickBreak 2.5D");
 	initializeResources(viewer);
 
