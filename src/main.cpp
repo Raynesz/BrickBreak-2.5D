@@ -1,6 +1,5 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
 // TODO: Create game assets in blender (bricks, ball, bar, walls).
-//       - A single brick model can use many textures.
 
 // The app will use the main GPU installed on the system
 #include <windows.h>
@@ -81,6 +80,7 @@ void SetupScene(Viewer& viewer) {
 
 	viewer.entities[viewer.g("jupiter")].Scale(0.2f, 0.2f, 0.2f);
 	viewer.entities[viewer.g("jupiter")].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
+	viewer.entities[viewer.g("brick")].moveTo(glm::vec3(10.0f, 0.0f, 0.0f));
 }
 
 void InitializeResources(Viewer& viewer) {

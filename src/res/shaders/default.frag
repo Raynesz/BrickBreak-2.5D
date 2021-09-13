@@ -37,7 +37,7 @@ vec4 pointLight()
 	float inten = 1.0f / (a * dist * dist + b * dist + 1.0f);
 
 	// ambient lighting
-	float ambient = 0.20f;
+	float ambient = 0.70f;
 
 	// diffuse lighting
 	vec3 normal = normalize(Normal);
@@ -106,5 +106,5 @@ vec4 spotLight()
 void main()
 {
 	// outputs final color
-	FragColor = direcLight();
+	FragColor = pointLight();
 }
