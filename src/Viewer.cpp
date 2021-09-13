@@ -16,7 +16,7 @@ Viewer::Viewer(std::string windowName) {
 		//glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
-		//glfwWindowHint(GLFW_SAMPLES, 4);
+		glfwWindowHint(GLFW_SAMPLES, 4);
 
 		Viewer::windowName = windowName;
 
@@ -25,7 +25,7 @@ Viewer::Viewer(std::string windowName) {
 
 		width = mode->width;
 		height = mode->height;
-		//glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
 		window = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 
@@ -43,8 +43,6 @@ Viewer::Viewer(std::string windowName) {
 		images[0].pixels = stbi_load("res/img/icon/wall_Icon.png", &images[0].width, &images[0].height, 0, 4); //rgba channels 
 		glfwSetWindowIcon(window, 1, images);
 		stbi_image_free(images[0].pixels);
-
-		//FreeConsole();
 
 		//Load GLAD so it configures OpenGL
 		gladLoadGL();
@@ -66,8 +64,10 @@ Viewer::Viewer(std::string windowName) {
 		// Uses counter clock-wise standard
 		glFrontFace(GL_CCW);
 
-		// Use this to disable VSync (not advized)
-		glfwSwapInterval(0);
+		glEnable(GL_MULTISAMPLE); // MSAA ON
+
+		// 1: Vsync ON, 0: Uncapped frame rate
+		glfwSwapInterval(1);
 	} catch(const std::exception& e) {
 		std::cout << "Failed to create GLFW window"<< e.what() << std::endl;
 		glfwTerminate();
@@ -103,7 +103,7 @@ void Viewer::loadShader(std::vector<shaderInput>& shaderInputData) {
 
 	// Take care of all the light related things
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
+	glm::vec3 lightPos = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	for (int i = 0; i < shaders.size(); i++) {
 		if (shaders[i].name == "skybox") {

@@ -1,16 +1,16 @@
 #ifndef VIEWER_CLASS_H
 #define VIEWER_CLASS_H
 
-#include "Camera.h"
-#include "Model.h"
-#include "Shader.h"
-#include "Skybox.h"
-#include "Entity.h"
 #include <math.h>
 #include "glm/ext.hpp"
 #include "glm/gtx/string_cast.hpp"
 #include "constants.h"
 #include "util.h"
+#include "Camera.h"
+#include "Model.h"
+#include "Shader.h"
+#include "Skybox.h"
+#include "Entity.h"
 
 class Viewer {
 public:
@@ -30,9 +30,9 @@ public:
 	moveControl playerMove;
 
 	// Variables to create periodic event for FPS displaying
-	double previousTime = 0.0;
+	double previousTime = glfwGetTime();
 	double currentTime = 0.0;
-	double dt = 0.0;
+	double dt = 0.01666f;
 
 	Viewer(std::string);
 	~Viewer();

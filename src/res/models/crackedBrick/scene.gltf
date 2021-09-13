@@ -86,8 +86,8 @@
     "images" : [
         {
             "mimeType" : "image/png",
-            "name" : "cracked",
-            "uri" : "cracked.png"
+            "name" : "diffuse",
+            "uri" : "diffuse.png"
         }
     ],
     "accessors" : [

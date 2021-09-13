@@ -29,7 +29,6 @@ void Entity::update(float deltaTime, moveControl mC) {
 		translation += (deltaTime * speed) * glm::normalize(glm::cross(orientation, up));
 	if (!mC.left && !mC.right)
 		translation += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
-	//translation += (deltaTime * speed) * direction;
 }
 
 void Entity::moveTo(glm::vec3 location) {
@@ -48,7 +47,7 @@ void Entity::Rotate(double x, double y, double z, double a) {
 	// Calcualte the w value by cos( theta / 2 )
 	double w = cos(a / 2.0);
 
-	rotation = rotation * glm::quat(w, xx, yy, zz);
+	rotation *= glm::quat(w, xx, yy, zz);
 }
 
 void Entity::Scale(float x, float y, float z) {
