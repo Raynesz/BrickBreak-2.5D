@@ -23,6 +23,7 @@ void SetupScene(Viewer&);
 void InitializeResources(Viewer&);
 void FpsCounter(Viewer&);
 
+//int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
 	Viewer viewer("BrickBreak 2.5D");
 	InitializeResources(viewer);

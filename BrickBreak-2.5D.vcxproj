@@ -119,6 +119,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -146,6 +147,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -169,6 +171,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -196,6 +199,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>

@@ -16,7 +16,6 @@ void Entity::update(float deltaTime) {
 }
 
 void Entity::update(float deltaTime, moveControl mC) {
-	glm::vec3 direction;
 	if (mC.forward)
 		translation += (deltaTime * speed) * orientation;
 	if (mC.back)
