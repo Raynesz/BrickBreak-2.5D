@@ -4,5 +4,6 @@ Debug
 Release
 
 *.aps
+*.blend1
 
 comments.cpp

@@ -1,6 +1,7 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
 // TODO: Implement a basic ImGUI menu.
 // TODO: Create game assets (bricks, ball, bar, walls, skybox).
+// - attrib vecteezy.com
 
 // The app will use the main GPU installed on the system
 #include <windows.h>
@@ -75,13 +76,15 @@ void FpsCounter(Viewer& viewer) {
 void SetupScene(Viewer& viewer) {
 	viewer.useSkybox("skyfly");
 
-	viewer.addEntity("crackedBrick", true, "crackedBrick", "default");
+	viewer.addEntity("crackedBrick", false, "crackedBrick", "default");
 	viewer.addEntity("jupiter", false, "unused/jupiter", "default");
-	viewer.addEntity("laserBrick", true, "laserBrick", "default");
-	viewer.addEntity("shrinkBrick", true, "shrinkBrick", "default");
-	viewer.addEntity("splitBrick", true, "splitBrick", "default");
-	viewer.addEntity("armoredBrick", true, "armoredBrick", "default");
-	viewer.addEntity("speedBrick", true, "speedBrick", "default");
+	viewer.addEntity("laserBrick", false, "laserBrick", "default");
+	viewer.addEntity("shrinkBrick", false, "shrinkBrick", "default");
+	viewer.addEntity("splitBrick", false, "splitBrick", "default");
+	viewer.addEntity("armoredBrick", false, "armoredBrick", "default");
+	viewer.addEntity("speedBrick", false, "speedBrick", "default");
+	viewer.addEntity("brick", false, "brick", "default");
+	viewer.addEntity("bar", true, "bar", "default");
 
 	viewer.entities[viewer.g("jupiter")].Scale(0.2f, 0.2f, 0.2f);
 	viewer.entities[viewer.g("jupiter")].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
@@ -91,10 +94,13 @@ void SetupScene(Viewer& viewer) {
 	viewer.entities[viewer.g("splitBrick")].moveTo(glm::vec3(1.0f, 2.5f, -30.0f));
 	viewer.entities[viewer.g("armoredBrick")].moveTo(glm::vec3(3.5f, 2.5f, -30.0f));
 	viewer.entities[viewer.g("speedBrick")].moveTo(glm::vec3(6.0f, 2.5f, -30.0f));
+	viewer.entities[viewer.g("brick")].moveTo(glm::vec3(1.0f, 0.0f, -30.0f));
+	viewer.entities[viewer.g("bar")].Scale(0.6f, 0.5f, 0.5f);
+	viewer.entities[viewer.g("bar")].moveTo(glm::vec3(0.0f, -2.5f, -30.0f));
 }
 
 void InitializeResources(Viewer& viewer) {
-	std::vector<std::string> models = {"unused/airplane", "unused/jupiter", "crackedBrick", "laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick"};
+	std::vector<std::string> models = {"unused/airplane", "unused/jupiter", "bar", "crackedBrick", "laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"), shaderInput("asteroid", "asteroid", "default")};
 
 	viewer.LoadModel(models);

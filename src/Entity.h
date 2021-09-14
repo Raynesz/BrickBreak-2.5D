@@ -20,7 +20,7 @@ public:
 	glm::vec3 scale;
 	glm::vec3 orientation = glm::vec3(1.0f, 0.0f, 0.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-	float speed = 5.0f;
+	float speed = 8.0f;
 
 	Entity(std::string, bool, int, int);
 

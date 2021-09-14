@@ -169,36 +169,36 @@ void Viewer::Inputs() {
 	// Handles key inputs
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)						//UP
 	{
-		playerMove.forward = true;
+		//playerMove.forward = true;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE)
 	{
-		playerMove.forward = false;
+		//playerMove.forward = false;
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)					//DOWN
 	{
-		playerMove.back = true;
+		//playerMove.back = true;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE)
 	{
-		playerMove.back = false;
+		//playerMove.back = false;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)						//UP
 	{
-		playerMove.left = true;
+		playerMove.back = true;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_RELEASE)
 	{
-		playerMove.left = false;
+		playerMove.back = false;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//DOWN
 	{
-		playerMove.right = true;
+		playerMove.forward = true;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
 	{
-		playerMove.right = false;
+		playerMove.forward = false;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
