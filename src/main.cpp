@@ -1,5 +1,6 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
-// TODO: Create game assets in blender (bricks, ball, bar, walls).
+// TODO: Implement a basic ImGUI menu.
+// TODO: Create game assets (bricks, ball, bar, walls, skybox).
 
 // The app will use the main GPU installed on the system
 #include <windows.h>
@@ -40,9 +41,8 @@ int main() {
 		// Updates and exports the camera matrix to the Vertex Shader
 		viewer.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
 
-		// UPDATE	
+		// UPDATE
 		viewer.entities[viewer.g("jupiter")].Rotate(0.0, 1.0, 0.0, degToRad(viewer.dt * 45.0f));
-		viewer.entities[viewer.g("brick")].Rotate(0.0, 1.0, 0.0, degToRad(viewer.dt * 45.0f));
 		viewer.updateEntities();
 
 		// RENDER
@@ -75,16 +75,26 @@ void FpsCounter(Viewer& viewer) {
 void SetupScene(Viewer& viewer) {
 	viewer.useSkybox("skyfly");
 
-	viewer.addEntity("brick", true, "crackedBrick", "default");
-	viewer.addEntity("jupiter", false, "jupiter", "default");
+	viewer.addEntity("crackedBrick", true, "crackedBrick", "default");
+	viewer.addEntity("jupiter", false, "unused/jupiter", "default");
+	viewer.addEntity("laserBrick", true, "laserBrick", "default");
+	viewer.addEntity("shrinkBrick", true, "shrinkBrick", "default");
+	viewer.addEntity("splitBrick", true, "splitBrick", "default");
+	viewer.addEntity("armoredBrick", true, "armoredBrick", "default");
+	viewer.addEntity("speedBrick", true, "speedBrick", "default");
 
 	viewer.entities[viewer.g("jupiter")].Scale(0.2f, 0.2f, 0.2f);
 	viewer.entities[viewer.g("jupiter")].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
-	viewer.entities[viewer.g("brick")].moveTo(glm::vec3(10.0f, 0.0f, 0.0f));
+	viewer.entities[viewer.g("crackedBrick")].moveTo(glm::vec3(1.0f, 5.0f, -30.0f));
+	viewer.entities[viewer.g("laserBrick")].moveTo(glm::vec3(3.5f, 5.0f, -30.0f));
+	viewer.entities[viewer.g("shrinkBrick")].moveTo(glm::vec3(6.0f, 5.0f, -30.0f));
+	viewer.entities[viewer.g("splitBrick")].moveTo(glm::vec3(1.0f, 2.5f, -30.0f));
+	viewer.entities[viewer.g("armoredBrick")].moveTo(glm::vec3(3.5f, 2.5f, -30.0f));
+	viewer.entities[viewer.g("speedBrick")].moveTo(glm::vec3(6.0f, 2.5f, -30.0f));
 }
 
 void InitializeResources(Viewer& viewer) {
-	std::vector<std::string> models = {"airplane", "jupiter", "crackedBrick"};
+	std::vector<std::string> models = {"unused/airplane", "unused/jupiter", "crackedBrick", "laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"), shaderInput("asteroid", "asteroid", "default")};
 
 	viewer.LoadModel(models);
