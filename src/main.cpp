@@ -85,6 +85,7 @@ void SetupScene(Viewer& viewer) {
 	viewer.addEntity("speedBrick", false, "speedBrick", "default");
 	viewer.addEntity("brick", false, "brick", "default");
 	viewer.addEntity("bar", true, "bar", "default");
+	viewer.addEntity("ball", true, "ball", "default");
 
 	viewer.entities[viewer.g("jupiter")].Scale(0.2f, 0.2f, 0.2f);
 	viewer.entities[viewer.g("jupiter")].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
@@ -97,11 +98,13 @@ void SetupScene(Viewer& viewer) {
 	viewer.entities[viewer.g("brick")].moveTo(glm::vec3(1.0f, 0.0f, -30.0f));
 	viewer.entities[viewer.g("bar")].Scale(0.6f, 0.5f, 0.5f);
 	viewer.entities[viewer.g("bar")].moveTo(glm::vec3(0.0f, -2.5f, -30.0f));
+	viewer.entities[viewer.g("ball")].Scale(0.4f, 0.4f, 0.4f);
+	viewer.entities[viewer.g("ball")].moveTo(glm::vec3(0.0f, -1.0f, -30.0f));
 }
 
 void InitializeResources(Viewer& viewer) {
-	std::vector<std::string> models = {"unused/airplane", "unused/jupiter", "bar", "crackedBrick", "laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick"};
-	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"), shaderInput("asteroid", "asteroid", "default")};
+	std::vector<std::string> models = {"unused/airplane", "unused/jupiter", "ball", "bar", "crackedBrick", "laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick"};
+	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default")};
 
 	viewer.LoadModel(models);
 	viewer.loadShader(shaders);

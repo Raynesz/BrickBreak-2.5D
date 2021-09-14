@@ -112,9 +112,6 @@
     <None Include="src\res\shaders\default.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="src\res\shaders\asteroid.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="src\res\shaders\skybox.frag">
       <Filter>Resource Files</Filter>
     </None>
