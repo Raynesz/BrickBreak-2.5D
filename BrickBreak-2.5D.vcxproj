@@ -226,7 +226,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\EBO.cpp" />
     <ClCompile Include="src\Entity.cpp" />
-    <ClCompile Include="src\Imgui.cpp" />
+    <ClCompile Include="src\ui.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
@@ -252,7 +252,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\EBO.h" />
     <ClInclude Include="src\Entity.h" />
-    <ClInclude Include="src\Imgui.h" />
+    <ClInclude Include="src\ui.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\resource.h" />

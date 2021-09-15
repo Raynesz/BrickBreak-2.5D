@@ -23,8 +23,8 @@ public:
 	Camera camera;
 	Skybox skybox;
 
-	bool menu = false;
-	bool metrics = true;
+	bool showMenu = false;
+	bool showMetrics = true;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};

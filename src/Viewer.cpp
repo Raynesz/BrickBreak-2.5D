@@ -223,6 +223,6 @@ void Viewer::Inputs() {
 	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
-		menu = true;
+		showMenu = true;
 	}
 }

@@ -78,21 +78,21 @@ int main() {
 		viewer.drawSkybox();
 		FpsCounter(viewer);
 
-		if (viewer.menu) {
+		if (viewer.showMenu) {
 			ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 			ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 			// ImGUI window creation
-			ImGui::Begin("About", &viewer.menu, ImGuiWindowFlags_NoCollapse);
+			ImGui::Begin("About", &viewer.showMenu, ImGuiWindowFlags_NoCollapse);
 			ImGui::Text("BrickBreak 2.5D v0.1.0");
 			ImGui::Text("Developed by github.com/raynesz");
 			ImGui::Separator();
-			ImGui::Text("This game is a recreation of a project I made during my student years."
+			ImGui::Text("This game is a remastered version of a project I made during my student years."
 				"It now uses a modern OpenGL renderer and some of the in-game assets were made anew.");
 			ImGui::Text("Textures for the wooden bar and ball provided for free by vecteezy.com and ambientcg.com respectively.");
 			ImGui::Text("Libraries / Frameworks used: GLFW/glad, glm, Dear ImGui, stb image loader, nlohmann's json parser.");
 			ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
 			ImGui::Separator();
-			ImGui::Checkbox("Show Metrics", &viewer.metrics);
+			ImGui::Checkbox("Show Metrics", &viewer.showMetrics);
 			ImGui::Text("");
 			ImGui::SameLine(ImGui::GetWindowWidth()/2 - 45);
 			if (ImGui::Button("Quit Game", ImVec2(90, 30))) glfwSetWindowShouldClose(viewer.window, GL_TRUE);
@@ -100,9 +100,10 @@ int main() {
 			ImGui::End();
 		}
 
-		if (viewer.metrics) {
+		if (viewer.showMetrics) {
+			ImGui::SetNextWindowPos(ImVec2(10, 10));
 			ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
-			if (ImGui::Begin("Metrics", &viewer.metrics, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize 
+			if (ImGui::Begin("Metrics", &viewer.showMetrics, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize 
 				| ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove))
 			{
 				ImGui::Text("Metrics");
