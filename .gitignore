@@ -5,5 +5,4 @@ Release
 
 *.aps
 *.blend1
-
-comments.cpp
+imgui.ini

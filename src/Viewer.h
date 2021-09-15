@@ -1,5 +1,5 @@
-#ifndef VIEWER_CLASS_H
-#define VIEWER_CLASS_H
+#ifndef VIEWER_H
+#define VIEWER_H
 
 #include <math.h>
 #include "glm/ext.hpp"
@@ -22,6 +22,8 @@ public:
 	// Creates camera object
 	Camera camera;
 	Skybox skybox;
+
+	bool menu = false;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};

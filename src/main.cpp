@@ -1,7 +1,6 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
 // TODO: Implement a basic ImGUI menu.
-// TODO: Create game assets (bricks, ball, bar, walls, skybox).
-// - attrib vecteezy.com
+// TODO: Create game assets (walls, skyboxes).
 
 // The app will use the main GPU installed on the system
 #include <windows.h>
@@ -18,6 +17,9 @@ extern "C" {
 
 #include <iostream>
 #include <string>
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 #include "Viewer.h"
 
 void SetupScene(Viewer&);
@@ -27,8 +29,20 @@ void FpsCounter(Viewer&);
 //int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
 	Viewer viewer("BrickBreak 2.5D");
+
+	// Initialize Imgui
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(viewer.window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+
 	InitializeResources(viewer);
 	SetupScene(viewer);
+
+	float menuWidth = 100.f;
+	float menuHeight = 200.f;
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))
@@ -36,10 +50,13 @@ int main() {
 		// INPUT
 		// Take care of all GLFW events
 		glfwPollEvents();
-		viewer.Inputs();
-		// Handles camera inputs (delete this if you have disabled VSync)
-		viewer.camera.Inputs(viewer.window, viewer.dt);
-		// Updates and exports the camera matrix to the Vertex Shader
+
+		if (!io.WantCaptureMouse) {
+			viewer.Inputs();
+			// Handles camera inputs (delete this if you have disabled VSync)
+			viewer.camera.Inputs(viewer.window, viewer.dt);
+			// Updates and exports the camera matrix to the Vertex Shader
+		}
 		viewer.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
 
 		// UPDATE
@@ -51,12 +68,53 @@ int main() {
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// Tell OpenGL a new frame is about to begin
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		
+		//viewer.DrawUI();
 		viewer.drawEntities();
 		viewer.drawSkybox();
 		FpsCounter(viewer);
+		ImGui::ShowDemoWindow();
+		if (viewer.menu) {
+		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+		ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
+		// ImGUI window creation
+		ImGui::Begin("About", NULL, ImGuiWindowFlags_NoCollapse);
+		// Text that appears in the window
+		ImGui::Text("BrickBreak 2.5D v0.1.0");
+		ImGui::Text("Developed by github.com/raynesz");
+		ImGui::Text("This game is a recreation of a project I made during my student years."
+			"It now uses a modern OpenGL renderer and some of the in-game assets were made anew.");
+		ImGui::Text("Textures of the wooden bar provided for free by vecteezy.com. ");
+		// Checkbox that appears in the window
+		//ImGui::Checkbox("Draw Triangle", &drawTriangle);
+		// Slider that appears in the window
+		//ImGui::SliderFloat("Size", &size, 0.5f, 2.0f);
+		// Fancy color editor that appears in the window
+		//ImGui::ColorEdit4("Color", color);
+		if (ImGui::Button("Close this window.")) viewer.menu = false;
+		ImGui::SameLine();
+		if (ImGui::Button("Quit Game")) glfwSetWindowShouldClose(viewer.window, GL_TRUE);
+		// Ends the window
+		ImGui::End();
+		}
+
+		// Renders the ImGUI elements
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(viewer.window);
 	}
+
+	// Deletes all ImGUI instances
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
 	return 0;
 }
