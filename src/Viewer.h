@@ -24,6 +24,7 @@ public:
 	Skybox skybox;
 
 	bool menu = false;
+	bool metrics = true;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};

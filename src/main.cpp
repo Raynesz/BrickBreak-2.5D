@@ -74,33 +74,45 @@ int main() {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		
-		//viewer.DrawUI();
 		viewer.drawEntities();
 		viewer.drawSkybox();
 		FpsCounter(viewer);
-		ImGui::ShowDemoWindow();
+
 		if (viewer.menu) {
-		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-		ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
-		// ImGUI window creation
-		ImGui::Begin("About", NULL, ImGuiWindowFlags_NoCollapse);
-		// Text that appears in the window
-		ImGui::Text("BrickBreak 2.5D v0.1.0");
-		ImGui::Text("Developed by github.com/raynesz");
-		ImGui::Text("This game is a recreation of a project I made during my student years."
-			"It now uses a modern OpenGL renderer and some of the in-game assets were made anew.");
-		ImGui::Text("Textures of the wooden bar provided for free by vecteezy.com. ");
-		// Checkbox that appears in the window
-		//ImGui::Checkbox("Draw Triangle", &drawTriangle);
-		// Slider that appears in the window
-		//ImGui::SliderFloat("Size", &size, 0.5f, 2.0f);
-		// Fancy color editor that appears in the window
-		//ImGui::ColorEdit4("Color", color);
-		if (ImGui::Button("Close this window.")) viewer.menu = false;
-		ImGui::SameLine();
-		if (ImGui::Button("Quit Game")) glfwSetWindowShouldClose(viewer.window, GL_TRUE);
-		// Ends the window
-		ImGui::End();
+			ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+			ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
+			// ImGUI window creation
+			ImGui::Begin("About", &viewer.menu, ImGuiWindowFlags_NoCollapse);
+			ImGui::Text("BrickBreak 2.5D v0.1.0");
+			ImGui::Text("Developed by github.com/raynesz");
+			ImGui::Separator();
+			ImGui::Text("This game is a recreation of a project I made during my student years."
+				"It now uses a modern OpenGL renderer and some of the in-game assets were made anew.");
+			ImGui::Text("Textures for the wooden bar and ball provided for free by vecteezy.com and ambientcg.com respectively.");
+			ImGui::Text("Libraries / Frameworks used: GLFW/glad, glm, Dear ImGui, stb image loader, nlohmann's json parser.");
+			ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
+			ImGui::Separator();
+			ImGui::Checkbox("Show Metrics", &viewer.metrics);
+			ImGui::Text("");
+			ImGui::SameLine(ImGui::GetWindowWidth()/2 - 45);
+			if (ImGui::Button("Quit Game", ImVec2(90, 30))) glfwSetWindowShouldClose(viewer.window, GL_TRUE);
+			// Ends the window
+			ImGui::End();
+		}
+
+		if (viewer.metrics) {
+			ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+			if (ImGui::Begin("Metrics", &viewer.metrics, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize 
+				| ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove))
+			{
+				ImGui::Text("Metrics");
+				ImGui::Separator();
+				ImGui::Text("FPS: %.1f", 1.0f / viewer.dt);
+				ImGui::Text("%.3f ms per frame", viewer.dt);
+				ImGui::Separator();
+				ImGui::Text("Press ESC for info.");
+			}
+			ImGui::End();
 		}
 
 		// Renders the ImGUI elements
@@ -123,11 +135,14 @@ void FpsCounter(Viewer& viewer) {
 	viewer.currentTime = glfwGetTime();
 	viewer.dt = viewer.currentTime - viewer.previousTime;
 
+	/*
 	// Creates new title
 	std::string FPS = std::to_string(1.0/viewer.dt);
 	std::string ms = std::to_string(viewer.dt);
 	std::string newTitle = viewer.windowName + "   |   " + FPS + " FPS / " + ms + " ms";
 	glfwSetWindowTitle(viewer.window, newTitle.c_str());
+	*/
+
 	viewer.previousTime = viewer.currentTime;
 }
 
@@ -161,7 +176,8 @@ void SetupScene(Viewer& viewer) {
 }
 
 void InitializeResources(Viewer& viewer) {
-	std::vector<std::string> models = {"unused/airplane", "unused/jupiter", "ball", "bar", "crackedBrick", "laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick"};
+	std::vector<std::string> models = {"unused/airplane", "unused/jupiter", "ball", "bar", "crackedBrick", 
+		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default")};
 
 	viewer.LoadModel(models);
