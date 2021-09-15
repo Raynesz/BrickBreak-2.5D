@@ -1,6 +1,6 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
-// TODO: Implement a basic ImGUI menu.
 // TODO: Create game assets (walls, skyboxes).
+// TODO: Implement game loops (InitializeResources, SetupScene, Update, Render).
 
 // The app will use the main GPU installed on the system
 #include <windows.h>
@@ -17,32 +17,18 @@ extern "C" {
 
 #include <iostream>
 #include <string>
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-#include "Viewer.h"
+#include "ui.h"
 
 void SetupScene(Viewer&);
 void InitializeResources(Viewer&);
-void FpsCounter(Viewer&);
 
 //int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
 	Viewer viewer("BrickBreak 2.5D");
-
-	// Initialize Imgui
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	ImGui::StyleColorsDark();
-	ImGui_ImplGlfw_InitForOpenGL(viewer.window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGuiIO& io = InitializeUI(viewer);
 
 	InitializeResources(viewer);
 	SetupScene(viewer);
-
-	float menuWidth = 100.f;
-	float menuHeight = 200.f;
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))
@@ -51,7 +37,7 @@ int main() {
 		// Take care of all GLFW events
 		glfwPollEvents();
 
-		if (!io.WantCaptureMouse) {
+		if (!io.WantCaptureMouse) { // Game input is disabled if mouse is hovering over UI elements
 			viewer.Inputs();
 			// Handles camera inputs (delete this if you have disabled VSync)
 			viewer.camera.Inputs(viewer.window, viewer.dt);
@@ -69,82 +55,24 @@ int main() {
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Tell OpenGL a new frame is about to begin
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
+		NewUIFrame();
 		
 		viewer.drawEntities();
 		viewer.drawSkybox();
-		FpsCounter(viewer);
 
-		if (viewer.showMenu) {
-			ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-			ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
-			// ImGUI window creation
-			ImGui::Begin("About", &viewer.showMenu, ImGuiWindowFlags_NoCollapse);
-			ImGui::Text("BrickBreak 2.5D v0.1.0");
-			ImGui::Text("Developed by github.com/raynesz");
-			ImGui::Separator();
-			ImGui::Text("This game is a remastered version of a project I made during my student years."
-				"It now uses a modern OpenGL renderer and some of the in-game assets were made anew.");
-			ImGui::Text("Textures for the wooden bar and ball provided for free by vecteezy.com and ambientcg.com respectively.");
-			ImGui::Text("Libraries / Frameworks used: GLFW/glad, glm, Dear ImGui, stb image loader, nlohmann's json parser.");
-			ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
-			ImGui::Separator();
-			ImGui::Checkbox("Show Metrics", &viewer.showMetrics);
-			ImGui::Text("");
-			ImGui::SameLine(ImGui::GetWindowWidth()/2 - 45);
-			if (ImGui::Button("Quit Game", ImVec2(90, 30))) glfwSetWindowShouldClose(viewer.window, GL_TRUE);
-			// Ends the window
-			ImGui::End();
-		}
+		if (viewer.showAbout) DrawUIAbout(&viewer.showAbout, &viewer.showMetrics, io, viewer.window);
+		if (viewer.showMetrics) DrawUIMetrics(&viewer.showMetrics, viewer.dt);
+		RenderUI();
 
-		if (viewer.showMetrics) {
-			ImGui::SetNextWindowPos(ImVec2(10, 10));
-			ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
-			if (ImGui::Begin("Metrics", &viewer.showMetrics, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize 
-				| ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove))
-			{
-				ImGui::Text("Metrics");
-				ImGui::Separator();
-				ImGui::Text("FPS: %.1f", 1.0f / viewer.dt);
-				ImGui::Text("%.3f ms per frame", viewer.dt);
-				ImGui::Separator();
-				ImGui::Text("Press ESC for info.");
-			}
-			ImGui::End();
-		}
-
-		// Renders the ImGUI elements
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		viewer.FpsCounter();
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(viewer.window);
 	}
 
-	// Deletes all ImGUI instances
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	TerminateUI();
 
 	return 0;
-}
-
-void FpsCounter(Viewer& viewer) {
-	viewer.currentTime = glfwGetTime();
-	viewer.dt = viewer.currentTime - viewer.previousTime;
-
-	/*
-	// Creates new title
-	std::string FPS = std::to_string(1.0/viewer.dt);
-	std::string ms = std::to_string(viewer.dt);
-	std::string newTitle = viewer.windowName + "   |   " + FPS + " FPS / " + ms + " ms";
-	glfwSetWindowTitle(viewer.window, newTitle.c_str());
-	*/
-
-	viewer.previousTime = viewer.currentTime;
 }
 
 void SetupScene(Viewer& viewer) {

@@ -23,7 +23,7 @@ public:
 	Camera camera;
 	Skybox skybox;
 
-	bool showMenu = false;
+	bool showAbout = false;
 	bool showMetrics = true;
 
 	std::vector<shaderStruct> shaders = {};
@@ -49,6 +49,7 @@ public:
 	void drawEntities();
 	void updateEntities();
 	void Inputs();
+	void FpsCounter();
 };
 
 #endif

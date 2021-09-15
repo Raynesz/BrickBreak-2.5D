@@ -223,6 +223,21 @@ void Viewer::Inputs() {
 	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
-		showMenu = true;
+		showAbout = true;
 	}
+}
+
+void Viewer::FpsCounter() {
+	currentTime = glfwGetTime();
+	dt = currentTime - previousTime;
+
+	/*
+	// Creates new title
+	std::string FPS = std::to_string(1.0/dt);
+	std::string ms = std::to_string(dt);
+	std::string newTitle = windowName + "   |   " + FPS + " FPS / " + ms + " ms";
+	glfwSetWindowTitle(window, newTitle.c_str());
+	*/
+
+	previousTime = currentTime;
 }
