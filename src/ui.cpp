@@ -27,8 +27,8 @@ void DrawUIAbout(bool* show, bool* showMetrics, ImGuiIO& io, GLFWwindow* window)
 	ImGui::Text("BrickBreak 2.5D v0.1.0");
 	ImGui::Text("Developed by github.com/raynesz");
 	ImGui::Separator();
-	ImGui::Text("This game is a remastered version of a project I made during my student years."
-		"It now uses a modern OpenGL renderer and some of the in-game assets were made anew.");
+	ImGui::TextWrapped("This game is a remastered version of a project I made during my student years."
+		"It now uses a modern OpenGL renderer based on tutorials by Victor Gordan and learnopengl.com and some of the in-game assets were made anew.");
 	ImGui::Text("Textures for the wooden bar and ball provided for free by vecteezy.com and ambientcg.com respectively.");
 	ImGui::Text("Libraries / Frameworks used: GLFW/glad, glm, Dear ImGui, stb image loader, nlohmann's json parser.");
 	ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
