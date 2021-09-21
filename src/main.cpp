@@ -1,6 +1,8 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
-// TODO: Create game assets (walls, skyboxes).
-// TODO: Add game object classes.
+// Issue: Rotations dont work consistently.
+// TODO: Add game controls window.
+// TODO: Get one more skybox.
+// TODO: Load level and setup scene functionality.
 
 // The app will use the main GPU installed on the system
 #include <windows.h>

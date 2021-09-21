@@ -152,7 +152,7 @@ void Viewer::drawSkybox() {
 
 void Viewer::drawEntities() {
 	for (int i = 0; i < entities.size(); i++) {
-		models[entities[i].modelIndex].model.Draw(shaders[entities[i].shaderIndex].program, camera, entities[i].translation, entities[i].rotation, entities[i].scale);
+		models[entities[i].modelIndex].model.Draw(shaders[entities[i].shaderIndex].program, camera, entities[i].position, entities[i].rotation, entities[i].scale);
 	}
 }
 

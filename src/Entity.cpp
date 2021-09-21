@@ -6,7 +6,7 @@ Entity::Entity(std::string newName, bool isPlayer, int newModelIndex, int newSha
 	modelIndex = newModelIndex;
 	shaderIndex = newShaderIndex;
 
-	translation = glm::vec3(0.0f, 0.0f, 0.0f);
+	position = glm::vec3(0.0f, 0.0f, 0.0f);
 	rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
 }
@@ -17,21 +17,21 @@ void Entity::update(float deltaTime) {
 
 void Entity::update(float deltaTime, moveControl mC) {
 	if (mC.forward)
-		translation += (deltaTime * speed) * orientation;
+		position += (deltaTime * speed) * direction;
 	if (mC.back)
-		translation += (deltaTime * speed) * -orientation;
+		position += (deltaTime * speed) * -direction;
 	if (!mC.forward && !mC.back)
-		translation += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
+		position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
 	if (mC.left)
-		translation += (deltaTime * speed) * -glm::normalize(glm::cross(orientation, up));
+		position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));
 	if (mC.right)
-		translation += (deltaTime * speed) * glm::normalize(glm::cross(orientation, up));
+		position += (deltaTime * speed) * glm::normalize(glm::cross(direction, up));
 	if (!mC.left && !mC.right)
-		translation += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
+		position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
 void Entity::moveTo(glm::vec3 location) {
-	translation = location;
+	position = location;
 }
 
 void Entity::Rotate(double x, double y, double z, double a) {

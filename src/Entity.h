@@ -1,5 +1,5 @@
-#ifndef ENTITY_CLASS_H
-#define ENTITY_CLASS_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <string>
 #include "Shader.h"
@@ -15,10 +15,10 @@ public:
 	bool isPlayer;
 	int modelIndex;
 	int shaderIndex;
-	glm::vec3 translation;
+	glm::vec3 position;
 	glm::quat rotation;
 	glm::vec3 scale;
-	glm::vec3 orientation = glm::vec3(1.0f, 0.0f, 0.0f);
+	glm::vec3 direction = glm::vec3(1.0f, 0.0f, 0.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 	float speed = 8.0f;
 
