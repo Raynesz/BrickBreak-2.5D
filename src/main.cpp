@@ -1,5 +1,4 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
-// Issue: Rotations dont work consistently.
 // TODO: Add game controls window.
 // TODO: Get one more skybox.
 // TODO: Load level and setup scene functionality.

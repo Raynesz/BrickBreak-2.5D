@@ -2,7 +2,6 @@
 
 void Game::Update(Viewer& viewer) {
 	viewer.entities[viewer.g("jupiter")].Rotate(0.0, 1.0, 0.0, degToRad(viewer.dt * 45.0f));
-	//viewer.entities[viewer.g("wall")].Rotate(0.0, 1.0, 0.0, degToRad(viewer.dt * 45.0f));
 	viewer.updateEntities();
 }
 
@@ -19,13 +18,24 @@ void Game::SetupScene(Viewer& viewer) {
 	viewer.addEntity("brick", false, "brick", "default");
 	viewer.addEntity("bar", true, "bar", "default");
 	viewer.addEntity("ball", true, "ball", "default");
-	viewer.addEntity("wall", false, "wall", "default");
+	viewer.addEntity("leftWall", false, "wall", "default");
+	viewer.addEntity("rightWall", false, "wall", "default");
+	viewer.addEntity("topWall", false, "wall", "default");
 
-	
-	//viewer.entities[viewer.g("wall")].Scale(0.7f, 0.7f, 0.7f);
-	std::cout << glm::to_string(viewer.entities[viewer.g("wall")].rotation) << std::endl;
-	viewer.entities[viewer.g("wall")].Rotate(0.0f, 1.0f, 0.0f, degToRad(90.0f));
-	std::cout << glm::to_string(viewer.entities[viewer.g("wall")].rotation) << std::endl;
+	viewer.entities[viewer.g("leftWall")].Rotate(1.0f, 0.0f, 0.0f, degToRad(90.0f));
+	viewer.entities[viewer.g("leftWall")].Rotate(0.0f, 0.0f, 1.0f, degToRad(90.0f));
+	viewer.entities[viewer.g("leftWall")].moveTo(glm::vec3(-10.0f, 4.0f, -30.0f));
+	viewer.entities[viewer.g("leftWall")].Scale(1.0f, 0.5f, 10.0f);
+
+	viewer.entities[viewer.g("rightWall")].Rotate(1.0f, 0.0f, 0.0f, degToRad(90.0f));
+	viewer.entities[viewer.g("rightWall")].Rotate(0.0f, 0.0f, 1.0f, degToRad(90.0f));
+	viewer.entities[viewer.g("rightWall")].moveTo(glm::vec3(10.0f, 4.0f, -30.0f));
+	viewer.entities[viewer.g("rightWall")].Scale(1.0f, 0.5f, 10.0f);
+
+	viewer.entities[viewer.g("topWall")].Rotate(0.0f, 1.0f, 0.0f, degToRad(90.0f));
+	viewer.entities[viewer.g("topWall")].moveTo(glm::vec3(0.0f, 14.5f, -30.0f));
+	viewer.entities[viewer.g("topWall")].Scale(1.0f, 0.5f, 10.5f);
+
 	viewer.entities[viewer.g("jupiter")].Scale(0.2f, 0.2f, 0.2f);
 	viewer.entities[viewer.g("jupiter")].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
 	viewer.entities[viewer.g("crackedBrick")].moveTo(glm::vec3(1.0f, 5.0f, -30.0f));

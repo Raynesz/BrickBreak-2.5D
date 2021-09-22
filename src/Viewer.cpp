@@ -50,7 +50,7 @@ Viewer::Viewer(std::string windowName) {
 		// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 		glViewport(0, 0, width, height);
 
-		camera.Initialize(width, height, glm::vec3(0.0f, 0.0f, 10.0f));
+		camera.Initialize(width, height, glm::vec3(0.0f, 0.0f, 20.0f));
 
 		skybox.Initialize();
 
