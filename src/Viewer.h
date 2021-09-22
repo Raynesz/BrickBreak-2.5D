@@ -25,6 +25,7 @@ public:
 
 	bool showAbout = false;
 	bool showMetrics = true;
+	bool showControls = false;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};

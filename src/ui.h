@@ -6,11 +6,14 @@
 #include "imgui_impl_opengl3.h"
 #include "Viewer.h"
 
-ImGuiIO& InitializeUI(Viewer&);
-void DrawUIAbout(bool*, bool*, ImGuiIO&, GLFWwindow*);
-void DrawUIMetrics(bool* show, double dt);
-void RenderUI();
-void TerminateUI();
-void NewUIFrame();
+namespace UI {
+	ImGuiIO& Initialize(Viewer&);
+	void DrawControls(bool*, ImGuiIO&);
+	void DrawAbout(bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
+	void DrawMetrics(bool*, double);
+	void Render();
+	void Terminate();
+	void NewFrame();
+}
 
 #endif

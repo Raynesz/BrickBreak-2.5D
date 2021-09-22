@@ -1,6 +1,6 @@
 #include "ui.h"
 
-ImGuiIO& InitializeUI(Viewer& viewer) {
+ImGuiIO& UI::Initialize(Viewer& viewer) {
 	// Initialize Imgui
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -12,14 +12,36 @@ ImGuiIO& InitializeUI(Viewer& viewer) {
 	return io;
 }
 
-void NewUIFrame() {
+void UI::NewFrame() {
 	// Tell OpenGL a new frame is about to begin
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 }
 
-void DrawUIAbout(bool* show, bool* showMetrics, ImGuiIO& io, GLFWwindow* window) {
+void UI::DrawControls(bool* show, ImGuiIO& io) {
+	ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Controls", show, ImGuiWindowFlags_NoCollapse);
+	ImGui::Text("Left arrow - Move player bar left.");
+	ImGui::Text("Right arrow - Move player bar right.");
+	ImGui::Text("F - Fire laser when ready.");
+	ImGui::Text("R - Pause/unpause game.");
+	ImGui::Text("C - Toggle lock/unlock camera.");
+	ImGui::Text("W - Move camera forward.");
+	ImGui::Text("A - Move camera left.");
+	ImGui::Text("S - Move camera backwards.");
+	ImGui::Text("D - Move camera right.");
+	ImGui::Text("Left Shift - Hold to increase camera speed.");
+	ImGui::Text("Spacebar - Move camera up.");
+	ImGui::Text("Left Control - Move camera down.");
+	ImGui::Text("");
+	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 45);
+	if (ImGui::Button("Close", ImVec2(90, 30))) *show = false;
+	ImGui::End();
+}
+
+void UI::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO& io, GLFWwindow* window) {
 	ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 	// ImGUI window creation
@@ -34,6 +56,8 @@ void DrawUIAbout(bool* show, bool* showMetrics, ImGuiIO& io, GLFWwindow* window)
 	ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
 	ImGui::Separator();
 	ImGui::Checkbox("Show Metrics", showMetrics);
+	ImGui::SameLine(150);
+	if (ImGui::Button("Controls", ImVec2(90, 30))) *showControls = true;
 	ImGui::Text("");
 	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 45);
 	if (ImGui::Button("Quit Game", ImVec2(90, 30))) glfwSetWindowShouldClose(window, GL_TRUE);
@@ -41,7 +65,7 @@ void DrawUIAbout(bool* show, bool* showMetrics, ImGuiIO& io, GLFWwindow* window)
 	ImGui::End();
 }
 
-void DrawUIMetrics(bool* show, double dt) {
+void UI::DrawMetrics(bool* show, double dt) {
 	ImGui::SetNextWindowPos(ImVec2(10, 10));
 	ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
 	if (ImGui::Begin("Metrics", show, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize
@@ -57,13 +81,13 @@ void DrawUIMetrics(bool* show, double dt) {
 	ImGui::End();
 }
 
-void RenderUI() {
+void UI::Render() {
 	// Renders the ImGUI elements
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void TerminateUI() {
+void UI::Terminate() {
 	// Deletes all ImGUI instances
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();

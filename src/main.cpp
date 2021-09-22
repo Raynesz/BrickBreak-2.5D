@@ -1,6 +1,6 @@
 // Issue: Right cubemap texture is flipped after first useSkybox().
-// TODO: Add game controls window.
-// TODO: Get one more skybox.
+//		- TODO: Get one more skybox.
+// TODO: Implement camera lock/unlock and pause game functionality.
 // TODO: Load level and setup scene functionality.
 
 // The app will use the main GPU installed on the system
@@ -24,7 +24,7 @@ extern "C" {
 //int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
 	Viewer viewer("BrickBreak 2.5D");
-	ImGuiIO& io = InitializeUI(viewer);
+	ImGuiIO& io = UI::Initialize(viewer);
 
 	Game::InitializeResources(viewer);
 	Game::SetupScene(viewer);
@@ -53,13 +53,14 @@ int main() {
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		NewUIFrame();
+		UI::NewFrame();
 		
 		Game::Draw(viewer);
 
-		if (viewer.showAbout) DrawUIAbout(&viewer.showAbout, &viewer.showMetrics, io, viewer.window);
-		if (viewer.showMetrics) DrawUIMetrics(&viewer.showMetrics, viewer.dt);
-		RenderUI();
+		if (viewer.showAbout) UI::DrawAbout(&viewer.showAbout, &viewer.showMetrics, &viewer.showControls, io, viewer.window);
+		if (viewer.showMetrics) UI::DrawMetrics(&viewer.showMetrics, viewer.dt);
+		if (viewer.showControls) UI::DrawControls(&viewer.showControls, io);
+		UI::Render();
 
 		viewer.FpsCounter();
 
@@ -67,7 +68,7 @@ int main() {
 		glfwSwapBuffers(viewer.window);
 	}
 
-	TerminateUI();
+	UI::Terminate();
 
 	return 0;
 }
