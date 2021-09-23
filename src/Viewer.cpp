@@ -126,7 +126,7 @@ void Viewer::useSkybox(std::string skyboxName) {
 	skybox.useSkybox(skyboxName);
 }
 
-void Viewer::addEntity(std::string entityName, bool isPlayer, std::string modelID, std::string shaderID) {
+void Viewer::addEntity(std::string entityName, std::string modelID, std::string shaderID, glm::vec3 translation, glm::vec3 scale) {
 	int modelIndex = 0, shaderIndex = 0;
 	for (int i = 0; i < models.size(); i++) {
 		if (modelID == models[i].name) {
@@ -140,11 +140,11 @@ void Viewer::addEntity(std::string entityName, bool isPlayer, std::string modelI
 		}
 	}
 
-	Entity newEnt(entityName, isPlayer, modelIndex, shaderIndex);
+	Entity newEnt(entityName, modelIndex, shaderIndex, translation, scale);
 	entities.push_back(newEnt);
 }
 
-int Viewer::g(std::string entityName) {
+int Viewer::get(std::string entityName) {
 	for (int i = 0; i < entities.size(); i++) {
 		if (entityName == entities[i].name) return i;
 	}
@@ -170,57 +170,6 @@ void Viewer::updateEntities() {
 }
 
 void Viewer::Inputs() {
-	// Handles key inputs
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)						//UP
-	{
-		//playerMove.forward = true;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE)
-	{
-		//playerMove.forward = false;
-	}
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)					//DOWN
-	{
-		//playerMove.back = true;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE)
-	{
-		//playerMove.back = false;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)						//UP
-	{
-		playerMove.back = true;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_RELEASE)
-	{
-		playerMove.back = false;
-	}
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//DOWN
-	{
-		playerMove.forward = true;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
-	{
-		playerMove.forward = false;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-	{
-		useSkybox(NONE);
-	}
-	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-	{
-		useSkybox("skyfly");
-	}
-	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-	{
-		useSkybox("space");
-	}
-	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-	{
-		
-	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
 		showAbout = true;

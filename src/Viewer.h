@@ -31,8 +31,6 @@ public:
 	std::vector<modelStruct> models = {};
 	std::vector<Entity> entities = {};
 
-	moveControl playerMove;
-
 	// Variables to create periodic event for FPS displaying
 	double previousTime = glfwGetTime();
 	double currentTime = 0.0;
@@ -44,9 +42,9 @@ public:
 	void loadModels(std::vector<std::string>&);
 	void loadShaders(std::vector<shaderInput>&);
 	void loadSkyboxes(std::vector<std::string>&);
-	void useSkybox(std::string skyboxName);
-	void addEntity(std::string entityName, bool isPlayer, std::string modelID, std::string shaderID);
-	int g(std::string);
+	void useSkybox(std::string);
+	void addEntity(std::string, std::string, std::string, glm::vec3, glm::vec3);
+	int get(std::string);
 	void drawSkybox();
 	void drawEntities();
 	void updateEntities();

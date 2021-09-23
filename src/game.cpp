@@ -1,54 +1,76 @@
 #include "game.h"
 
 void Game::Update(Viewer& viewer) {
-	viewer.entities[viewer.g("jupiter")].Rotate(0.0, 1.0, 0.0, degToRad(viewer.dt * 45.0f));
+	viewer.entities[viewer.get("jupiter")].Rotate(0.0, 1.0, 0.0, degToRad(viewer.dt * 45.0f));
 	viewer.updateEntities();
 }
 
 void Game::SetupScene(Viewer& viewer) {
-	viewer.useSkybox("skyfly");
+	viewer.useSkybox(RANDOM_SKYBOX);
 
-	viewer.addEntity("crackedBrick", false, "crackedBrick", "default");
-	viewer.addEntity("jupiter", false, "unused/jupiter", "default");
-	viewer.addEntity("laserBrick", false, "laserBrick", "default");
-	viewer.addEntity("shrinkBrick", false, "shrinkBrick", "default");
-	viewer.addEntity("splitBrick", false, "splitBrick", "default");
-	viewer.addEntity("armoredBrick", false, "armoredBrick", "default");
-	viewer.addEntity("speedBrick", false, "speedBrick", "default");
-	viewer.addEntity("brick", false, "brick", "default");
-	viewer.addEntity("bar", true, "bar", "default");
-	viewer.addEntity("ball", true, "ball", "default");
-	viewer.addEntity("leftWall", false, "wall", "default");
-	viewer.addEntity("rightWall", false, "wall", "default");
-	viewer.addEntity("topWall", false, "wall", "default");
+	viewer.addEntity("bar", "bar", "default", glm::vec3(0.0f, -2.5f, -30.0f), glm::vec3(0.6f, 0.5f, 0.5f));
+	viewer.addEntity("ball", "ball", "default", glm::vec3(0.0f, -1.0f, -30.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+	viewer.addEntity("leftWall", "wall", "default", glm::vec3(-10.0f, 4.0f, -30.0f), glm::vec3(1.0f, 0.5f, 10.0f));
+	viewer.addEntity("rightWall", "wall", "default", glm::vec3(10.0f, 4.0f, -30.0f), glm::vec3(1.0f, 0.5f, 10.0f));
+	viewer.addEntity("topWall", "wall", "default", glm::vec3(0.0f, 14.5f, -30.0f), glm::vec3(1.0f, 0.5f, 10.5f));
+	viewer.addEntity("jupiter", "unused/jupiter", "default", glm::vec3(-30.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f));
 
-	viewer.entities[viewer.g("leftWall")].Rotate(1.0f, 0.0f, 0.0f, degToRad(90.0f));
-	viewer.entities[viewer.g("leftWall")].Rotate(0.0f, 0.0f, 1.0f, degToRad(90.0f));
-	viewer.entities[viewer.g("leftWall")].moveTo(glm::vec3(-10.0f, 4.0f, -30.0f));
-	viewer.entities[viewer.g("leftWall")].Scale(1.0f, 0.5f, 10.0f);
+	viewer.entities[viewer.get("leftWall")].Rotate(1.0f, 0.0f, 0.0f, degToRad(90.0f));
+	viewer.entities[viewer.get("leftWall")].Rotate(0.0f, 0.0f, 1.0f, degToRad(90.0f));
 
-	viewer.entities[viewer.g("rightWall")].Rotate(1.0f, 0.0f, 0.0f, degToRad(90.0f));
-	viewer.entities[viewer.g("rightWall")].Rotate(0.0f, 0.0f, 1.0f, degToRad(90.0f));
-	viewer.entities[viewer.g("rightWall")].moveTo(glm::vec3(10.0f, 4.0f, -30.0f));
-	viewer.entities[viewer.g("rightWall")].Scale(1.0f, 0.5f, 10.0f);
+	viewer.entities[viewer.get("rightWall")].Rotate(1.0f, 0.0f, 0.0f, degToRad(90.0f));
+	viewer.entities[viewer.get("rightWall")].Rotate(0.0f, 0.0f, 1.0f, degToRad(90.0f));
 
-	viewer.entities[viewer.g("topWall")].Rotate(0.0f, 1.0f, 0.0f, degToRad(90.0f));
-	viewer.entities[viewer.g("topWall")].moveTo(glm::vec3(0.0f, 14.5f, -30.0f));
-	viewer.entities[viewer.g("topWall")].Scale(1.0f, 0.5f, 10.5f);
+	viewer.entities[viewer.get("topWall")].Rotate(0.0f, 1.0f, 0.0f, degToRad(90.0f));
+}
 
-	viewer.entities[viewer.g("jupiter")].Scale(0.2f, 0.2f, 0.2f);
-	viewer.entities[viewer.g("jupiter")].moveTo(glm::vec3(-30.0f, 0.0f, 0.0f));
-	viewer.entities[viewer.g("crackedBrick")].moveTo(glm::vec3(1.0f, 5.0f, -30.0f));
-	viewer.entities[viewer.g("laserBrick")].moveTo(glm::vec3(3.0f, 5.0f, -30.0f));
-	viewer.entities[viewer.g("shrinkBrick")].moveTo(glm::vec3(6.0f, 5.0f, -30.0f));
-	viewer.entities[viewer.g("splitBrick")].moveTo(glm::vec3(1.0f, 2.5f, -30.0f));
-	viewer.entities[viewer.g("armoredBrick")].moveTo(glm::vec3(3.5f, 2.5f, -30.0f));
-	viewer.entities[viewer.g("speedBrick")].moveTo(glm::vec3(6.0f, 2.5f, -30.0f));
-	viewer.entities[viewer.g("brick")].moveTo(glm::vec3(1.0f, 0.0f, -30.0f));
-	viewer.entities[viewer.g("bar")].Scale(0.6f, 0.5f, 0.5f);
-	viewer.entities[viewer.g("bar")].moveTo(glm::vec3(0.0f, -2.5f, -30.0f));
-	viewer.entities[viewer.g("ball")].Scale(0.5f, 0.5f, 0.5f);
-	viewer.entities[viewer.g("ball")].moveTo(glm::vec3(0.0f, -1.0f, -30.0f));
+void Game::Inputs(Viewer& viewer) {
+	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						//UP
+	{
+		//playerMove.forward = true;
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_LEFT) == GLFW_PRESS)						//UP
+	{
+		viewer.playerMove.back = true;
+	}
+	else if (glfwGetKey(viewer.window, GLFW_KEY_LEFT) == GLFW_RELEASE)
+	{
+		viewer.playerMove.back = false;
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//DOWN
+	{
+		viewer.playerMove.forward = true;
+	}
+	else if (glfwGetKey(viewer.window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
+	{
+		viewer.playerMove.forward = false;
+	}
+
+	if (glfwGetKey(viewer.window, GLFW_KEY_1) == GLFW_PRESS)
+	{
+
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_2) == GLFW_PRESS)
+	{
+
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_3) == GLFW_PRESS)
+	{
+
+	}
+
+	if (glfwGetKey(viewer.window, GLFW_KEY_J) == GLFW_PRESS)
+	{
+		viewer.useSkybox(RANDOM_SKYBOX);
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_K) == GLFW_PRESS)
+	{
+		viewer.useSkybox("skyfly");
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_L) == GLFW_PRESS)
+	{
+		viewer.useSkybox("space");
+	}
 }
 
 void Game::InitializeResources(Viewer& viewer) {

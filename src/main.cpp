@@ -1,6 +1,6 @@
-// TODO: Get one more skybox.
-// TODO: Implement camera lock/unlock and pause game functionality.
 // TODO: Load level and setup scene functionality.
+// TODO: Implement collision detection and resolution.
+// TODO: Implement camera lock/unlock and pause game functionality.
 
 // The app will use the main GPU installed on the system
 #include <windows.h>
@@ -40,6 +40,7 @@ int main() {
 			// Handles camera inputs (delete this if you have disabled VSync)
 			viewer.camera.Inputs(viewer.window, viewer.dt);
 			// Updates and exports the camera matrix to the Vertex Shader
+			Game::Inputs(viewer.window);
 		}
 		viewer.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
 

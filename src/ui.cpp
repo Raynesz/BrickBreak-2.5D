@@ -25,6 +25,7 @@ void UI::DrawControls(bool* show, ImGuiIO& io) {
 	ImGui::Begin("Controls", show, ImGuiWindowFlags_NoCollapse);
 	ImGui::Text("Left arrow - Move player bar left.");
 	ImGui::Text("Right arrow - Move player bar right.");
+	ImGui::Text("Up arrow - Start level.");
 	ImGui::Text("F - Fire laser when ready.");
 	ImGui::Text("R - Pause/unpause game.");
 	ImGui::Text("C - Toggle lock/unlock camera.");
@@ -35,6 +36,9 @@ void UI::DrawControls(bool* show, ImGuiIO& io) {
 	ImGui::Text("Left Shift - Hold to increase camera speed.");
 	ImGui::Text("Spacebar - Move camera up.");
 	ImGui::Text("Left Control - Move camera down.");
+	ImGui::Text("J - Do not use skybox.");
+	ImGui::Text("K - Use Skyfly skybox.");
+	ImGui::Text("L - Use Space skybox.");
 	ImGui::Text("");
 	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 45);
 	if (ImGui::Button("Close", ImVec2(90, 30))) *show = false;

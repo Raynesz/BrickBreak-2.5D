@@ -8,6 +8,7 @@ namespace Game {
 	void SetupScene(Viewer&);
 	void Update(Viewer&);
 	void Draw(Viewer&);
+	void Inputs(Viewer&);
 }
 
 #endif

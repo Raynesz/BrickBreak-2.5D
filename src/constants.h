@@ -2,6 +2,7 @@
 #define CONSTANTS_H
 
 #define PI 3.14159265359
-#define NONE "no_skybox"
+#define NO_SKYBOX "no_skybox"
+#define RANDOM_SKYBOX "random_skybox"
 
 #endif
