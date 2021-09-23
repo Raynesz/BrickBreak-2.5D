@@ -1,5 +1,4 @@
-// Issue: Right cubemap texture is flipped after first useSkybox().
-//		- TODO: Get one more skybox.
+// TODO: Get one more skybox.
 // TODO: Implement camera lock/unlock and pause game functionality.
 // TODO: Load level and setup scene functionality.
 

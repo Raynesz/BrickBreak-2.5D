@@ -85,7 +85,7 @@ Viewer::~Viewer() {
 	glfwTerminate();
 }
 
-void Viewer::LoadModel(std::vector<std::string>& modelNames) {
+void Viewer::loadModels(std::vector<std::string>& modelNames) {
 	for (int i = 0; i < modelNames.size(); i++) {
 		std::string modelPath = "res/models/" + modelNames[i] + "/scene.gltf";
 		Model modelData(modelPath.c_str());
@@ -93,7 +93,7 @@ void Viewer::LoadModel(std::vector<std::string>& modelNames) {
 	}
 }
 
-void Viewer::loadShader(std::vector<shaderInput>& shaderInputData) {
+void Viewer::loadShaders(std::vector<shaderInput>& shaderInputData) {
 	for (int i = 0; i < shaderInputData.size(); i++) {
 		std::string shaderVertPath = "res/shaders/" + shaderInputData[i].vert + ".vert";
 		std::string shaderFragPath = "res/shaders/" + shaderInputData[i].frag + ".frag";
@@ -116,6 +116,10 @@ void Viewer::loadShader(std::vector<shaderInput>& shaderInputData) {
 			glUniform3f(glGetUniformLocation(shaders[i].program.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		}
 	}
+}
+
+void Viewer::loadSkyboxes(std::vector<std::string>& skyboxNames) {
+	for (int i = 0; i < skyboxNames.size(); i++) skybox.loadSkybox(skyboxNames[i]);
 }
 
 void Viewer::useSkybox(std::string skyboxName) {
@@ -201,25 +205,21 @@ void Viewer::Inputs() {
 		playerMove.forward = false;
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
 	{
-		
-	}
-	else if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
-	{
-		
-	}
-	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-	{
-		useSkybox("space");
-	}
-	else if (glfwGetKey(window, GLFW_KEY_L) == GLFW_RELEASE)
-	{
-		
+		useSkybox(NONE);
 	}
 	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
 	{
 		useSkybox("skyfly");
+	}
+	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+	{
+		useSkybox("space");
+	}
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+	{
+		
 	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{

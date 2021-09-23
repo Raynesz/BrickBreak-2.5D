@@ -18,12 +18,12 @@ void Skybox::Initialize() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Skybox::useSkybox(std::string textureName) {
+void Skybox::loadSkybox(std::string textureName) {
 	std::string textureExt;
+	unsigned int cubemapTexture;
 
 	std::string path = ("res/skyboxes/" + textureName);
 	for (const auto& entry : std::filesystem::directory_iterator(path)) {
-		std::cout << entry.path() << std::endl;
 		textureExt = entry.path().extension().string();
 		break;
 	}
@@ -55,11 +55,13 @@ void Skybox::useSkybox(std::string textureName) {
 	// Cycles through all the textures and attaches them to the cubemap object
 	for (unsigned int i = 0; i < 6; i++)
 	{
+		if (i != 0) stbi_set_flip_vertically_on_load(false);
+		else stbi_set_flip_vertically_on_load(true);
+		
 		int width, height, nrChannels;
 		unsigned char* data = stbi_load(facesCubemap[i].c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
-			stbi_set_flip_vertically_on_load(false);
 			glTexImage2D
 			(
 				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
@@ -72,6 +74,8 @@ void Skybox::useSkybox(std::string textureName) {
 				GL_UNSIGNED_BYTE,
 				data
 			);
+			cubemapTextures.push_back(cubemapTexture);
+			cubemapTextureNames.push_back(textureName);
 			stbi_image_free(data);
 		}
 		else
@@ -82,7 +86,18 @@ void Skybox::useSkybox(std::string textureName) {
 	}
 }
 
+void Skybox::useSkybox(std::string name) {
+	if (name == NONE) active = -1;
+	for (int i = 0; i < cubemapTextureNames.size(); i++) {
+		if (name == cubemapTextureNames[i]) {
+			active = i;
+			break;
+		}
+	}
+}
+
 void Skybox::Draw(Shader& skyboxShader, Camera& camera, unsigned int width, unsigned int height) {
+	if (cubemapTextures.size() == 0 || active == -1) return;
 	// Since the cubemap will always have a depth of 1.0, we need that equal sign so it doesn't get discarded
 	glDepthFunc(GL_LEQUAL);
 
@@ -100,7 +115,7 @@ void Skybox::Draw(Shader& skyboxShader, Camera& camera, unsigned int width, unsi
 	// where an object is present (a depth of 1.0f will always fail against any object's depth value)
 	glBindVertexArray(skyboxVAO);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTextures[active]);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 

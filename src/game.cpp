@@ -6,7 +6,7 @@ void Game::Update(Viewer& viewer) {
 }
 
 void Game::SetupScene(Viewer& viewer) {
-	viewer.useSkybox("space");
+	viewer.useSkybox("skyfly");
 
 	viewer.addEntity("crackedBrick", false, "crackedBrick", "default");
 	viewer.addEntity("jupiter", false, "unused/jupiter", "default");
@@ -55,9 +55,11 @@ void Game::InitializeResources(Viewer& viewer) {
 	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball", "bar", "crackedBrick",
 		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default") };
+	std::vector<std::string> skyboxes = { "space", "skyfly" };
 
-	viewer.LoadModel(models);
-	viewer.loadShader(shaders);
+	viewer.loadModels(models);
+	viewer.loadShaders(shaders);
+	viewer.loadSkyboxes(skyboxes);
 }
 
 void Game::Draw(Viewer& viewer) {

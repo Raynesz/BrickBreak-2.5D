@@ -41,8 +41,9 @@ public:
 	Viewer(std::string);
 	~Viewer();
 
-	void LoadModel(std::vector<std::string>& modelNames);
-	void loadShader(std::vector<shaderInput>& shaderInputData);
+	void loadModels(std::vector<std::string>&);
+	void loadShaders(std::vector<shaderInput>&);
+	void loadSkyboxes(std::vector<std::string>&);
 	void useSkybox(std::string skyboxName);
 	void addEntity(std::string entityName, bool isPlayer, std::string modelID, std::string shaderID);
 	int g(std::string);

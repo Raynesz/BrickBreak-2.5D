@@ -11,6 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
+#include "constants.h"
 #include "Shader.h"
 #include "Camera.h"
 
@@ -51,11 +52,15 @@ class Skybox {
 			6, 2, 3
 		};
 
-		unsigned int skyboxVAO = 0, cubemapTexture = 0;
+		unsigned int skyboxVAO = 0;
+		std::vector<unsigned int> cubemapTextures = {};
+		std::vector<std::string> cubemapTextureNames = {};
+		int active = 0;
 
 		void Initialize();
-		void useSkybox(std::string textureName);
-		void Draw(Shader& skyboxShader, Camera& camera, unsigned int width, unsigned int height);
+		void loadSkybox(std::string);
+		void useSkybox(std::string);
+		void Draw(Shader&, Camera&, unsigned int, unsigned int);
 };
 
 #endif
