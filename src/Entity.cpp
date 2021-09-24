@@ -1,21 +1,26 @@
-#include "Entity.h"
+#include "Viewer.h"
 
-Entity::Entity(std::string newName, int newModelIndex, int newShaderIndex, glm::vec3 translation, glm::vec3 scale) {
-	name = newName;
-	modelIndex = newModelIndex;
-	shaderIndex = newShaderIndex;
+Entity::Entity(std::string name, std::string modelID, std::string shaderID, std::vector<modelStruct>& models,
+	std::vector<shaderStruct>& shaders, glm::vec3 translation, glm::vec3 scale) {
+	Entity::name = name;
+	int modelIndex = 0, shaderIndex = 0;
+	for (int i = 0; i < models.size(); i++) {
+		if (modelID == models[i].name) {
+			modelIndex = i;
+		}
+	}
+
+	for (int i = 0; i < shaders.size(); i++) {
+		if (shaderID == shaders[i].name) {
+			shaderIndex = i;
+		}
+	}
+	Entity::modelIndex = modelIndex;
+	Entity::shaderIndex = shaderIndex;
 
 	position = translation;
 	rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
 	Entity::scale = scale;
-}
-
-void Entity::update(float deltaTime) {
-
-}
-
-void Entity::update() {
-
 }
 
 void Entity::Translate(float x, float y, float z) {

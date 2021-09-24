@@ -1,20 +1,6 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
 
-#include <glad/glad.h>
-#include <stb/stb_image.h>
-#include <string>
-#include <iostream>
-#include <filesystem>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/rotate_vector.hpp>
-#include <glm/gtx/vector_angle.hpp>
-#include "constants.h"
-#include "Shader.h"
-#include "Camera.h"
-
 class Skybox {
 	public:
 		const float vertices[24] =

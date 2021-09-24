@@ -2,6 +2,9 @@
 #define GAME_H
 
 #include "Viewer.h"
+#include "Bar.h"
+#include "Ball.h"
+#include "Brick.h"
 
 namespace Game {
 	void InitializeResources(Viewer&);

@@ -1,4 +1,4 @@
-#include"Texture.h"
+#include "Viewer.h"
 
 Texture::Texture(const char* image, const char* texType, GLuint slot)
 {

@@ -1,5 +1,4 @@
-#include"Camera.h"
-#include "glm/gtx/string_cast.hpp"
+#include "Viewer.h"
 
 void Camera::Initialize(int width, int height, glm::vec3 position)
 {
@@ -28,8 +27,6 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 	// Exports camera matrix
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }
-
-
 
 void Camera::Inputs(GLFWwindow* window, float dt)
 {
@@ -66,7 +63,6 @@ void Camera::Inputs(GLFWwindow* window, float dt)
 	{
 		speed = 5.0f;
 	}
-
 
 	// Handles mouse inputs
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)

@@ -1,4 +1,4 @@
-#include "Skybox.h"
+#include "Viewer.h"
 
 void Skybox::Initialize() {
 	// Create VAO, VBO, and EBO for the skybox
@@ -87,7 +87,7 @@ void Skybox::loadSkybox(std::string textureName) {
 }
 
 void Skybox::useSkybox(std::string name) {
-	if (name == NONE) active = -1;
+	if (name == NO_SKYBOX) active = -1;
 	for (int i = 0; i < cubemapTextureNames.size(); i++) {
 		if (name == cubemapTextureNames[i]) {
 			active = i;

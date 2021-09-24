@@ -1,4 +1,4 @@
-#include"Model.h"
+#include "Viewer.h"
 
 Model::Model(const char* file, unsigned int instancing, std::vector<glm::mat4> instanceMatrix)
 {

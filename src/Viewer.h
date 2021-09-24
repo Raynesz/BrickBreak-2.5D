@@ -1,14 +1,41 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
+#include <iostream>
+#include <string>
+#include <vector>
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+#include <cerrno>
 #include <math.h>
 #include "glm/ext.hpp"
 #include "glm/gtx/string_cast.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/vector_angle.hpp>
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <stb/stb_image.h>
+#include <json/json.h>
+
 #include "constants.h"
 #include "util.h"
-#include "Camera.h"
-#include "Model.h"
+#include "physics.h"
+#include "ui.h"
+#include "VBO.h"
+#include "VAO.h"
+#include "EBO.h"
 #include "Shader.h"
+#include "Texture.h"
+#include "Camera.h"
+#include "Mesh.h"
+#include "Model.h"
 #include "Skybox.h"
 #include "Entity.h"
 
@@ -19,6 +46,7 @@ public:
 	unsigned int height;
 
 	GLFWwindow* window;
+	ImGuiIO& io = UI::Initialize(window);
 	// Creates camera object
 	Camera camera;
 	Skybox skybox;
@@ -43,11 +71,9 @@ public:
 	void loadShaders(std::vector<shaderInput>&);
 	void loadSkyboxes(std::vector<std::string>&);
 	void useSkybox(std::string);
-	void addEntity(std::string, std::string, std::string, glm::vec3, glm::vec3);
 	int get(std::string);
 	void drawSkybox();
 	void drawEntities();
-	void updateEntities();
 	void Inputs();
 	void FpsCounter();
 };

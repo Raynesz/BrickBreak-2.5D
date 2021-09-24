@@ -32,7 +32,7 @@ Viewer::Viewer(std::string windowName) {
 		// Error check if the window fails to create
 		if (window == NULL)
 		{
-			std::cout << "here" << std::endl;
+			std::cout << "Window creation failed." << std::endl;
 			throw;
 		}
 
@@ -50,10 +50,6 @@ Viewer::Viewer(std::string windowName) {
 		// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 		glViewport(0, 0, width, height);
 
-		camera.Initialize(width, height, glm::vec3(0.0f, 0.0f, 20.0f));
-
-		skybox.Initialize();
-
 		// Enables the Depth Buffer
 		glEnable(GL_DEPTH_TEST);
 
@@ -68,6 +64,9 @@ Viewer::Viewer(std::string windowName) {
 
 		// 1: Vsync ON, 0: Uncapped frame rate
 		glfwSwapInterval(1);
+
+		camera.Initialize(width, height, glm::vec3(0.0f, 0.0f, 20.0f));
+		skybox.Initialize();
 	} catch(const std::exception& e) {
 		std::cout << "Failed to create GLFW window"<< e.what() << std::endl;
 		glfwTerminate();
@@ -126,24 +125,6 @@ void Viewer::useSkybox(std::string skyboxName) {
 	skybox.useSkybox(skyboxName);
 }
 
-void Viewer::addEntity(std::string entityName, std::string modelID, std::string shaderID, glm::vec3 translation, glm::vec3 scale) {
-	int modelIndex = 0, shaderIndex = 0;
-	for (int i = 0; i < models.size(); i++) {
-		if (modelID == models[i].name) {
-			modelIndex = i;
-		}
-	}
-
-	for (int i = 0; i < shaders.size(); i++) {
-		if (shaderID == shaders[i].name) {
-			shaderIndex = i;
-		}
-	}
-
-	Entity newEnt(entityName, modelIndex, shaderIndex, translation, scale);
-	entities.push_back(newEnt);
-}
-
 int Viewer::get(std::string entityName) {
 	for (int i = 0; i < entities.size(); i++) {
 		if (entityName == entities[i].name) return i;
@@ -157,15 +138,6 @@ void Viewer::drawSkybox() {
 void Viewer::drawEntities() {
 	for (int i = 0; i < entities.size(); i++) {
 		models[entities[i].modelIndex].model.Draw(shaders[entities[i].shaderIndex].program, camera, entities[i].position, entities[i].rotation, entities[i].scale);
-	}
-}
-
-void Viewer::updateEntities() {
-	for (int i = 0; i < entities.size(); i++) {
-		if (entities[i].isPlayer)
-			entities[i].update(dt, playerMove);
-		else
-			entities[i].update(dt);
 	}
 }
 
