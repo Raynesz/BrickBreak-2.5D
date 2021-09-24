@@ -1,5 +1,4 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
 class Texture
 {
@@ -19,4 +18,3 @@ public:
 	// Deletes a texture
 	void Delete();
 };
-#endif

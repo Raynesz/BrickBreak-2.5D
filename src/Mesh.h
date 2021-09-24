@@ -1,5 +1,4 @@
-#ifndef MESH_H
-#define MESH_H
+#pragma once
 
 class Mesh
 {
@@ -34,4 +33,3 @@ public:
 		glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f)
 	);
 };
-#endif

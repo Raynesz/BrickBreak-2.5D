@@ -1,5 +1,4 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
 class Camera
 {
@@ -30,4 +29,3 @@ public:
 	// Handles camera inputs
 	void Inputs(GLFWwindow* window, float);
 };
-#endif

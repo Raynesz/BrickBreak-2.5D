@@ -1,3 +1,5 @@
+// TODO: Game object constructors initialize entities.
+// TODO: Make getter function that returns reference to entities.
 // TODO: Load level and setup scene functionality.
 // TODO: Implement collision detection and resolution.
 // TODO: Implement camera lock/unlock and pause game functionality.
@@ -20,6 +22,7 @@ extern "C" {
 //int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
 	Viewer viewer("BrickBreak 2.5D");
+	ImGuiIO& io = UI::Initialize(viewer.window);
 
 	Game::InitializeResources(viewer);
 	Game::SetupScene(viewer);
@@ -31,7 +34,7 @@ int main() {
 		// Take care of all GLFW events
 		glfwPollEvents();
 
-		if (!viewer.io.WantCaptureMouse) { // Game input is disabled if mouse is hovering over UI elements
+		if (!io.WantCaptureMouse) { // Game input is disabled if mouse is hovering over UI elements
 			viewer.Inputs();
 			// Handles camera inputs (delete this if you have disabled VSync)
 			viewer.camera.Inputs(viewer.window, viewer.dt);
@@ -53,9 +56,9 @@ int main() {
 		
 		Game::Draw(viewer);
 
-		if (viewer.showAbout) UI::DrawAbout(&viewer.showAbout, &viewer.showMetrics, &viewer.showControls, viewer.io, viewer.window);
+		if (viewer.showAbout) UI::DrawAbout(&viewer.showAbout, &viewer.showMetrics, &viewer.showControls, io, viewer.window);
 		if (viewer.showMetrics) UI::DrawMetrics(&viewer.showMetrics, viewer.dt);
-		if (viewer.showControls) UI::DrawControls(&viewer.showControls, viewer.io);
+		if (viewer.showControls) UI::DrawControls(&viewer.showControls, io);
 		UI::Render();
 
 		viewer.FpsCounter();

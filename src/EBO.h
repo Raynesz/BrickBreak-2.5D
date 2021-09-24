@@ -1,5 +1,4 @@
-#ifndef EBO_H
-#define EBO_H
+#pragma once
 
 class EBO
 {
@@ -16,5 +15,3 @@ public:
 	// Deletes the EBO
 	void Delete();
 };
-
-#endif

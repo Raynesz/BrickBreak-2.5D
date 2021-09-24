@@ -1,9 +1,6 @@
-#ifndef BRICK_H
-#define BRICK_H
+#pragma once
 
 class Brick {
 public:
 	bool destroyed = false;
 };
-
-#endif

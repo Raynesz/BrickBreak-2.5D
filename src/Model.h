@@ -1,5 +1,4 @@
-#ifndef MODEL_H
-#define MODEL_H
+#pragma once
 
 class Model
 {
@@ -68,5 +67,3 @@ struct modelStruct {
 	std::string name;
 	Model model;
 };
-
-#endif

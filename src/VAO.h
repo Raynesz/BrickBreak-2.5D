@@ -1,5 +1,4 @@
-#ifndef VAO_H
-#define VAO_H
+#pragma once
 
 class VAO
 {
@@ -18,5 +17,3 @@ public:
 	// Deletes the VAO
 	void Delete();
 };
-
-#endif

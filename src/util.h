@@ -1,5 +1,4 @@
-#ifndef UTIL_H
-#define UTIL_H
+#pragma once
 
 inline double degToRad(double deg) {
 	return deg * PI / 180;
@@ -8,5 +7,3 @@ inline double degToRad(double deg) {
 inline int random(int from, int to) {
 	return  rand() % to + from;
 }
-
-#endif

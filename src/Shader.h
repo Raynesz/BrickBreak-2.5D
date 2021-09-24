@@ -1,5 +1,4 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
 std::string get_file_contents(const char* filename);
 
@@ -30,5 +29,3 @@ struct shaderStruct {
 	std::string name;
 	Shader program;
 };
-
-#endif

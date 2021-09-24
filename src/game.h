@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include "Viewer.h"
 #include "Bar.h"
@@ -13,5 +12,3 @@ namespace Game {
 	void Draw(Viewer&);
 	void Inputs(Viewer&);
 }
-
-#endif

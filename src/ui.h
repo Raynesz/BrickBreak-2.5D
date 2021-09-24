@@ -1,5 +1,4 @@
-#ifndef UI_H
-#define UI_H
+#pragma once
 
 namespace UI {
 	ImGuiIO& Initialize(GLFWwindow*);
@@ -10,5 +9,3 @@ namespace UI {
 	void Terminate();
 	void NewFrame();
 }
-
-#endif

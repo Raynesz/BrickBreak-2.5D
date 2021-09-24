@@ -1,5 +1,4 @@
-#ifndef VBO_H
-#define VBO_H
+#pragma once
 
 // Structure to standardize the vertices used in the meshes
 struct Vertex
@@ -26,5 +25,3 @@ public:
 	// Deletes the VBO
 	void Delete();
 };
-
-#endif

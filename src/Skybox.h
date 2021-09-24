@@ -1,5 +1,4 @@
-#ifndef SKYBOX_H
-#define SKYBOX_H
+#pragma once
 
 class Skybox {
 	public:
@@ -48,5 +47,3 @@ class Skybox {
 		void useSkybox(std::string);
 		void Draw(Shader&, Camera&, unsigned int, unsigned int);
 };
-
-#endif

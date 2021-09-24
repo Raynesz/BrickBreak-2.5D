@@ -1,5 +1,4 @@
-#ifndef VIEWER_H
-#define VIEWER_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -9,9 +8,9 @@
 #include <sstream>
 #include <cerrno>
 #include <math.h>
+#include <glm/glm.hpp>
 #include "glm/ext.hpp"
 #include "glm/gtx/string_cast.hpp"
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/rotate_vector.hpp>
@@ -46,7 +45,7 @@ public:
 	unsigned int height;
 
 	GLFWwindow* window;
-	ImGuiIO& io = UI::Initialize(window);
+
 	// Creates camera object
 	Camera camera;
 	Skybox skybox;
@@ -77,5 +76,3 @@ public:
 	void Inputs();
 	void FpsCounter();
 };
-
-#endif

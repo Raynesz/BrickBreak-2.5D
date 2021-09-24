@@ -1,5 +1,4 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once
 
 class Entity {
 public:
@@ -19,5 +18,3 @@ public:
 	void Rotate(double x, double y, double z, double a);
 	void Scale(float x, float y, float z);
 };
-
-#endif

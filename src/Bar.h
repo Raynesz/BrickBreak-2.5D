@@ -1,5 +1,4 @@
-#ifndef BAR_H
-#define BAR_H
+#pragma once
 
 struct moveControl {
 	bool forward = false, back = false, right = false, left = false;
@@ -14,5 +13,3 @@ public:
 
 	void Update(float, moveControl);
 };
-
-#endif
