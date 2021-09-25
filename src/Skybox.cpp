@@ -87,7 +87,15 @@ void Skybox::loadSkybox(std::string textureName) {
 }
 
 void Skybox::useSkybox(std::string name) {
-	if (name == NO_SKYBOX) active = -1;
+	if (name == NO_SKYBOX) {
+		active = -1;
+		return;
+	}
+	if (name == RANDOM_SKYBOX) {
+		active = random(0, cubemapTextureNames.size()-1);
+		return;
+	}
+
 	for (int i = 0; i < cubemapTextureNames.size(); i++) {
 		if (name == cubemapTextureNames[i]) {
 			active = i;

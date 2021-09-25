@@ -7,7 +7,8 @@ void Game::Update(double dt) {
 
 void Game::Setup(Viewer& viewer) {
 	CleanUp();
-	viewer.useSkybox("skyfly");
+	camera.Initialize(viewer.width, viewer.height, glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+	viewer.useSkybox(RANDOM_SKYBOX);
 
 	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,
 		glm::vec3(0.0f, -2.5f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0, 0.5));
@@ -40,14 +41,14 @@ Entity* Game::get(std::string entityName) {
 }
 
 void Game::Draw(Viewer& viewer) {
-	viewer.drawEntities(entities);
-	viewer.drawSkybox();
+	viewer.drawEntities(camera, entities);
+	viewer.drawSkybox(camera);
 }
 
 void Game::Inputs(Viewer& viewer) {
 	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						//UP
 	{
-		
+		Setup(viewer);
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_RELEASE)
 	{

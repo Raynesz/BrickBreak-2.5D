@@ -33,11 +33,11 @@ int main() {
 		if (!io.WantCaptureMouse) { // Game input is disabled if mouse is hovering over UI elements
 			viewer.Inputs();
 			// Handles camera inputs (delete this if you have disabled VSync)
-			viewer.camera.Inputs(viewer.window, viewer.dt);
+			game.camera.Inputs(viewer.window, viewer.dt);
 			// Updates and exports the camera matrix to the Vertex Shader
 			game.Inputs(viewer);
 		}
-		viewer.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
+		game.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
 
 		// UPDATE
 		game.Update(viewer.dt);

@@ -21,7 +21,7 @@ public:
 	float sensitivity = 5000.0f;
 
 	// Camera constructor to set up initial values
-	void Initialize(int width, int height, glm::vec3 position);
+	void Initialize(int width, int height, glm::vec3 position, glm::vec3 orientation);
 	// Updates the camera matrix to the Vertex Shader
 	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
 	// Exports the camera matrix to a shader

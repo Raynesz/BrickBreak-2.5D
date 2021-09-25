@@ -46,8 +46,6 @@ public:
 
 	GLFWwindow* window;
 
-	// Creates camera object
-	Camera camera;
 	Skybox skybox;
 
 	bool showEscUI = false;
@@ -69,8 +67,8 @@ public:
 	void loadShaders(std::vector<shaderInput>&);
 	void loadSkyboxes(std::vector<std::string>&);
 	void useSkybox(std::string skyboxName);
-	void drawSkybox();
-	void drawEntities(std::vector<Entity*>);
+	void drawSkybox(Camera&);
+	void drawEntities(Camera&, std::vector<Entity*>);
 	void Inputs();
 	void FpsCounter();
 };

@@ -65,7 +65,6 @@ Viewer::Viewer(std::string windowName) {
 		// 1: Vsync ON, 0: Uncapped frame rate
 		glfwSwapInterval(1);
 
-		camera.Initialize(width, height, glm::vec3(0.0f, 0.0f, 20.0f));
 		skybox.Initialize();
 	} catch(const std::exception& e) {
 		std::cout << "Failed to create GLFW window"<< e.what() << std::endl;
@@ -125,11 +124,11 @@ void Viewer::useSkybox(std::string skyboxName) {
 	skybox.useSkybox(skyboxName);
 }
 
-void Viewer::drawSkybox() {
+void Viewer::drawSkybox(Camera& camera) {
 	skybox.Draw(shaders[0].program, camera, width, height);
 }
 
-void Viewer::drawEntities(std::vector<Entity*> entities) {
+void Viewer::drawEntities(Camera& camera, std::vector<Entity*> entities) {
 	for (int i = 0; i < entities.size(); i++) {
 		models[entities[i]->modelIndex].model.Draw(shaders[entities[i]->shaderIndex].program, camera, entities[i]->position, entities[i]->rotation, entities[i]->scale);
 	}
@@ -155,4 +154,25 @@ void Viewer::FpsCounter() {
 	*/
 
 	previousTime = currentTime;
+}
+
+void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
+{
+	// Initializes matrices since otherwise they will be the null matrix
+	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::mat4(1.0f);
+
+	// Makes camera look in the right direction from the right position
+	view = glm::lookAt(Position, Position + Orientation, Up);
+	// Adds perspective to the scene
+	projection = glm::perspective(glm::radians(FOVdeg), (float)width / height, nearPlane, farPlane);
+
+	// Sets new camera matrix
+	cameraMatrix = projection * view;
+}
+
+void Camera::Matrix(Shader& shader, const char* uniform)
+{
+	// Exports camera matrix
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }

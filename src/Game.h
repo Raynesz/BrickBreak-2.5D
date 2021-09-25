@@ -8,6 +8,7 @@
 
 class Game {
 public:
+	Camera camera;
 	std::vector<Entity*> entities = {};
 
 	void Setup(Viewer&);
