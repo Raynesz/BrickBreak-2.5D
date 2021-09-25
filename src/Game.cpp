@@ -9,7 +9,7 @@ void Game::Setup(Viewer& viewer) {
 	viewer.useSkybox("skyfly");
 
 	entities.push_back(Bar("bar", "bar", "default", viewer.models, viewer.shaders,
-		glm::vec3(0.0f, -2.5f, -30.0f), glm::vec3(0.5f, 0.5f, 0.5f), 3.0));
+		glm::vec3(0.0f, -2.5f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0));
 
 	entities.push_back(Bar("jupiter", "unused/jupiter", "default", viewer.models, viewer.shaders,
 		glm::vec3(-30.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), 3.0));

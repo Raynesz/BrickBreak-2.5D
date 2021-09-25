@@ -1,5 +1,6 @@
+// TODO: Remake bar model.
 // TODO: Make getter function that returns reference to entities.
-// TODO: Load level and setup scene functionality.
+// TODO: Load level functionality.
 // TODO: Implement collision detection and resolution.
 // TODO: Implement camera lock/unlock and pause game functionality.
 

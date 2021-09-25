@@ -87,7 +87,7 @@
     <ClCompile Include="src\ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\iGame.cpp">
+    <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Bar.cpp">
@@ -179,7 +179,7 @@
     <ClInclude Include="src\ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\iGame.h">
+    <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Bar.h">
