@@ -1,3 +1,4 @@
+// TODO: Class based approach for game/scene.
 // TODO: Game object constructors initialize entities.
 // TODO: Make getter function that returns reference to entities.
 // TODO: Load level and setup scene functionality.
