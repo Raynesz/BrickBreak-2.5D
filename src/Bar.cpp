@@ -1,4 +1,4 @@
-#include "game.h"
+#include "Game.h"
 
 void Bar::Update(float deltaTime, moveControl move) {
 	if (move.forward)
@@ -15,5 +15,9 @@ void Bar::Update(float deltaTime, moveControl move) {
 		position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
-//Bar::Bar(std::string name, std::string modelID, std::string shaderID, glm::vec3 translation, glm::vec3 scale, float width)
-//	: Entity{ name, modelID, shaderID, std::vector<shaderStruct>&, std::vector<modelStruct>&, translation, scale }, width{ width } {}
+Bar::Bar(std::string name, std::string modelID, std::string shaderID, std::vector<modelStruct>& models, std::vector<shaderStruct>& shaders,
+	glm::vec3 translation, glm::vec3 scale, float length)
+	: Entity(name, modelID, shaderID, models, shaders, translation, scale)
+{
+	Bar::length = length;
+}

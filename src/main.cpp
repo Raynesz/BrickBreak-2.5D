@@ -1,5 +1,3 @@
-// TODO: Class based approach for game/scene.
-// TODO: Game object constructors initialize entities.
 // TODO: Make getter function that returns reference to entities.
 // TODO: Load level and setup scene functionality.
 // TODO: Implement collision detection and resolution.
@@ -18,15 +16,17 @@ extern "C" {
 }
 #endif
 
-#include "game.h"
+#include "Game.h"
 
 //int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
 	Viewer viewer("BrickBreak 2.5D");
 	ImGuiIO& io = UI::Initialize(viewer.window);
 
-	Game::InitializeResources(viewer);
-	Game::SetupScene(viewer);
+	Game game;
+
+	game.InitializeResources(viewer);
+	game.Setup(viewer);
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))
@@ -40,12 +40,12 @@ int main() {
 			// Handles camera inputs (delete this if you have disabled VSync)
 			viewer.camera.Inputs(viewer.window, viewer.dt);
 			// Updates and exports the camera matrix to the Vertex Shader
-			Game::Inputs(viewer);
+			game.Inputs(viewer);
 		}
 		viewer.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
 
 		// UPDATE
-		Game::Update(viewer);
+		game.Update(viewer.dt);
 
 		// RENDER
 		// Specify the color of the background
@@ -55,9 +55,9 @@ int main() {
 
 		UI::NewFrame();
 		
-		Game::Draw(viewer);
+		game.Draw(viewer);
 
-		if (viewer.showAbout) UI::DrawAbout(&viewer.showAbout, &viewer.showMetrics, &viewer.showControls, io, viewer.window);
+		if (viewer.showEscUI) UI::DrawAbout(&viewer.showEscUI, &viewer.showMetrics, &viewer.showControls, io, viewer.window);
 		if (viewer.showMetrics) UI::DrawMetrics(&viewer.showMetrics, viewer.dt);
 		if (viewer.showControls) UI::DrawControls(&viewer.showControls, io);
 		UI::Render();

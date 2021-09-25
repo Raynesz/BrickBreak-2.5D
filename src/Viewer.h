@@ -50,13 +50,12 @@ public:
 	Camera camera;
 	Skybox skybox;
 
-	bool showAbout = false;
+	bool showEscUI = false;
 	bool showMetrics = true;
 	bool showControls = false;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};
-	std::vector<Entity> entities = {};
 
 	// Variables to create periodic event for FPS displaying
 	double previousTime = glfwGetTime();
@@ -69,10 +68,9 @@ public:
 	void loadModels(std::vector<std::string>&);
 	void loadShaders(std::vector<shaderInput>&);
 	void loadSkyboxes(std::vector<std::string>&);
-	void useSkybox(std::string);
-	int get(std::string);
+	void useSkybox(std::string skyboxName);
 	void drawSkybox();
-	void drawEntities();
+	void drawEntities(std::vector<Entity>&);
 	void Inputs();
 	void FpsCounter();
 };

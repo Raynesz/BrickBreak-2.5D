@@ -6,10 +6,11 @@ struct moveControl {
 
 class Bar : public Entity {
 public:
-	float width = 1.0f;
+	float length = 1.0f;
 	moveControl move;
 
-	//Bar(std::string, std::string, std::string, glm::vec3, glm::vec3, float);
+	Bar(std::string name, std::string modelID, std::string shaderID, std::vector<modelStruct>& models, std::vector<shaderStruct>& shaders,
+		glm::vec3 translation, glm::vec3 scale, float length);
 
 	void Update(float, moveControl);
 };

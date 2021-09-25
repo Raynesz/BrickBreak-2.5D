@@ -1,6 +1,9 @@
 #pragma once
 
-class Ball {
+class Ball : public Entity {
 public:
-	float radius = 0.4f;
+	float radius = 1.0f;
+
+	Ball(std::string name, std::string modelID, std::string shaderID, std::vector<modelStruct>& models, std::vector<shaderStruct>& shaders,
+		glm::vec3 translation, glm::vec3 scale, float radius);
 };
