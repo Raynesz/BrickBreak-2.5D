@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Bar::Update(float deltaTime, moveControl move) {
+void Bar::Update(float deltaTime) {
 	if (move.forward)
 		position += (deltaTime * speed) * direction;
 	if (move.back)
@@ -16,8 +16,10 @@ void Bar::Update(float deltaTime, moveControl move) {
 }
 
 Bar::Bar(std::string name, std::string modelID, std::string shaderID, std::vector<modelStruct>& models, std::vector<shaderStruct>& shaders,
-	glm::vec3 translation, glm::vec3 scale, float length)
+	glm::vec3 translation, glm::vec3 scale, float length, float height)
 	: Entity(name, modelID, shaderID, models, shaders, translation, scale)
 {
 	Bar::length = length;
+	Bar::height = height;
+	this->Scale(length, height, this->scale.z);
 }

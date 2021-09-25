@@ -70,7 +70,7 @@ public:
 	void loadSkyboxes(std::vector<std::string>&);
 	void useSkybox(std::string skyboxName);
 	void drawSkybox();
-	void drawEntities(std::vector<Entity>&);
+	void drawEntities(std::vector<Entity*>);
 	void Inputs();
 	void FpsCounter();
 };

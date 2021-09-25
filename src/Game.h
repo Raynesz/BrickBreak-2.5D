@@ -8,12 +8,13 @@
 
 class Game {
 public:
-	std::vector<Entity> entities = {};
+	std::vector<Entity*> entities = {};
 
 	void Setup(Viewer&);
 	void Update(double);
-	Entity& get(std::string);
+	Entity* get(std::string);
 	void Draw(Viewer&);
 	void InitializeResources(Viewer&);
 	void Inputs(Viewer&);
+	void CleanUp();
 };

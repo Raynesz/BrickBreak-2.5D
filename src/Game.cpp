@@ -1,40 +1,41 @@
 #include "Game.h"
 
 void Game::Update(double dt) {
-	get("jupiter").Rotate(0.0, 1.0, 0.0, degToRad(dt * 45.0f));
+	static_cast<Brick*>(get("jupiter"))->Rotate(0.0, 1.0, 0.0, degToRad(dt * 45.0f));
+	static_cast<Bar*>(get("bar"))->Update(dt);
 }
 
 void Game::Setup(Viewer& viewer) {
-	entities.clear();
+	CleanUp();
 	viewer.useSkybox("skyfly");
 
-	entities.push_back(Bar("bar", "bar", "default", viewer.models, viewer.shaders,
-		glm::vec3(0.0f, -2.5f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0));
+	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,
+		glm::vec3(0.0f, -2.5f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0, 0.5));
 
-	entities.push_back(Bar("jupiter", "unused/jupiter", "default", viewer.models, viewer.shaders,
-		glm::vec3(-30.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), 3.0));
+	entities.push_back(new Brick("jupiter", "unused/jupiter", "default", viewer.models, viewer.shaders,
+		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
 
-	entities.push_back(Ball("ball", "ball", "default", viewer.models, viewer.shaders,
+	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,
 		glm::vec3(0.0f, 0.0f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
 
-	entities.push_back(Wall("leftWall", "wall", "default", viewer.models, viewer.shaders,
+	entities.push_back(new Wall("leftWall", "wall", "default", viewer.models, viewer.shaders,
 		glm::vec3(-10.0f, 5.0f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0, 0.5));
 
-	entities.push_back(Wall("rightWall", "wall", "default", viewer.models, viewer.shaders,
+	entities.push_back(new Wall("rightWall", "wall", "default", viewer.models, viewer.shaders,
 		glm::vec3(10.0f, 5.0f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0, 0.5));
 
-	entities.push_back(Wall("topWall", "wall", "default", viewer.models, viewer.shaders,
+	entities.push_back(new Wall("topWall", "wall", "default", viewer.models, viewer.shaders,
 		glm::vec3(0.0f, 15.5f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.5, 0.5));
 
-	entities.push_back(Brick("laserBrick", "laserBrick", "default", viewer.models, viewer.shaders,
+	entities.push_back(new Brick("laserBrick", "laserBrick", "default", viewer.models, viewer.shaders,
 		glm::vec3(0.0f, 5.0f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 
-	get("topWall").Rotate(0.0f, 0.0f, 1.0f, degToRad(90.0f));
+	static_cast<Wall*>(get("topWall"))->Rotate(0.0, 0.0, 1.0, degToRad(90.0f));
 }
 
-Entity& Game::get(std::string entityName) {
+Entity* Game::get(std::string entityName) {
 	for (int i = 0; i < entities.size(); i++) {
-		if (entityName == entities[i].name) return entities[i];
+		if (entityName == entities[i]->name) return entities[i];
 	}
 }
 
@@ -48,21 +49,34 @@ void Game::Inputs(Viewer& viewer) {
 	{
 		
 	}
+	else if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_RELEASE)
+	{
+		
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_DOWN) == GLFW_PRESS)						//UP
+	{
+		
+	}
+	else if (glfwGetKey(viewer.window, GLFW_KEY_DOWN) == GLFW_RELEASE)
+	{
+		
+	}
+
 	if (glfwGetKey(viewer.window, GLFW_KEY_LEFT) == GLFW_PRESS)						//UP
 	{
-		//get("bar").move.left = true;
+		static_cast<Bar*>(get("bar"))->move.left = true;
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_LEFT) == GLFW_RELEASE)
 	{
-		
+		static_cast<Bar*>(get("bar"))->move.left = false;
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_RIGHT) == GLFW_PRESS)					//DOWN
 	{
-		
+		static_cast<Bar*>(get("bar"))->move.right = true;
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
 	{
-		
+		static_cast<Bar*>(get("bar"))->move.right = false;
 	}
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_1) == GLFW_PRESS)
@@ -101,4 +115,11 @@ void Game::InitializeResources(Viewer& viewer) {
 	viewer.loadModels(models);
 	viewer.loadShaders(shaders);
 	viewer.loadSkyboxes(skyboxes);
+}
+
+void Game::CleanUp() {
+	for (auto entity : entities) {
+		delete entity;
+	}
+	entities.clear();
 }

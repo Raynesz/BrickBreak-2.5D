@@ -1,9 +1,3 @@
-// TODO: Remake bar model.
-// TODO: Make getter function that returns reference to entities.
-// TODO: Load level functionality.
-// TODO: Implement collision detection and resolution.
-// TODO: Implement camera lock/unlock and pause game functionality.
-
 // The app will use the main GPU installed on the system
 #include <windows.h>
 #ifdef __cplusplus
@@ -69,6 +63,7 @@ int main() {
 		glfwSwapBuffers(viewer.window);
 	}
 
+	game.CleanUp();
 	UI::Terminate();
 
 	return 0;
