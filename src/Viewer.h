@@ -26,7 +26,6 @@
 #include "constants.h"
 #include "util.h"
 #include "physics.h"
-#include "ui.h"
 #include "VBO.h"
 #include "VAO.h"
 #include "EBO.h"
@@ -37,6 +36,7 @@
 #include "Model.h"
 #include "Skybox.h"
 #include "Entity.h"
+#include "ui.h"
 
 class Viewer {
 public:
@@ -47,10 +47,6 @@ public:
 	GLFWwindow* window;
 
 	Skybox skybox;
-
-	bool showEscUI = false;
-	bool showMetrics = true;
-	bool showControls = false;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};

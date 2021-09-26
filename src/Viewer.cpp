@@ -135,10 +135,7 @@ void Viewer::drawEntities(Camera& camera, std::vector<Entity*> entities) {
 }
 
 void Viewer::Inputs() {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		showEscUI = true;
-	}
+	
 }
 
 void Viewer::FpsCounter() {

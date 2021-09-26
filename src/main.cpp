@@ -15,7 +15,7 @@ extern "C" {
 
 //int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 int main() {
-	Viewer viewer("BrickBreak 2.5D");
+	Viewer viewer(WINDOW_NAME);
 	ImGuiIO& io = UI::Initialize(viewer.window);
 
 	Game game;
@@ -30,21 +30,30 @@ int main() {
 		// Take care of all GLFW events
 		glfwPollEvents();
 
-		if (!io.WantCaptureMouse) { // Game input is disabled if mouse is hovering over UI elements
-			viewer.Inputs();
-			// Handles camera inputs (delete this if you have disabled VSync)
-			game.camera.Inputs(viewer.window, viewer.dt);
-			// Updates and exports the camera matrix to the Vertex Shader
-			game.Inputs(viewer);
+		game.controlsActive = !game.windowsOpen() && glfwGetWindowAttrib(viewer.window, GLFW_FOCUSED);
+
+		if (game.controlsActive) {
+			if (!io.WantCaptureMouse) { // Game input is disabled if mouse is hovering over UI elements
+				viewer.Inputs();
+				// Handles camera inputs (delete this if you have disabled VSync)
+				if (!game.camera.locked) game.camera.Inputs(viewer.window, viewer.dt);
+				// Updates and exports the camera matrix to the Vertex Shader
+				game.Inputs(viewer);
+			}
 		}
 		game.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
+
+		if (game.camera.type != CLICK_FPV) {
+			if (game.controlsActive) glfwSetInputMode(viewer.window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+			else glfwSetInputMode(viewer.window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
 
 		// UPDATE
 		game.Update(viewer.dt);
 
 		// RENDER
 		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(game.clearColor.r, game.clearColor.g, game.clearColor.b, game.clearColor.a);
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -52,9 +61,7 @@ int main() {
 		
 		game.Draw(viewer);
 
-		if (viewer.showEscUI) UI::DrawAbout(&viewer.showEscUI, &viewer.showMetrics, &viewer.showControls, io, viewer.window);
-		if (viewer.showMetrics) UI::DrawMetrics(&viewer.showMetrics, viewer.dt);
-		if (viewer.showControls) UI::DrawControls(&viewer.showControls, io);
+		game.DrawUI(viewer.window, io, viewer.dt);
 		UI::Render();
 
 		viewer.FpsCounter();

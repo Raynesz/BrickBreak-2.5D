@@ -230,6 +230,8 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     <ClCompile Include="src\EBO.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameUI.cpp" />
+    <ClCompile Include="src\GameUtility.cpp" />
     <ClCompile Include="src\physics.cpp" />
     <ClCompile Include="src\ui.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -258,6 +260,7 @@ xcopy "$(SolutionDir)src\res" "$(TargetDir)res\" /E /Y</Command>
     <ClInclude Include="src\Bar.h" />
     <ClInclude Include="src\Brick.h" />
     <ClInclude Include="src\Camera.h" />
+    <ClInclude Include="src\config.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\EBO.h" />
     <ClInclude Include="src\Entity.h" />
