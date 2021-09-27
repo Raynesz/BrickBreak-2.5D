@@ -22,7 +22,7 @@ void Skybox::loadSkybox(std::string textureName) {
 	std::string textureExt;
 	unsigned int cubemapTexture;
 
-	std::string path = ("res/skyboxes/" + textureName);
+	std::string path = ("Resources/skyboxes/" + textureName);
 	for (const auto& entry : std::filesystem::directory_iterator(path)) {
 		textureExt = entry.path().extension().string();
 		break;
@@ -31,12 +31,12 @@ void Skybox::loadSkybox(std::string textureName) {
 	// All the faces of the cubemap (make sure they are in this exact order)
 	std::string facesCubemap[6] =
 	{
-		"res/skyboxes/" + textureName + "/right" + textureExt,
-		"res/skyboxes/" + textureName + "/left" + textureExt,
-		"res/skyboxes/" + textureName + "/top" + textureExt,
-		"res/skyboxes/" + textureName + "/bottom" + textureExt,
-		"res/skyboxes/" + textureName + "/front" + textureExt,
-		"res/skyboxes/" + textureName + "/back" + textureExt,
+		"Resources/skyboxes/" + textureName + "/right" + textureExt,
+		"Resources/skyboxes/" + textureName + "/left" + textureExt,
+		"Resources/skyboxes/" + textureName + "/top" + textureExt,
+		"Resources/skyboxes/" + textureName + "/bottom" + textureExt,
+		"Resources/skyboxes/" + textureName + "/front" + textureExt,
+		"Resources/skyboxes/" + textureName + "/back" + textureExt,
 	};
 
 	// Creates the cubemap texture object
