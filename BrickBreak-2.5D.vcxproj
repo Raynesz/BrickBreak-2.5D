@@ -128,7 +128,7 @@
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,7 +157,7 @@ xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -182,7 +182,7 @@ xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -211,7 +211,7 @@ xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -223,28 +223,28 @@ xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClCompile Include="Libraries\include\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Libraries\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="Libraries\include\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\Core\EBO.cpp" />
-    <ClCompile Include="src\Core\Entity.cpp" />
-    <ClCompile Include="src\Core\main.cpp" />
-    <ClCompile Include="src\Core\Mesh.cpp" />
-    <ClCompile Include="src\Core\Model.cpp" />
-    <ClCompile Include="src\Core\physics.cpp" />
-    <ClCompile Include="src\Core\Shader.cpp" />
-    <ClCompile Include="src\Core\Skybox.cpp" />
-    <ClCompile Include="src\Core\stb.cpp" />
-    <ClCompile Include="src\Core\Texture.cpp" />
-    <ClCompile Include="src\Core\ui.cpp" />
-    <ClCompile Include="src\Core\VAO.cpp" />
-    <ClCompile Include="src\Core\VBO.cpp" />
-    <ClCompile Include="src\Core\Viewer.cpp" />
-    <ClCompile Include="src\Game\Ball.cpp" />
-    <ClCompile Include="src\Game\Bar.cpp" />
-    <ClCompile Include="src\Game\Brick.cpp" />
-    <ClCompile Include="src\Game\Camera.cpp" />
-    <ClCompile Include="src\Game\Game.cpp" />
-    <ClCompile Include="src\Game\GameUI.cpp" />
-    <ClCompile Include="src\Game\GameUtility.cpp" />
-    <ClCompile Include="src\Game\Wall.cpp" />
+    <ClCompile Include="Source\Core\EBO.cpp" />
+    <ClCompile Include="Source\Core\Entity.cpp" />
+    <ClCompile Include="Source\Core\main.cpp" />
+    <ClCompile Include="Source\Core\Mesh.cpp" />
+    <ClCompile Include="Source\Core\Model.cpp" />
+    <ClCompile Include="Source\Core\physics.cpp" />
+    <ClCompile Include="Source\Core\Shader.cpp" />
+    <ClCompile Include="Source\Core\Skybox.cpp" />
+    <ClCompile Include="Source\Core\stb.cpp" />
+    <ClCompile Include="Source\Core\Texture.cpp" />
+    <ClCompile Include="Source\Core\ui.cpp" />
+    <ClCompile Include="Source\Core\VAO.cpp" />
+    <ClCompile Include="Source\Core\VBO.cpp" />
+    <ClCompile Include="Source\Core\Viewer.cpp" />
+    <ClCompile Include="Source\Game\Ball.cpp" />
+    <ClCompile Include="Source\Game\Bar.cpp" />
+    <ClCompile Include="Source\Game\Brick.cpp" />
+    <ClCompile Include="Source\Game\Camera.cpp" />
+    <ClCompile Include="Source\Game\Game.cpp" />
+    <ClCompile Include="Source\Game\GameUI.cpp" />
+    <ClCompile Include="Source\Game\GameUtility.cpp" />
+    <ClCompile Include="Source\Game\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries\include\imgui\imconfig.h" />
@@ -256,28 +256,28 @@ xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClInclude Include="Libraries\include\imgui\imstb_rectpack.h" />
     <ClInclude Include="Libraries\include\imgui\imstb_textedit.h" />
     <ClInclude Include="Libraries\include\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\Core\constants.h" />
-    <ClInclude Include="src\Core\EBO.h" />
-    <ClInclude Include="src\Core\Entity.h" />
-    <ClInclude Include="src\Core\Mesh.h" />
-    <ClInclude Include="src\Core\Model.h" />
-    <ClInclude Include="src\Core\physics.h" />
-    <ClInclude Include="src\Core\Shader.h" />
-    <ClInclude Include="src\Core\Skybox.h" />
-    <ClInclude Include="src\Core\Texture.h" />
-    <ClInclude Include="src\Core\ui.h" />
-    <ClInclude Include="src\Core\util.h" />
-    <ClInclude Include="src\Core\VAO.h" />
-    <ClInclude Include="src\Core\VBO.h" />
-    <ClInclude Include="src\Core\Viewer.h" />
-    <ClInclude Include="src\Game\Ball.h" />
-    <ClInclude Include="src\Game\Bar.h" />
-    <ClInclude Include="src\Game\Brick.h" />
-    <ClInclude Include="src\Game\Camera.h" />
-    <ClInclude Include="src\Game\config.h" />
-    <ClInclude Include="src\Game\Game.h" />
-    <ClInclude Include="src\Game\resource.h" />
-    <ClInclude Include="src\Game\Wall.h" />
+    <ClInclude Include="Source\Core\constants.h" />
+    <ClInclude Include="Source\Core\EBO.h" />
+    <ClInclude Include="Source\Core\Entity.h" />
+    <ClInclude Include="Source\Core\Mesh.h" />
+    <ClInclude Include="Source\Core\Model.h" />
+    <ClInclude Include="Source\Core\physics.h" />
+    <ClInclude Include="Source\Core\Shader.h" />
+    <ClInclude Include="Source\Core\Skybox.h" />
+    <ClInclude Include="Source\Core\Texture.h" />
+    <ClInclude Include="Source\Core\ui.h" />
+    <ClInclude Include="Source\Core\util.h" />
+    <ClInclude Include="Source\Core\VAO.h" />
+    <ClInclude Include="Source\Core\VBO.h" />
+    <ClInclude Include="Source\Core\Viewer.h" />
+    <ClInclude Include="Source\Game\Ball.h" />
+    <ClInclude Include="Source\Game\Bar.h" />
+    <ClInclude Include="Source\Game\Brick.h" />
+    <ClInclude Include="Source\Game\Camera.h" />
+    <ClInclude Include="Source\Game\config.h" />
+    <ClInclude Include="Source\Game\Game.h" />
+    <ClInclude Include="Source\Game\resource.h" />
+    <ClInclude Include="Source\Game\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Resources\shaders\default.frag" />
@@ -286,7 +286,7 @@ xcopy "$(SolutionDir)src\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <None Include="src\Resources\shaders\skybox.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="src\Game\BrickBreak-2.5D.rc" />
+    <ResourceCompile Include="Source\Game\BrickBreak-2.5D.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

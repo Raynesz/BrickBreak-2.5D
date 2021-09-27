@@ -40,7 +40,7 @@ Viewer::Viewer(std::string windowName) {
 		glfwMakeContextCurrent(window);
 
 		GLFWimage images[1] = {};
-		images[0].pixels = stbi_load("Resources/img/icon/windowIcon.png", &images[0].width, &images[0].height, 0, 4); //rgba channels 
+		images[0].pixels = stbi_load("Resources/Icons/windowIcon.png", &images[0].width, &images[0].height, 0, 4); //rgba channels 
 		glfwSetWindowIcon(window, 1, images);
 		stbi_image_free(images[0].pixels);
 
@@ -85,7 +85,7 @@ Viewer::~Viewer() {
 
 void Viewer::loadModels(std::vector<std::string>& modelNames) {
 	for (int i = 0; i < modelNames.size(); i++) {
-		std::string modelPath = "Resources/models/" + modelNames[i] + "/scene.gltf";
+		std::string modelPath = "Resources/Models/" + modelNames[i] + "/scene.gltf";
 		Model modelData(modelPath.c_str());
 		models.push_back(modelStruct(modelNames[i], modelData));
 	}
@@ -93,8 +93,8 @@ void Viewer::loadModels(std::vector<std::string>& modelNames) {
 
 void Viewer::loadShaders(std::vector<shaderInput>& shaderInputData) {
 	for (int i = 0; i < shaderInputData.size(); i++) {
-		std::string shaderVertPath = "Resources/shaders/" + shaderInputData[i].vert + ".vert";
-		std::string shaderFragPath = "Resources/shaders/" + shaderInputData[i].frag + ".frag";
+		std::string shaderVertPath = "Resources/Shaders/" + shaderInputData[i].vert + ".vert";
+		std::string shaderFragPath = "Resources/Shaders/" + shaderInputData[i].frag + ".frag";
 		Shader shaderProgram(shaderVertPath.c_str(), shaderFragPath.c_str());
 		shaders.push_back(shaderStruct(shaderInputData[i].name, shaderProgram));
 	}

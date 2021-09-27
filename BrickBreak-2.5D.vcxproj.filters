@@ -19,11 +19,20 @@
     <Filter Include="Header Files\imgui">
       <UniqueIdentifier>{896cad90-d4fb-448b-be54-21e16f7b4492}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{74b788ee-ed91-4efc-83e9-bab14b1831a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{49b50cbc-9c16-4813-904e-9253c604eeac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{1b7056aa-e2bc-4a29-a4cc-2fbde8083421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{636e379b-8135-4383-8057-b67423ba2ac6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Libraries\include\glad\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Libraries\include\imgui\imgui_widgets.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
@@ -45,71 +54,74 @@
     <ClCompile Include="Libraries\include\imgui\imgui_tables.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\stb.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Game\Ball.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Texture.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Game\Bar.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\ui.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Game\Brick.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\VAO.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Game\Camera.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\VBO.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Game\Game.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Viewer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Game\GameUI.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\EBO.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Game\GameUtility.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Entity.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\EBO.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\Entity.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Mesh.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Libraries\include\glad\glad.c">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Model.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\main.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\physics.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\Mesh.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Shader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\Model.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\Skybox.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\physics.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Bar.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\Shader.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Brick.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\Skybox.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\stb.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Game.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\Texture.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\GameUI.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\ui.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\GameUtility.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\VAO.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Wall.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\VBO.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Ball.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Core\Viewer.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Wall.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,71 +152,71 @@
     <ClInclude Include="Libraries\include\imgui\imstb_truetype.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\VAO.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\Ball.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\VBO.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\Bar.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Viewer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\Brick.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\constants.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\Camera.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\EBO.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\config.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Entity.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\Game.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Mesh.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\resource.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Model.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Game\Wall.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\physics.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\Viewer.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Shader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\VBO.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Skybox.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\VAO.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Texture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\util.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\ui.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\ui.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\util.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\Texture.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Game.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\Skybox.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\resource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\Shader.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Wall.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\physics.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Ball.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\Model.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Bar.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\Mesh.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Brick.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\Entity.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\EBO.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\config.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Core\constants.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +234,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="src\Game\BrickBreak-2.5D.rc">
+    <ResourceCompile Include="Source\Game\BrickBreak-2.5D.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
