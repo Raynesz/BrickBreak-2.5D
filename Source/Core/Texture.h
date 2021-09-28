@@ -3,9 +3,7 @@
 class Texture
 {
 public:
-	GLuint ID;
 	const char* type;
-	GLuint unit;
 
 	Texture(const char* image, const char* texType, GLuint slot);
 
@@ -13,8 +11,13 @@ public:
 	void texUnit(Shader& shader, const char* uniform, GLuint unit);
 	// Binds a texture
 	void Bind();
-	// Unbinds a texture
-	void Unbind();
 	// Deletes a texture
 	void Delete();
+
+private:
+	GLuint ID;
+	GLuint unit;
+
+	// Unbinds a texture
+	void Unbind();
 };

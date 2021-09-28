@@ -40,21 +40,15 @@
 
 class Viewer {
 public:
-	std::string windowName;
 	unsigned int width;
 	unsigned int height;
 
 	GLFWwindow* window;
 
-	Skybox skybox;
+	double dt = 0.01666f;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};
-
-	// Variables to create periodic event for FPS displaying
-	double previousTime = glfwGetTime();
-	double currentTime = 0.0;
-	double dt = 0.01666f;
 
 	Viewer(std::string);
 	~Viewer();
@@ -67,4 +61,12 @@ public:
 	void drawEntities(Camera&, std::vector<Entity*>);
 	void Inputs();
 	void FpsCounter();
+
+private:
+	std::string windowName;
+	Skybox skybox;
+
+	// Variables to create periodic event for FPS displaying
+	double previousTime = glfwGetTime();
+	double currentTime = 0.0;
 };
