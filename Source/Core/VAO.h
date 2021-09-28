@@ -3,8 +3,6 @@
 class VAO
 {
 public:
-	// ID reference for the Vertex Array Object
-	GLuint ID;
 	// Constructor that generates a VAO ID
 	VAO();
 
@@ -16,4 +14,8 @@ public:
 	void Unbind();
 	// Deletes the VAO
 	void Delete();
+
+private:
+	// ID reference for the Vertex Array Object
+	GLuint ID;
 };

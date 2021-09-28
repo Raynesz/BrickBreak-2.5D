@@ -39,13 +39,13 @@ Mesh::Mesh
 		glVertexAttribDivisor(6, 1);
 		glVertexAttribDivisor(7, 1);
 	}
+
 	// Unbind all to prevent accidentally modifying them
 	VAO.Unbind();
 	VBO.Unbind();
 	instanceVBO.Unbind();
 	EBO.Unbind();
 }
-
 
 void Mesh::Draw
 (

@@ -20,6 +20,7 @@ public:
 
 	void Setup(Viewer&);
 	void Update(double);
+	void LoadLevel();
 	Entity* get(std::string);
 	void Draw(Viewer&);
 	void InitializeResources(Viewer&);

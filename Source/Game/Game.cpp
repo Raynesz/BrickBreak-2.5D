@@ -44,3 +44,7 @@ void Game::InitializeResources(Viewer& viewer) {
 	viewer.loadShaders(shaders);
 	viewer.loadSkyboxes(skyboxes);
 }
+
+void Game::LoadLevel() {
+
+}

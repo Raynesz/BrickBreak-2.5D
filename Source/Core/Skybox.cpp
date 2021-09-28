@@ -130,3 +130,8 @@ void Skybox::Draw(Shader& skyboxShader, Camera& camera, unsigned int width, unsi
 	// Switch back to the normal depth function
 	glDepthFunc(GL_LESS);
 }
+
+void Skybox::Delete() {
+	glDeleteVertexArrays(1, &skyboxVAO);
+	for (int i = 0; i < cubemapTextures.size(); i++) glDeleteTextures(1, &cubemapTextures[i]);
+}

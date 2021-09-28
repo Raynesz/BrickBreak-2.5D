@@ -3,6 +3,9 @@
 class Model
 {
 public:
+	std::vector<Mesh> meshes;
+	std::vector<Texture> loadedTex;
+
 	// Loads in a model from a file and stores tha information in 'data', 'JSON', and 'file'
 	Model(const char* file, unsigned int instancing = 1, std::vector<glm::mat4> instanceMatrix = {});
 	//Model(const char* file);
@@ -25,7 +28,6 @@ private:
 	unsigned int instancing;
 
 	// All the meshes and transformations
-	std::vector<Mesh> meshes;
 	std::vector<glm::vec3> translationsMeshes;
 	std::vector<glm::quat> rotationsMeshes;
 	std::vector<glm::vec3> scalesMeshes;
@@ -34,7 +36,6 @@ private:
 
 	// Prevents textures from being loaded twice
 	std::vector<std::string> loadedTexName;
-	std::vector<Texture> loadedTex;
 
 	// Loads a single mesh by its index
 	void loadMesh(unsigned int indMesh);

@@ -46,4 +46,5 @@ class Skybox {
 		void loadSkybox(std::string);
 		void useSkybox(std::string);
 		void Draw(Shader&, Camera&, unsigned int, unsigned int);
+		void Delete();
 };

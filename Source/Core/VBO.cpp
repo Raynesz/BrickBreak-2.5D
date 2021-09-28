@@ -14,6 +14,11 @@ VBO::VBO(std::vector<glm::mat4>& mat4s)
 	glBufferData(GL_ARRAY_BUFFER, mat4s.size() * sizeof(glm::mat4), mat4s.data(), GL_STATIC_DRAW);
 }
 
+VBO::~VBO() {
+	Unbind();
+	glDeleteBuffers(1, &ID);
+}
+
 // Binds the VBO
 void VBO::Bind()
 {
@@ -24,10 +29,4 @@ void VBO::Bind()
 void VBO::Unbind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-// Deletes the VBO
-void VBO::Delete()
-{
-	glDeleteBuffers(1, &ID);
 }
