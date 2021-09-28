@@ -22,6 +22,7 @@
 #include <GLFW/glfw3.h>
 #include <stb/stb_image.h>
 #include <json/json.h>
+#include <csv.h>
 
 #include "constants.h"
 #include "util.h"

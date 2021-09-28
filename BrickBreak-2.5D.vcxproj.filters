@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{636e379b-8135-4383-8057-b67423ba2ac6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{192795ae-cf97-4d20-b836-6c2a57ad269d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Levels">
+      <UniqueIdentifier>{83655859-f36b-41f1-bdaa-5b1fd7f4aa96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Libraries\include\imgui\imgui_widgets.cpp">
@@ -81,9 +87,6 @@
     <ClCompile Include="Source\Core\Entity.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Libraries\include\glad\glad.c">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Core\main.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -100,9 +103,6 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Skybox.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Core\stb.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Texture.cpp">
@@ -122,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Wall.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\include\glad\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\include\stb\stb.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,19 +224,31 @@
     <ClInclude Include="Source\Core\constants.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Core\csv.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Resources\shaders\skybox.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\Resources\shaders\skybox.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="src\Resources\shaders\default.frag">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="src\Resources\shaders\default.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="src\Resources\shaders\skybox.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="src\Resources\shaders\skybox.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Source\Resources\Levels\level1.csv">
+      <Filter>Resource Files\Levels</Filter>
+    </None>
+    <None Include="Source\Resources\Levels\level2.csv">
+      <Filter>Resource Files\Levels</Filter>
+    </None>
+    <None Include="Source\Resources\Levels\level3.csv">
+      <Filter>Resource Files\Levels</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

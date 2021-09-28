@@ -37,15 +37,19 @@ void Game::Inputs(Viewer& viewer) {
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_1) == GLFW_PRESS)						// 1
 	{
-		Setup(viewer);
+		Setup(viewer, 1);
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_2) == GLFW_PRESS)						// 2
 	{
-
+		Setup(viewer, 2);
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_3) == GLFW_PRESS)						// 3
 	{
-
+		Setup(viewer, 3);
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_4) == GLFW_PRESS)						// 4
+	{
+		Setup(viewer, 4);
 	}
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_ESCAPE) == GLFW_PRESS)					// Esc

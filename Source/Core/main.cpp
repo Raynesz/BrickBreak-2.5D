@@ -21,7 +21,7 @@ int main() {
 	Game game;
 
 	game.InitializeResources(viewer);
-	game.Setup(viewer);
+	game.Setup(viewer, 4);
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))

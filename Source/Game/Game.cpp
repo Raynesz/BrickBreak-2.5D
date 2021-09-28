@@ -5,7 +5,7 @@ void Game::Update(double dt) {
 	static_cast<Bar*>(get("bar"))->Update(dt);
 }
 
-void Game::Setup(Viewer& viewer) {
+void Game::Setup(Viewer& viewer, int activeLevel) {
 	CleanUp();
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
@@ -32,6 +32,8 @@ void Game::Setup(Viewer& viewer) {
 		glm::vec3(0.0f, 5.0f, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 
 	static_cast<Wall*>(get("topWall"))->Rotate(0.0, 0.0, 1.0, degToRad(90.0f));
+
+	SelectLevel(activeLevel);
 }
 
 void Game::InitializeResources(Viewer& viewer) {
@@ -45,6 +47,29 @@ void Game::InitializeResources(Viewer& viewer) {
 	viewer.loadSkyboxes(skyboxes);
 }
 
-void Game::LoadLevel() {
+void Game::SelectLevel(int levelNumber) {
+	std::string file;
+	bool random = false;
+	switch (levelNumber) {
+	case 1:
+		file = "Resources/Levels/level1.csv";
+		break;
+	case 2:
+		file = "Resources/Levels/level2.csv";
+		break;
+	case 3:
+		file = "Resources/Levels/level3.csv";
+		break;
+	default:
+		random = true;
+	}
 
+	std::vector<std::vector<std::string>> levelLayout = inputCSV(file);
+
+	for (int i = 0; i < levelLayout.size(); i++) {
+		for (int j = 0; j < levelLayout[i].size(); j++) {
+			std::cout << levelLayout[i][j];
+		}
+		std::cout << std::endl;
+	}
 }
