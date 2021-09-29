@@ -7,6 +7,7 @@ void Game::Update(double dt) {
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
 	CleanUp();
+	srand(time(NULL));
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 0.0f, 20.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 
@@ -40,18 +41,17 @@ void Game::PopulateGrid(Viewer& viewer) {
 	int j;
 	for (float x = -5.0f; x <= 5.0f; x += 2.0f) {
 		j = 0;
-		for (float y = 5.0f; y >= -5.0f; y -= 2.0f) {
+		for (float y = 13.0f; y >= 3.0f; y -= 2.0f) {
 			if (levelData.layout[i][j] == "1") type = "brick";
-			else if (levelData.layout[i][j] == "2") type = "brick";
+			else if (levelData.layout[i][j] == "2") type = "speedBrick";
 			else if (levelData.layout[i][j] == "3") type = "armoredBrick";
 			else if (levelData.layout[i][j] == "4") type = "laserBrick";
 			else if (levelData.layout[i][j] == "5") type = "shrinkBrick";
 			else if (levelData.layout[i][j] == "6") type = "splitBrick";
-			else if (levelData.layout[i][j] == "7") type = "speedBrick";
 			else type = "";
 
-			entities.push_back(new Brick("brick"+std::to_string(i)+ std::to_string(j), type, "default", viewer.models, viewer.shaders,
-				glm::vec3(x, y, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+			if (type != "") entities.push_back(new Brick("brick"+std::to_string(i)+ std::to_string(j), type, "default",
+				viewer.models, viewer.shaders, glm::vec3(x, y, -30.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
 
 			j++;
 		}
@@ -97,11 +97,9 @@ void Game::SelectLevel(int levelNumber) {
 }
 
 void Game::RandomizeLevelLayout() {
-
 	for (int i = 0; i < levelData.layout.size(); i++) {
 		for (int j = 0; j < levelData.layout[i].size(); j++) {
-
-			levelData.layout[i][j] = std::to_string(random(0, 6));
+			levelData.layout[i][j] = std::to_string(random(1, 6));
 			if (levelData.layout[i][j] != "0") levelData.totalBricks++;
 		}
 	}

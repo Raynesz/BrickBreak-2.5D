@@ -66,6 +66,14 @@ void Game::Inputs(Viewer& viewer) {
 		camera.locked = false;
 		camera.firstClick = true;
 	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_B) == GLFW_PRESS)						// B
+	{
+		static_cast<Brick*>(get("brick33"))->SetModel(viewer.models, "crackedBrick");
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_N) == GLFW_PRESS)						// N
+	{
+		static_cast<Brick*>(get("brick54"))->destroyed = true;
+	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_J) == GLFW_PRESS)						// J
 	{
 		viewer.useSkybox(NO_SKYBOX);
