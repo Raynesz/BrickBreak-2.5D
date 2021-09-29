@@ -45,3 +45,9 @@ void Entity::Rotate(double x, double y, double z, double a) {
 void Entity::Scale(float x, float y, float z) {
 	scale = glm::vec3(x, y, z);
 }
+
+void Entity::SetModel(std::vector<modelStruct>& models, std::string newModel) {
+	for (int i = 0; i < models.size(); i++) {
+		if (newModel == models[i].name) modelIndex = i;
+	}
+}

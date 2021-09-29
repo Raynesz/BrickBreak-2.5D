@@ -2,6 +2,7 @@
 
 class Entity {
 public:
+	bool destroyed = false;
 	std::string name;
 	int modelIndex;
 	int shaderIndex;
@@ -17,4 +18,5 @@ public:
 	void Translate(float x, float y, float z);
 	void Rotate(double x, double y, double z, double a);
 	void Scale(float x, float y, float z);
+	void SetModel(std::vector<modelStruct>&, std::string);
 };
