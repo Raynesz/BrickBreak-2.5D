@@ -1,12 +1,6 @@
 #include "Game.h"
 
 void Bar::Update(float deltaTime) {
-	if (move.forward)
-		position += (deltaTime * speed) * direction;
-	if (move.back)
-		position += (deltaTime * speed) * -direction;
-	if (!move.forward && !move.back)
-		position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
 	if (move.left)
 		position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));
 	if (move.right)
@@ -22,4 +16,34 @@ Bar::Bar(std::string name, std::string modelID, std::string shaderID, std::vecto
 	Bar::length = length;
 	Bar::height = height;
 	this->Scale(length, height, this->scale.z);
+	direction = glm::vec3(0.0f, 0.0f, -1.0f);
+	speed = 8.0f;
 }
+
+/*
+if (move.forward)
+	position += (deltaTime * speed) * direction;
+if (move.back)
+	position += (deltaTime * speed) * -direction;
+if (!move.forward && !move.back)
+	position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
+if (move.left)
+	position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));
+if (move.right)
+	position += (deltaTime * speed) * glm::normalize(glm::cross(direction, up));
+if (!move.left && !move.right)
+	position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
+*/
+
+/*
+	if (move.left)
+		direction = glm::vec3(-1.0f, 0.0f, 0.0f);
+		//position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));
+	if (move.right)
+		direction = glm::vec3(1.0f, 0.0f, 0.0f);
+		//position += (deltaTime * speed) * glm::normalize(glm::cross(direction, up));
+	if (!move.left && !move.right)
+		direction = glm::vec3(0.0f, 0.0f, 0.0f);
+		//position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
+	position += (deltaTime * speed) * direction;
+*/

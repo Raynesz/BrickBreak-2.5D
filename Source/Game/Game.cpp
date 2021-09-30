@@ -3,6 +3,7 @@
 void Game::Update(double dt) {
 	static_cast<Brick*>(get("jupiter"))->Rotate(0.0, 1.0, 0.0, degToRad(dt * 45.0f));
 	static_cast<Bar*>(get("bar"))->Update(dt);
+	static_cast<Ball*>(get("ball"))->Update(dt);
 }
 
 void Game::Setup(Viewer& viewer, int activeLevel) {

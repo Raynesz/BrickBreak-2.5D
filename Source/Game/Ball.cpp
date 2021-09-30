@@ -6,4 +6,9 @@ Ball::Ball(std::string name, std::string modelID, std::string shaderID, std::vec
 {
 	Ball::radius = radius;
 	this->Scale(radius, radius, radius);
+	direction = up;
+}
+
+void Ball::Update(float deltaTime) {
+	position += (deltaTime * speed) * direction;
 }
