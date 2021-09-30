@@ -8,7 +8,7 @@
 #include "Wall.h"
 
 struct Level {
-	std::vector<std::vector<std::string> > layout{ 6, std::vector<std::string>(6, "0") };
+	std::vector<std::vector<std::string> > layout{ 6, std::vector<std::string>(14, "0") };
 	int totalBricks;
 };
 

@@ -5,5 +5,5 @@ inline double degToRad(double deg) {
 }
 
 inline int random(int from, int to) {
-	return  rand() % to + from;
+	return  rand() % (to+1) + from;
 }

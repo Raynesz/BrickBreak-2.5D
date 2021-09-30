@@ -110,7 +110,7 @@ void Viewer::loadShaders(std::vector<shaderInput>& shaderInputData) {
 
 	// Take care of all the light related things
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec3 lightPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 lightPos = glm::vec3(0.0f, 5.0f, 35.0f);
 
 	for (int i = 0; i < shaders.size(); i++) {
 		if (shaders[i].name == "skybox") {
