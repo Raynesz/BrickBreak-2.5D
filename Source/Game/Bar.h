@@ -20,4 +20,5 @@ public:
 		glm::vec3 translation, glm::vec3 scale, float length, float height, float wallXoffset, float wallWidth);
 
 	void Update(float);
+	void setLength(float newLength);
 };

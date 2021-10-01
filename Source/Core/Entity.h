@@ -14,6 +14,7 @@ public:
 	float speed = 0.0f;
 
 	Entity(std::string, std::string, std::string, std::vector<modelStruct>&, std::vector<shaderStruct>&, glm::vec3, glm::vec3);
+	virtual ~Entity() {};
 
 	void Translate(float x, float y, float z);
 	void Rotate(double x, double y, double z, double a);

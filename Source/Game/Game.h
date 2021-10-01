@@ -20,7 +20,7 @@ public:
 
 
 	void Setup(Viewer&, int);
-	void Update(double);
+	void Update(Viewer&, double);
 	void InitializeResources(Viewer&);
 	void Inputs(Viewer&);
 	void CleanUp();

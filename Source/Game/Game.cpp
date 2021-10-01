@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::Update(double dt) {
+void Game::Update(Viewer& viewer, double dt) {
 	// Grab reference to entities
 	Brick* jupiter = static_cast<Brick*>(get("jupiter"));
 	Ball* ball = static_cast<Ball*>(get("ball"));
@@ -18,6 +18,50 @@ void Game::Update(double dt) {
 	if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
 	//		Bar to right wall
 	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
+
+	for (auto object : entities) {
+		if (!object->destroyed) {
+			bool isBrick = dynamic_cast<Brick*>(object) != nullptr;
+			bool isBar = dynamic_cast<Bar*>(object) != nullptr;
+			bool isWall = dynamic_cast<Wall*>(object) != nullptr;
+			if (isBrick || isBar || isWall) {
+				glm::vec3 size = (object->name == "topWall") ? glm::vec3(object->scale.y, object->scale.x, object->scale.z) :
+					glm::vec3(object->scale.x, object->scale.y, object->scale.z);
+				Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
+				if (std::get<0>(collision)) // if collision is true
+				{
+					std::cout << object->name << std::endl;
+					Direction dir = std::get<1>(collision);
+					glm::vec2 diff_vector = std::get<2>(collision);
+					if (dir == LEFT || dir == RIGHT) // horizontal collision
+					{
+						ball->direction.x = -ball->direction.x; // reverse horizontal velocity
+						// relocate
+						float penetration = ball->radius - std::abs(diff_vector.x);
+						if (dir == LEFT)
+							ball->position.x += penetration; // move ball to right
+						else
+							ball->position.x -= penetration; // move ball to left;
+					}
+					else // vertical collision
+					{
+						ball->direction.y = -ball->direction.y; // reverse vertical velocity
+						// relocate
+						float penetration = ball->radius - std::abs(diff_vector.y);
+						if (dir == UP)
+							ball->position.y -= penetration; // move ball back up
+						else
+							ball->position.y += penetration; // move ball back down
+					}
+					if (isBrick) {
+						dynamic_cast<Brick*>(object)->lives--;
+						if (dynamic_cast<Brick*>(object)->lives == 0) object->destroyed = true;
+						else object->SetModel(viewer.models, "crackedBrick");
+					}
+				}
+			}
+		}
+	}
 }
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
@@ -114,7 +158,8 @@ void Game::SelectLevel(int levelNumber) {
 void Game::RandomizeLevelLayout() {
 	for (int i = 0; i < levelData.layout.size(); i++) {
 		for (int j = 0; j < levelData.layout[i].size(); j++) {
-			levelData.layout[i][j] = std::to_string(random(0, 6));
+			if (random(0, 100) >= 50) levelData.layout[i][j] = std::to_string(random(2, 6));
+			else levelData.layout[i][j] = "1";
 			if (levelData.layout[i][j] != "0") levelData.totalBricks++;
 		}
 	}

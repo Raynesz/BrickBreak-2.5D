@@ -49,7 +49,7 @@ int main() {
 		}
 
 		// UPDATE
-		game.Update(viewer.dt);
+		game.Update(viewer,viewer.dt);
 
 		// RENDER
 		// Specify the color of the background

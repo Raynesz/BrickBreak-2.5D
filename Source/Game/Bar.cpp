@@ -22,6 +22,11 @@ Bar::Bar(std::string name, std::string modelID, std::string shaderID, std::vecto
 	border.left = -wallXoffset + wallWidth;
 }
 
+void Bar::setLength(float newLength) {
+	length = newLength;
+	this->Scale(newLength, this->scale.y, this->scale.z);
+}
+
 /*
 if (move.forward)
 	position += (deltaTime * speed) * direction;

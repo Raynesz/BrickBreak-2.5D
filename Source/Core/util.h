@@ -5,7 +5,7 @@ inline double degToRad(double deg) {
 }
 
 inline int random(int from, int to) {
-	return  rand() % (to+1) + from;
+	return  from + rand() / (RAND_MAX / (to + 1 - from));
 }
 
 inline float random(float from, float to) {
