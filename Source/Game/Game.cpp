@@ -30,6 +30,7 @@ void Game::Update(Viewer& viewer, double dt) {
 				Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
 				if (std::get<0>(collision)) // if collision is true
 				{
+					PlaySound(TEXT("Resources/Sounds/hit.wav"), NULL, SND_ASYNC);
 					Direction dir = std::get<1>(collision);
 					glm::vec2 diff_vector = std::get<2>(collision);
 					if (dir == LEFT || dir == RIGHT) // horizontal collision

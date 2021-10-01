@@ -3,7 +3,7 @@
 void Game::Inputs(Viewer& viewer) {
 	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						// UP
 	{
-		static_cast<Ball*>(get("ball"))->speed = 15.0f;
+		static_cast<Ball*>(get("ball"))->speed = 11.0f;
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_RELEASE)
 	{
