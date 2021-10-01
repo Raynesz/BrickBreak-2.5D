@@ -30,7 +30,6 @@ void Game::Update(Viewer& viewer, double dt) {
 				Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
 				if (std::get<0>(collision)) // if collision is true
 				{
-					std::cout << object->name << std::endl;
 					Direction dir = std::get<1>(collision);
 					glm::vec2 diff_vector = std::get<2>(collision);
 					if (dir == LEFT || dir == RIGHT) // horizontal collision
@@ -66,7 +65,8 @@ void Game::Update(Viewer& viewer, double dt) {
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
 	CleanUp();
-	srand(time(NULL));
+	int now = time(NULL);
+	srand(now);
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 

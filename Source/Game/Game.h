@@ -17,7 +17,7 @@ public:
 	glm::vec4 clearColor = glm::vec4(0.07f, 0.13f, 0.17f, 1.0f);
 	Camera camera;
 	bool controlsActive;
-
+	bool paused = false;
 
 	void Setup(Viewer&, int);
 	void Update(Viewer&, double);

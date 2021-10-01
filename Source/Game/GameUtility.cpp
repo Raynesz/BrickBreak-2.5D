@@ -3,7 +3,7 @@
 void Game::Inputs(Viewer& viewer) {
 	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						// UP
 	{
-		static_cast<Ball*>(get("ball"))->speed = 4.0f;
+		static_cast<Ball*>(get("ball"))->speed = 15.0f;
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_RELEASE)
 	{
@@ -93,6 +93,14 @@ void Game::Inputs(Viewer& viewer) {
 	if (glfwGetKey(viewer.window, GLFW_KEY_M) == GLFW_PRESS)						// L
 	{
 		camera.type = FREE_FPV;
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_O) == GLFW_PRESS)						// O
+	{
+		paused = false;
+	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_P) == GLFW_PRESS)						// P
+	{
+		paused = true;
 	}
 }
 

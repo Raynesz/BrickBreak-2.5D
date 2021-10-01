@@ -17,7 +17,7 @@ Bar::Bar(std::string name, std::string modelID, std::string shaderID, std::vecto
 	Bar::height = height;
 	this->Scale(length, height, this->scale.z);
 	direction = glm::vec3(0.0f, 0.0f, -1.0f);
-	speed = 8.0f;
+	speed = 14.0f;
 	border.right = wallXoffset - wallWidth;
 	border.left = -wallXoffset + wallWidth;
 }
