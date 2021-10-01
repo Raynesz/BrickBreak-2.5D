@@ -1,12 +1,23 @@
 #include "Viewer.h"
 
-bool DetectCollisionAABB(glm::vec3 positionOne, glm::vec3 sizeOne, glm::vec3 positionTwo, glm::vec3 sizeTwo) {
-    // collision x-axis?
-    bool collisionX = positionOne.x + sizeOne.x >= positionTwo.x &&
-        positionTwo.x + sizeTwo.x >= positionOne.x;
-    // collision y-axis?
-    bool collisionY = positionOne.y + sizeOne.y >= positionTwo.y &&
-        positionTwo.y + sizeTwo.y >= positionOne.y;
-    // collision only if on both axes
-    return collisionX && collisionY;
+Direction Physics::VectorDirection(glm::vec2 target)
+{
+    glm::vec2 compass[] = {
+        glm::vec2(0.0f, 1.0f),	// up
+        glm::vec2(1.0f, 0.0f),	// right
+        glm::vec2(0.0f, -1.0f),	// down
+        glm::vec2(-1.0f, 0.0f)	// left
+    };
+    float max = 0.0f;
+    unsigned int best_match = -1;
+    for (unsigned int i = 0; i < 4; i++)
+    {
+        float dot_product = glm::dot(glm::normalize(target), compass[i]);
+        if (dot_product > max)
+        {
+            max = dot_product;
+            best_match = i;
+        }
+    }
+    return (Direction)best_match;
 }

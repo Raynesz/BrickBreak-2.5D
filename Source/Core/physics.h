@@ -1,6 +1,14 @@
 #pragma once
 
+enum Direction {
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
+};
+
 namespace Physics {
-	bool DetectCollisionAABB(glm::vec3, glm::vec3, glm::vec3, glm::vec3);
-	bool DetectCollisionCircleAABB();
+	typedef std::tuple<bool, Direction, glm::vec2> Collision;
+
+	Direction VectorDirection(glm::vec2 target);
 }

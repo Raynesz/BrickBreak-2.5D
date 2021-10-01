@@ -10,7 +10,7 @@ void Bar::Update(float deltaTime) {
 }
 
 Bar::Bar(std::string name, std::string modelID, std::string shaderID, std::vector<modelStruct>& models, std::vector<shaderStruct>& shaders,
-	glm::vec3 translation, glm::vec3 scale, float length, float height)
+	glm::vec3 translation, glm::vec3 scale, float length, float height, float wallXoffset, float wallWidth)
 	: Entity(name, modelID, shaderID, models, shaders, translation, scale)
 {
 	Bar::length = length;
@@ -18,6 +18,8 @@ Bar::Bar(std::string name, std::string modelID, std::string shaderID, std::vecto
 	this->Scale(length, height, this->scale.z);
 	direction = glm::vec3(0.0f, 0.0f, -1.0f);
 	speed = 8.0f;
+	border.right = wallXoffset - wallWidth;
+	border.left = -wallXoffset + wallWidth;
 }
 
 /*

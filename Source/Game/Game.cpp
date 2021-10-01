@@ -1,9 +1,23 @@
 #include "Game.h"
 
 void Game::Update(double dt) {
-	static_cast<Brick*>(get("jupiter"))->Rotate(0.0, 1.0, 0.0, degToRad(dt * 45.0f));
-	static_cast<Bar*>(get("bar"))->Update(dt);
-	static_cast<Ball*>(get("ball"))->Update(dt);
+	// Grab reference to entities
+	Brick* jupiter = static_cast<Brick*>(get("jupiter"));
+	Ball* ball = static_cast<Ball*>(get("ball"));
+	Wall* leftWall = static_cast<Wall*>(get("leftWall"));
+	Wall* rightWall = static_cast<Wall*>(get("rightWall"));
+	Wall* topWall = static_cast<Wall*>(get("topWall"));
+	Bar* bar = static_cast<Bar*>(get("bar"));
+
+	jupiter->Rotate(0.0, 1.0, 0.0, glm::radians(dt * 45.0f));
+	bar->Update(dt);
+	ball->Update(dt);
+
+	// Do Collisions
+	//		Bar to left wall
+	if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
+	//		Bar to right wall
+	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
 }
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
@@ -11,9 +25,6 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	srand(time(NULL));
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
-
-	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,
-		glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0, 0.5));
 
 	entities.push_back(new Brick("jupiter", "unused/jupiter", "default", viewer.models, viewer.shaders,
 		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
@@ -30,7 +41,10 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	entities.push_back(new Wall("topWall", "wall", "default", viewer.models, viewer.shaders,
 		glm::vec3(0.0f, 15.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 15.5, 0.5));
 
-	static_cast<Wall*>(get("topWall"))->Rotate(0.0, 0.0, 1.0, degToRad(90.0f));
+	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,
+		glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0, 0.5, 15.0f, 0.5f));
+
+	static_cast<Wall*>(get("topWall"))->Rotate(0.0, 0.0, 1.0, glm::radians(90.0f));
 
 	SelectLevel(activeLevel);
 	PopulateGrid(viewer);

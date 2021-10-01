@@ -74,6 +74,10 @@ void Game::Inputs(Viewer& viewer) {
 	{
 		static_cast<Brick*>(get("brick54"))->destroyed = true;
 	}
+	if (glfwGetKey(viewer.window, GLFW_KEY_M) == GLFW_PRESS)						// M
+	{
+		for (auto entity : entities) std::cout << entity->name << std::endl;
+	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_J) == GLFW_PRESS)						// J
 	{
 		viewer.useSkybox(NO_SKYBOX);
