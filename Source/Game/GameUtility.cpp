@@ -61,6 +61,10 @@ void Game::Inputs(Viewer& viewer) {
 		showAbout = true;
 	}
 
+	if (glfwGetKey(viewer.window, GLFW_KEY_F) == GLFW_PRESS)						// F
+	{
+		
+	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_C) == GLFW_PRESS)						// C
 	{
 		camera.Set(viewer.width, viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
@@ -90,7 +94,7 @@ void Game::Inputs(Viewer& viewer) {
 	{
 		viewer.useSkybox("space");
 	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_M) == GLFW_PRESS)						// L
+	if (glfwGetKey(viewer.window, GLFW_KEY_M) == GLFW_PRESS)						// M
 	{
 		camera.type = FREE_FPV;
 	}

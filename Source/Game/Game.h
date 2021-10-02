@@ -19,6 +19,9 @@ public:
 	bool controlsActive;
 	bool paused = false;
 	bool start = false;
+	bool end = false;
+	int createBall = 0;
+	int lasersAvailable = 0;
 
 	void Setup(Viewer&, int);
 	void Update(Viewer&, double);

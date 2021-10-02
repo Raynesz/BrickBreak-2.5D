@@ -16,10 +16,10 @@ void Ball::Update(float deltaTime) {
 }
 
 void Ball::adjustSpeed() {
-	if (random(0, 100) >= 50)
+	if (random(0, 100) >= 50) {
 		speed = slow;
 		speedModified += 2.0;
-	else {
+	} else {
 		speed = fast;
 		speedModified += 10.0;
 	}

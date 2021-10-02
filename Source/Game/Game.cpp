@@ -1,9 +1,13 @@
 #include "Game.h"
 
 void Game::Update(Viewer& viewer, double dt) {
+	while (createBall > 0) {
+		entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
+			static_cast<Ball*>(get("ball"))->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
+		createBall--;
+	}
 	// Grab reference to entities
 	Brick* jupiter = static_cast<Brick*>(get("jupiter"));
-	Ball* ball = static_cast<Ball*>(get("ball"));
 	Wall* leftWall = static_cast<Wall*>(get("leftWall"));
 	Wall* rightWall = static_cast<Wall*>(get("rightWall"));
 	Wall* topWall = static_cast<Wall*>(get("topWall"));
@@ -11,7 +15,6 @@ void Game::Update(Viewer& viewer, double dt) {
 
 	jupiter->Rotate(0.0, 1.0, 0.0, glm::radians(dt * 45.0f));
 	bar->Update(dt);
-	ball->Update(dt);
 
 	// Do Collisions
 	//		Bar to left wall
@@ -19,66 +22,87 @@ void Game::Update(Viewer& viewer, double dt) {
 	//		Bar to right wall
 	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
 
-	for (auto object : entities) {
-		if (!object->destroyed) {
-			bool isBrick = dynamic_cast<Brick*>(object) != nullptr;
-			bool isBar = dynamic_cast<Bar*>(object) != nullptr;
-			bool isWall = dynamic_cast<Wall*>(object) != nullptr;
-			if (isBrick || isBar || isWall) {
-				glm::vec3 size = (object->name == "topWall") ? glm::vec3(object->scale.y, object->scale.x, object->scale.z) :
-					glm::vec3(object->scale.x, object->scale.y, object->scale.z);
-				Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
-				if (std::get<0>(collision)) // if collision is true
-				{
-					PlaySound(TEXT("Resources/Sounds/hit.wav"), NULL, SND_ASYNC);
-					Direction dir = std::get<1>(collision);
-					glm::vec2 diff_vector = std::get<2>(collision);
-					if (dir == LEFT || dir == RIGHT) // horizontal collision
-					{
-						ball->direction.x = -ball->direction.x; // reverse horizontal velocity
-						// relocate
-						float penetration = ball->radius - std::abs(diff_vector.x);
-						if (dir == LEFT)
-							ball->position.x += penetration; // move ball to right
-						else
-							ball->position.x -= penetration; // move ball to left;
-					}
-					else // vertical collision
-					{
-						ball->direction.y = -ball->direction.y; // reverse vertical velocity
-						// relocate
-						float penetration = ball->radius - std::abs(diff_vector.y);
-						if (dir == UP)
-							ball->position.y -= penetration; // move ball back up
-						else
-							ball->position.y += penetration; // move ball back down
-					}
-					if (isBrick) {
-						dynamic_cast<Brick*>(object)->lives--;
-						if (dynamic_cast<Brick*>(object)->lives == 0) object->destroyed = true;
-						else object->SetModel(viewer.models, "crackedBrick");
-						if (dynamic_cast<Brick*>(object)->type == "laserBrick") {
-
-						} 
-						else if (dynamic_cast<Brick*>(object)->type == "splitBrick") {
-
-						}
-						else if (dynamic_cast<Brick*>(object)->type == "speedBrick") {
-							ball->adjustSpeed();
-						}
-						else if (dynamic_cast<Brick*>(object)->type == "shrinkBrick") {
-							bar->shrinkDuration += 5.0;
+	for (auto entity : entities) {
+		if (dynamic_cast<Ball*>(entity) != nullptr) {
+			Ball* ball = dynamic_cast<Ball*>(entity);
+			ball->Update(dt);
+			for (auto object : entities) {
+				if (!object->destroyed) {
+					bool isBrick = dynamic_cast<Brick*>(object) != nullptr;
+					bool isBar = dynamic_cast<Bar*>(object) != nullptr;
+					bool isWall = dynamic_cast<Wall*>(object) != nullptr;
+					if (isBrick || isBar || isWall) {
+						glm::vec3 size = (object->name == "topWall") ? glm::vec3(object->scale.y, object->scale.x, object->scale.z) :
+							glm::vec3(object->scale.x, object->scale.y, object->scale.z);
+						Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
+						if (std::get<0>(collision)) // if collision is true
+						{
+							PlaySound(TEXT("Resources/Sounds/hit.wav"), NULL, SND_ASYNC);
+							Direction dir = std::get<1>(collision);
+							glm::vec2 diff_vector = std::get<2>(collision);
+							if (dir == LEFT || dir == RIGHT) // horizontal collision
+							{
+								ball->direction.x = -ball->direction.x; // reverse horizontal velocity
+								// relocate
+								float penetration = ball->radius - std::abs(diff_vector.x);
+								if (dir == LEFT)
+									ball->position.x += penetration; // move ball to right
+								else
+									ball->position.x -= penetration; // move ball to left;
+							}
+							else // vertical collision
+							{
+								ball->direction.y = -ball->direction.y; // reverse vertical velocity
+								// relocate
+								float penetration = ball->radius - std::abs(diff_vector.y);
+								if (dir == UP)
+									ball->position.y -= penetration; // move ball back up
+								else
+									ball->position.y += penetration; // move ball back down
+							}
+							if (isBrick) {
+								dynamic_cast<Brick*>(object)->lives--;
+								if (dynamic_cast<Brick*>(object)->lives == 0) object->destroyed = true;
+								else object->SetModel(viewer.models, "crackedBrick");
+								if (dynamic_cast<Brick*>(object)->type == "laserBrick") {
+									lasersAvailable++;
+								}
+								else if (dynamic_cast<Brick*>(object)->type == "splitBrick") {
+									createBall++;
+								}
+								else if (dynamic_cast<Brick*>(object)->type == "speedBrick") {
+									ball->adjustSpeed();
+								}
+								else if (dynamic_cast<Brick*>(object)->type == "shrinkBrick") {
+									bar->shrinkDuration += 5.0;
+								}
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+
+	// Check if player won
+	if (levelData.totalBricks <= 0) {
+		end = true;
+		PlaySound(TEXT("Resources/Sounds/win.wav"), NULL, SND_ASYNC);
+	}
+
+	// Check if player lost
+	if (static_cast<Ball*>(get("ball"))->position.y < bar->position.y) {
+		end = true;
+		PlaySound(TEXT("Resources/Sounds/fail.wav"), NULL, SND_ASYNC);
+	}
 }
+
+
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
 	CleanUp();
 	start = false;
+	end = false;
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 
@@ -131,7 +155,7 @@ void Game::PopulateGrid(Viewer& viewer) {
 }
 
 void Game::InitializeResources(Viewer& viewer) {
-	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball", "bar", "crackedBrick",
+	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball","addBall", "bar", "crackedBrick",
 		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default") };
 	std::vector<std::string> skyboxes = { "skyfly", "space" };
