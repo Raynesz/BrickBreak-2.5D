@@ -50,7 +50,7 @@ int main() {
 		}
 
 		// UPDATE
-		if (!game.paused) game.Update(viewer, viewer.dt);
+		if (!game.paused && game.controlsActive && game.start) game.Update(viewer, viewer.dt);
 
 		// RENDER
 		// Specify the color of the background

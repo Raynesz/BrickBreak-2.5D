@@ -1,6 +1,12 @@
 #include "Game.h"
 
 void Bar::Update(float deltaTime) {
+	if (shrinkDuration > 0.0) {
+		setLength(1.5);
+		shrinkDuration -= deltaTime;
+	}
+	else setLength(3.0);
+
 	if (move.left)
 		position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));
 	if (move.right)

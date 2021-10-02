@@ -57,6 +57,18 @@ void Game::Update(Viewer& viewer, double dt) {
 						dynamic_cast<Brick*>(object)->lives--;
 						if (dynamic_cast<Brick*>(object)->lives == 0) object->destroyed = true;
 						else object->SetModel(viewer.models, "crackedBrick");
+						if (dynamic_cast<Brick*>(object)->type == "laserBrick") {
+
+						} 
+						else if (dynamic_cast<Brick*>(object)->type == "splitBrick") {
+
+						}
+						else if (dynamic_cast<Brick*>(object)->type == "speedBrick") {
+							ball->adjustSpeed();
+						}
+						else if (dynamic_cast<Brick*>(object)->type == "shrinkBrick") {
+							bar->shrinkDuration += 5.0;
+						}
 					}
 				}
 			}
@@ -66,6 +78,7 @@ void Game::Update(Viewer& viewer, double dt) {
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
 	CleanUp();
+	start = false;
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 

@@ -18,6 +18,7 @@ public:
 	Camera camera;
 	bool controlsActive;
 	bool paused = false;
+	bool start = false;
 
 	void Setup(Viewer&, int);
 	void Update(Viewer&, double);

@@ -3,7 +3,11 @@
 void Game::Inputs(Viewer& viewer) {
 	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						// UP
 	{
-		static_cast<Ball*>(get("ball"))->speed = 11.0f;
+		if (!start) {
+			Ball* ball = static_cast<Ball*>(get("ball"));
+			ball->speed = ball->normal;
+		}
+		start = true;
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_RELEASE)
 	{
@@ -73,10 +77,6 @@ void Game::Inputs(Viewer& viewer) {
 	if (glfwGetKey(viewer.window, GLFW_KEY_N) == GLFW_PRESS)						// N
 	{
 		static_cast<Brick*>(get("brick54"))->destroyed = true;
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_M) == GLFW_PRESS)						// M
-	{
-		for (auto entity : entities) std::cout << entity->name << std::endl;
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_J) == GLFW_PRESS)						// J
 	{
