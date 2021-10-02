@@ -20,6 +20,7 @@ int main() {
 
 	Game game;
 
+	srand(time(NULL));
 	game.InitializeResources(viewer);
 	game.Setup(viewer, 4);
 

@@ -66,8 +66,6 @@ void Game::Update(Viewer& viewer, double dt) {
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
 	CleanUp();
-	int now = time(NULL);
-	srand(now);
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 
