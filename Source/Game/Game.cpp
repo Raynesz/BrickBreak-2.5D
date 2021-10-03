@@ -10,6 +10,7 @@ void Game::Update(Viewer& viewer, double dt) {
 
 	Bar* bar = static_cast<Bar*>(entities[MainBar]);
 	bar->Update(dt);
+	static_cast<Laser*>(entities[MainLaser])->Update(bar->position);
 
 	// Do Collisions
 	//		Bar to left wall
@@ -23,7 +24,9 @@ void Game::Update(Viewer& viewer, double dt) {
 		if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
 			ball->Update(dt);
 			for (int brickIndex : bricks) {
-				if (DoCollision(ball, brickIndex)) DestroyBrick(viewer, ball, brickIndex);
+				if (DoCollision(ball, brickIndex)) {
+					DestroyBrick(viewer, ball, brickIndex);
+				}
 			}
 			DoCollision(ball, MainBar);
 			DoCollision(ball, RightWall);
@@ -38,13 +41,27 @@ void Game::Update(Viewer& viewer, double dt) {
 	// Check if player won
 	if (levelData.totalBricks <= 0) {
 		end = true;
-		PlaySound(TEXT("Resources/Sounds/win.wav"), NULL, SND_ASYNC);
+		PlaySound(TEXT("Resources/Sounds/victory.wav"), NULL, SND_ASYNC);
 	}
 
 	// Check if player lost
 	if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
 		end = true;
 		PlaySound(TEXT("Resources/Sounds/fail.wav"), NULL, SND_ASYNC);
+	}
+}
+
+void Game::ShootLaser(Viewer& viewer) {
+	Laser* laser = static_cast<Laser*>(entities[MainLaser]);
+	if (laser->charges > 0) {
+		PlaySound(TEXT("Resources/Sounds/laser.wav"), NULL, SND_ASYNC);
+		for (int brick : bricks) {
+			if (laser->position.x > entities[brick]->position.x - entities[brick]->scale.x &&
+				laser->position.x < entities[brick]->position.x + entities[brick]->scale.x) {
+				DestroyBrick(viewer, static_cast<Ball*>(entities[MainBall]), brick);
+			}
+		}
+		laser->charges--;
 	}
 }
 
@@ -56,7 +73,6 @@ bool Game::DoCollision(Ball* ball, int objectIndex) {
 		Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
 		if (std::get<0>(collision)) // if collision is true
 		{
-			std::cout << levelData.totalBricks << std::endl;
 			PlaySound(TEXT("Resources/Sounds/hit.wav"), NULL, SND_ASYNC);
 			Direction dir = std::get<1>(collision);
 			glm::vec2 diff_vector = std::get<2>(collision);
@@ -116,7 +132,7 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	viewer.useSkybox(RANDOM_SKYBOX);
 
 	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,						// Bar: 0
-		glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0, 0.5, 15.0f, 0.5f));
+		glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 2.4, 0.5, 15.0f, 0.5f));
 
 	entities.push_back(new Wall("leftWall", "wall", "default", viewer.models, viewer.shaders,				// LeftW: 1
 		glm::vec3(-15.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0, 0.5));
@@ -128,7 +144,7 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 		glm::vec3(0.0f, 15.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 15.5, 0.5));
 
 	entities.push_back(new Laser("laser", "laser", "default", viewer.models, viewer.shaders,				// Laser: 4
-		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
+		entities[MainBar]->position, glm::vec3(0.2f, 0.2f, 0.2f)));
 
 	entities.push_back(new Entity("j", "unused/jupiter", "default", viewer.models, viewer.shaders,			// J: 5	
 		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));

@@ -53,5 +53,6 @@ private:
 	void CountBricks();
 	void PopulateGrid(Viewer&);
 	bool DoCollision(Ball*, int);
-	void DestroyBrick(Viewer& , Ball*, int);
+	void DestroyBrick(Viewer&, Ball*, int);
+	void ShootLaser(Viewer&);
 };

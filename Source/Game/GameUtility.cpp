@@ -63,7 +63,7 @@ void Game::Inputs(Viewer& viewer) {
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_F) == GLFW_PRESS)						// F
 	{
-		
+		ShootLaser(viewer);
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_C) == GLFW_PRESS)						// C
 	{
@@ -80,7 +80,7 @@ void Game::Inputs(Viewer& viewer) {
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_N) == GLFW_PRESS)						// N
 	{
-		
+		std::cout << levelData.totalBricks << std::endl;
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_J) == GLFW_PRESS)						// J
 	{
