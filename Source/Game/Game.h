@@ -52,4 +52,6 @@ private:
 	void RandomizeLevelLayout();
 	void CountBricks();
 	void PopulateGrid(Viewer&);
+	bool DoCollision(Ball*, int);
+	void DestroyBrick(Viewer& , Ball*, int);
 };

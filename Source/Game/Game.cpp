@@ -4,85 +4,34 @@ void Game::Update(Viewer& viewer, double dt) {
 	while (createBall > 0) {
 		balls.push_back(entities.size());
 		entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
-			static_cast<Ball*>(get("ball"))->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
+			static_cast<Ball*>(entities[MainBall])->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
 		createBall--;
 	}
-	// Grab reference to entities
-	Brick* jupiter = static_cast<Brick*>(entities[Jupiter]);
-	Wall* leftWall = static_cast<Wall*>(entities[LeftWall]);
-	Wall* rightWall = static_cast<Wall*>(entities[RightWall]);
-	Wall* topWall = static_cast<Wall*>(entities[TopWall]);
-	Bar* bar = static_cast<Bar*>(entities[MainBar]);
-	Laser* laser = static_cast<Laser*>(entities[MainLaser]);
 
-	jupiter->Rotate(0.0, 1.0, 0.0, glm::radians(dt * 45.0f));
+	Bar* bar = static_cast<Bar*>(entities[MainBar]);
 	bar->Update(dt);
 
 	// Do Collisions
 	//		Bar to left wall
 	if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
+	entities[Jupiter]->Rotate(0.0, 1.0, 0.0, glm::radians(dt * 45.0f));
 	//		Bar to right wall
 	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
 
-	for (auto entity : entities) {
-		if (dynamic_cast<Ball*>(entity) != nullptr) {
-			Ball* ball = dynamic_cast<Ball*>(entity);
+	for (int ballIndex : balls) {	
+		Ball* ball = static_cast<Ball*>(entities[ballIndex]);
+		if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
 			ball->Update(dt);
-			for (auto object : entities) {
-				if (!object->destroyed) {
-					bool isBrick = dynamic_cast<Brick*>(object) != nullptr;
-					bool isBar = dynamic_cast<Bar*>(object) != nullptr;
-					bool isWall = dynamic_cast<Wall*>(object) != nullptr;
-					if (isBrick || isBar || isWall) {
-						glm::vec3 size = (object->name == "topWall") ? glm::vec3(object->scale.y, object->scale.x, object->scale.z) :
-							glm::vec3(object->scale.x, object->scale.y, object->scale.z);
-						Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
-						if (std::get<0>(collision)) // if collision is true
-						{
-							PlaySound(TEXT("Resources/Sounds/hit.wav"), NULL, SND_ASYNC);
-							Direction dir = std::get<1>(collision);
-							glm::vec2 diff_vector = std::get<2>(collision);
-							if (dir == LEFT || dir == RIGHT) // horizontal collision
-							{
-								ball->direction.x = -ball->direction.x; // reverse horizontal velocity
-								// relocate
-								float penetration = ball->radius - std::abs(diff_vector.x);
-								if (dir == LEFT)
-									ball->position.x += penetration; // move ball to right
-								else
-									ball->position.x -= penetration; // move ball to left;
-							}
-							else // vertical collision
-							{
-								ball->direction.y = -ball->direction.y; // reverse vertical velocity
-								// relocate
-								float penetration = ball->radius - std::abs(diff_vector.y);
-								if (dir == UP)
-									ball->position.y -= penetration; // move ball back up
-								else
-									ball->position.y += penetration; // move ball back down
-							}
-							if (isBrick) {
-								dynamic_cast<Brick*>(object)->lives--;
-								if (dynamic_cast<Brick*>(object)->lives == 0) object->destroyed = true;
-								else object->SetModel(viewer.models, "crackedBrick");
-								if (dynamic_cast<Brick*>(object)->type == "laserBrick") {
-									laser->charges++;
-								}
-								else if (dynamic_cast<Brick*>(object)->type == "splitBrick") {
-									createBall++;
-								}
-								else if (dynamic_cast<Brick*>(object)->type == "speedBrick") {
-									ball->adjustSpeed();
-								}
-								else if (dynamic_cast<Brick*>(object)->type == "shrinkBrick") {
-									bar->shrinkDuration += 5.0;
-								}
-							}
-						}
-					}
-				}
+			for (int brickIndex : bricks) {
+				if (DoCollision(ball, brickIndex)) DestroyBrick(viewer, ball, brickIndex);
 			}
+			DoCollision(ball, MainBar);
+			DoCollision(ball, RightWall);
+			DoCollision(ball, LeftWall);
+			DoCollision(ball, TopWall);
+		}
+		else {
+			ball->destroyed = true;
 		}
 	}
 
@@ -99,7 +48,65 @@ void Game::Update(Viewer& viewer, double dt) {
 	}
 }
 
+bool Game::DoCollision(Ball* ball, int objectIndex) {
+	Entity* object = entities[objectIndex];
+	if (!object->destroyed) {
+		glm::vec3 size = (object->name == "topWall") ? glm::vec3(object->scale.y, object->scale.x, object->scale.z) :
+			glm::vec3(object->scale.x, object->scale.y, object->scale.z);
+		Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
+		if (std::get<0>(collision)) // if collision is true
+		{
+			std::cout << levelData.totalBricks << std::endl;
+			PlaySound(TEXT("Resources/Sounds/hit.wav"), NULL, SND_ASYNC);
+			Direction dir = std::get<1>(collision);
+			glm::vec2 diff_vector = std::get<2>(collision);
+			if (dir == LEFT || dir == RIGHT) // horizontal collision
+			{
+				ball->direction.x = -ball->direction.x; // reverse horizontal velocity
+				// relocate
+				float penetration = ball->radius - std::abs(diff_vector.x);
+				if (dir == LEFT)
+					ball->position.x += penetration; // move ball to right
+				else
+					ball->position.x -= penetration; // move ball to left;
+			}
+			else // vertical collision
+			{
+				ball->direction.y = -ball->direction.y; // reverse vertical velocity
+				// relocate
+				float penetration = ball->radius - std::abs(diff_vector.y);
+				if (dir == UP)
+					ball->position.y -= penetration; // move ball back up
+				else
+					ball->position.y += penetration; // move ball back down
+			}
+		}
+		return std::get<0>(collision);
+	}
+	return false;
+}
 
+void Game::DestroyBrick(Viewer& viewer, Ball* ball, int brickIndex) {
+	Brick* brick = static_cast<Brick*>(entities[brickIndex]);
+	brick->lives--;
+	if (brick->lives == 0) {
+		brick->destroyed = true;
+		levelData.totalBricks--;
+	}
+	else brick->SetModel(viewer.models, "crackedBrick");
+	if (brick->type == "laserBrick") {
+		static_cast<Laser*>(entities[MainLaser])->charges++;
+	}
+	else if (brick->type == "splitBrick") {
+		createBall++;
+	}
+	else if (brick->type == "speedBrick") {
+		ball->adjustSpeed();
+	}
+	else if (brick->type == "shrinkBrick") {
+		static_cast<Bar*>(entities[MainBar])->shrinkDuration += 5.0;
+	}
+}
 
 void Game::Setup(Viewer& viewer, int activeLevel) {
 	CleanUp();
@@ -126,6 +133,7 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	entities.push_back(new Entity("j", "unused/jupiter", "default", viewer.models, viewer.shaders,			// J: 5	
 		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
 
+	balls.push_back(entities.size());
 	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,					// Main Ball: 6
 		glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
 

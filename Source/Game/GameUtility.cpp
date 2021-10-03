@@ -4,7 +4,7 @@ void Game::Inputs(Viewer& viewer) {
 	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						// UP
 	{
 		if (!start) {
-			Ball* ball = static_cast<Ball*>(get("ball"));
+			Ball* ball = static_cast<Ball*>(entities[MainBall]);
 			ball->speed = ball->normal;
 		}
 		start = true;
@@ -24,19 +24,19 @@ void Game::Inputs(Viewer& viewer) {
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_LEFT) == GLFW_PRESS)						// LEFT
 	{
-		static_cast<Bar*>(get("bar"))->move.left = true;
+		static_cast<Bar*>(entities[MainBar])->move.left = true;
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_LEFT) == GLFW_RELEASE)
 	{
-		static_cast<Bar*>(get("bar"))->move.left = false;
+		static_cast<Bar*>(entities[MainBar])->move.left = false;
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_RIGHT) == GLFW_PRESS)					// RIGHT
 	{
-		static_cast<Bar*>(get("bar"))->move.right = true;
+		static_cast<Bar*>(entities[MainBar])->move.right = true;
 	}
 	else if (glfwGetKey(viewer.window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
 	{
-		static_cast<Bar*>(get("bar"))->move.right = false;
+		static_cast<Bar*>(entities[MainBar])->move.right = false;
 	}
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_1) == GLFW_PRESS)						// 1
@@ -76,11 +76,11 @@ void Game::Inputs(Viewer& viewer) {
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_B) == GLFW_PRESS)						// B
 	{
-		static_cast<Brick*>(get("brick33"))->SetModel(viewer.models, "crackedBrick");
+		
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_N) == GLFW_PRESS)						// N
 	{
-		static_cast<Brick*>(get("brick54"))->destroyed = true;
+		
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_J) == GLFW_PRESS)						// J
 	{
@@ -131,6 +131,9 @@ void Game::CleanUp() {
 	}
 	levelData.totalBricks = 0;
 
+	balls.clear();
+	bricks.clear();
 	for (auto entity : entities) delete entity;
 	entities.clear();
+
 }
