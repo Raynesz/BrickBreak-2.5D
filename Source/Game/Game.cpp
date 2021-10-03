@@ -2,16 +2,18 @@
 
 void Game::Update(Viewer& viewer, double dt) {
 	while (createBall > 0) {
+		balls.push_back(entities.size());
 		entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
 			static_cast<Ball*>(get("ball"))->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
 		createBall--;
 	}
 	// Grab reference to entities
-	Brick* jupiter = static_cast<Brick*>(get("jupiter"));
-	Wall* leftWall = static_cast<Wall*>(get("leftWall"));
-	Wall* rightWall = static_cast<Wall*>(get("rightWall"));
-	Wall* topWall = static_cast<Wall*>(get("topWall"));
-	Bar* bar = static_cast<Bar*>(get("bar"));
+	Brick* jupiter = static_cast<Brick*>(entities[Jupiter]);
+	Wall* leftWall = static_cast<Wall*>(entities[LeftWall]);
+	Wall* rightWall = static_cast<Wall*>(entities[RightWall]);
+	Wall* topWall = static_cast<Wall*>(entities[TopWall]);
+	Bar* bar = static_cast<Bar*>(entities[MainBar]);
+	Laser* laser = static_cast<Laser*>(entities[MainLaser]);
 
 	jupiter->Rotate(0.0, 1.0, 0.0, glm::radians(dt * 45.0f));
 	bar->Update(dt);
@@ -65,7 +67,7 @@ void Game::Update(Viewer& viewer, double dt) {
 								if (dynamic_cast<Brick*>(object)->lives == 0) object->destroyed = true;
 								else object->SetModel(viewer.models, "crackedBrick");
 								if (dynamic_cast<Brick*>(object)->type == "laserBrick") {
-									lasersAvailable++;
+									laser->charges++;
 								}
 								else if (dynamic_cast<Brick*>(object)->type == "splitBrick") {
 									createBall++;
@@ -91,7 +93,7 @@ void Game::Update(Viewer& viewer, double dt) {
 	}
 
 	// Check if player lost
-	if (static_cast<Ball*>(get("ball"))->position.y < bar->position.y) {
+	if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
 		end = true;
 		PlaySound(TEXT("Resources/Sounds/fail.wav"), NULL, SND_ASYNC);
 	}
@@ -106,25 +108,28 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 
-	entities.push_back(new Brick("jupiter", "unused/jupiter", "default", viewer.models, viewer.shaders,
-		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
-
-	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,
-		glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
-
-	entities.push_back(new Wall("leftWall", "wall", "default", viewer.models, viewer.shaders,
-		glm::vec3(-15.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0, 0.5));
-
-	entities.push_back(new Wall("rightWall", "wall", "default", viewer.models, viewer.shaders,
-		glm::vec3(15.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0, 0.5));
-
-	entities.push_back(new Wall("topWall", "wall", "default", viewer.models, viewer.shaders,
-		glm::vec3(0.0f, 15.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 15.5, 0.5));
-
-	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,
+	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,						// Bar: 0
 		glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 3.0, 0.5, 15.0f, 0.5f));
 
-	static_cast<Wall*>(get("topWall"))->Rotate(0.0, 0.0, 1.0, glm::radians(90.0f));
+	entities.push_back(new Wall("leftWall", "wall", "default", viewer.models, viewer.shaders,				// LeftW: 1
+		glm::vec3(-15.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0, 0.5));
+
+	entities.push_back(new Wall("rightWall", "wall", "default", viewer.models, viewer.shaders,				// RightW: 2
+		glm::vec3(15.0f, 5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 10.0, 0.5));
+
+	entities.push_back(new Wall("topWall", "wall", "default", viewer.models, viewer.shaders,				// TopW: 3	
+		glm::vec3(0.0f, 15.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 15.5, 0.5));
+
+	entities.push_back(new Laser("laser", "laser", "default", viewer.models, viewer.shaders,				// Laser: 4
+		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
+
+	entities.push_back(new Entity("j", "unused/jupiter", "default", viewer.models, viewer.shaders,			// J: 5	
+		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
+
+	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,					// Main Ball: 6
+		glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
+
+	static_cast<Wall*>(entities[3])->Rotate(0.0, 0.0, 1.0, glm::radians(90.0f));
 
 	SelectLevel(activeLevel);
 	PopulateGrid(viewer);
@@ -146,8 +151,11 @@ void Game::PopulateGrid(Viewer& viewer) {
 			else if (levelData.layout[i][j] == "6") type = "splitBrick";
 			else type = "";
 
-			if (type != "") entities.push_back(new Brick("brick"+std::to_string(i)+ std::to_string(j), type, "default",
-				viewer.models, viewer.shaders, glm::vec3(x, y, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+			if (type != "") {
+				bricks.push_back(entities.size());
+				entities.push_back(new Brick("brick" + std::to_string(i) + std::to_string(j), type, "default",
+					viewer.models, viewer.shaders, glm::vec3(x, y, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)));
+			}
 			j++;
 		}
 		i++;

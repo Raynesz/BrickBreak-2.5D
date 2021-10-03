@@ -244,6 +244,7 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\Game\GameUI.cpp" />
     <ClCompile Include="Source\Game\GameUtility.cpp" />
+    <ClCompile Include="Source\Game\Laser.cpp" />
     <ClCompile Include="Source\Game\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +278,7 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClInclude Include="Source\Game\Camera.h" />
     <ClInclude Include="Source\Game\config.h" />
     <ClInclude Include="Source\Game\Game.h" />
+    <ClInclude Include="Source\Game\Laser.h" />
     <ClInclude Include="Source\Game\resource.h" />
     <ClInclude Include="Source\Game\Wall.h" />
   </ItemGroup>

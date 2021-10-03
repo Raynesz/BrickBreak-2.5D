@@ -6,11 +6,14 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Wall.h"
+#include "Laser.h"
 
 struct Level {
 	std::vector<std::vector<std::string> > layout{ 6, std::vector<std::string>(14, "0") };
 	int totalBricks;
 };
+
+enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, Jupiter, MainBall};
 
 class Game {
 public:
@@ -21,7 +24,6 @@ public:
 	bool start = false;
 	bool end = false;
 	int createBall = 0;
-	int lasersAvailable = 0;
 
 	void Setup(Viewer&, int);
 	void Update(Viewer&, double);
@@ -37,6 +39,8 @@ public:
 
 private:
 	std::vector<Entity*> entities = {};
+	std::vector<int> balls = {};
+	std::vector<int> bricks = {};
 	Level levelData;
 
 	bool showAbout = false;
