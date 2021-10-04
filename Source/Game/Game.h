@@ -13,7 +13,7 @@ struct Level {
 	int totalBricks;
 };
 
-enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, Jupiter, MainBall};
+enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, Jupiter, MainBall, Victory, GameOver};
 
 class Game {
 public:

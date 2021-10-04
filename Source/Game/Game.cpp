@@ -41,12 +41,14 @@ void Game::Update(Viewer& viewer, double dt) {
 	if (levelData.totalBricks <= 0) {
 		end = true;
 		PlaySound(TEXT("Resources/Sounds/victory.wav"), NULL, SND_ASYNC);
+		entities[Victory]->destroyed = false;
 	}
 
 	// Check if player lost
 	if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
 		end = true;
 		PlaySound(TEXT("Resources/Sounds/fail.wav"), NULL, SND_ASYNC);
+		entities[GameOver]->destroyed = false;
 	}
 }
 
@@ -154,8 +156,20 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,					// Main Ball: 6
 		glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
 
+	entities.push_back(new Entity("victory", "victory", "default", viewer.models, viewer.shaders,			// Victory Panel: 7	
+		glm::vec3(0.0f, 6.0f, 1.1f), glm::vec3(9.0f, 1.0f, 9.0f)));
+
+	entities.push_back(new Entity("gameOver", "gameOver", "default", viewer.models, viewer.shaders,			// GameOver Panel: 8	
+		glm::vec3(0.0f, 6.0f, 1.1f), glm::vec3(9.0f, 1.0f, 9.0f)));
+
 	entities[MainLaser]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));   // Paint laser red
-	static_cast<Wall*>(entities[3])->Rotate(0.0, 0.0, 1.0, glm::radians(90.0f));
+	entities[TopWall]->Rotate(0.0, 0.0, 1.0, glm::radians(90.0f));
+	entities[Victory]->Rotate(0.0, 0.0, 1.0, glm::radians(-90.0f));
+	entities[Victory]->Rotate(1.0, 0.0, 0.0, glm::radians(-90.0f));
+	entities[GameOver]->Rotate(0.0, 0.0, 1.0, glm::radians(-90.0f));
+	entities[GameOver]->Rotate(1.0, 0.0, 0.0, glm::radians(-90.0f));
+	entities[Victory]->destroyed = true;
+	entities[GameOver]->destroyed = true;
 
 	SelectLevel(activeLevel);
 	PopulateGrid(viewer);
@@ -190,7 +204,7 @@ void Game::PopulateGrid(Viewer& viewer) {
 
 void Game::InitializeResources(Viewer& viewer) {
 	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball", "addBall", "bar", "crackedBrick",
-		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall", "laser"};
+		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall", "laser", "victory", "gameOver"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"),
 	shaderInput("baseColor", "default", "baseColor")};
 	std::vector<std::string> skyboxes = { "skyfly", "space" };
