@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::Inputs(Viewer& viewer) {
+void Game::Inputs() {
 	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						// UP
 	{
 		if (!start) {
@@ -41,19 +41,19 @@ void Game::Inputs(Viewer& viewer) {
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_1) == GLFW_PRESS)						// 1
 	{
-		Setup(viewer, 1);
+		Setup(1);
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_2) == GLFW_PRESS)						// 2
 	{
-		Setup(viewer, 2);
+		Setup(2);
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_3) == GLFW_PRESS)						// 3
 	{
-		Setup(viewer, 3);
+		Setup(3);
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_4) == GLFW_PRESS)						// 4
 	{
-		Setup(viewer, 4);
+		Setup(4);
 	}
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_ESCAPE) == GLFW_PRESS)					// Esc
@@ -63,7 +63,7 @@ void Game::Inputs(Viewer& viewer) {
 
 	if (glfwGetKey(viewer.window, GLFW_KEY_F) == GLFW_PRESS)						// F
 	{
-		ShootLaser(viewer);
+		ShootLaser();
 	}
 	if (glfwGetKey(viewer.window, GLFW_KEY_C) == GLFW_PRESS)						// C
 	{
@@ -114,7 +114,7 @@ Entity* Game::get(std::string entityName) {
 	}
 }
 
-void Game::Draw(Viewer& viewer) {
+void Game::Draw() {
 	viewer.drawEntities(camera, entities);
 	viewer.drawSkybox(camera);
 }

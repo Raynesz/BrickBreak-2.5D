@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::Update(Viewer& viewer, double dt) {
+void Game::Update() {
 	while (createBall > 0) {
 		balls.push_back(entities.size());
 		entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
@@ -9,12 +9,12 @@ void Game::Update(Viewer& viewer, double dt) {
 	}
 
 	Bar* bar = static_cast<Bar*>(entities[MainBar]);
-	bar->Update(dt);
+	bar->Update(viewer.dt);
 
 	// Do Collisions
 	//		Bar to left wall
 	if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
-	entities[Jupiter]->Rotate(0.0, 1.0, 0.0, glm::radians(dt * 45.0f));
+	entities[Jupiter]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
 	//		Bar to right wall
 	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
 
@@ -23,9 +23,9 @@ void Game::Update(Viewer& viewer, double dt) {
 	for (int ballIndex : balls) {	
 		Ball* ball = static_cast<Ball*>(entities[ballIndex]);
 		if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
-			ball->Update(dt);
+			ball->Update(viewer.dt);
 			for (int brickIndex : bricks) {
-				if (DoCollision(ball, brickIndex)) DestroyBrick(viewer, ball, brickIndex);
+				if (DoCollision(ball, brickIndex)) DestroyBrick(ball, brickIndex);
 			}
 			DoCollision(ball, MainBar);
 			DoCollision(ball, RightWall);
@@ -52,7 +52,7 @@ void Game::Update(Viewer& viewer, double dt) {
 	}
 }
 
-void Game::ShootLaser(Viewer& viewer) {
+void Game::ShootLaser() {
 	if (!end && !paused) {
 		Laser* laser = static_cast<Laser*>(entities[MainLaser]);
 		if (laser->charges > 0) {
@@ -60,7 +60,7 @@ void Game::ShootLaser(Viewer& viewer) {
 			for (int brick : bricks) {
 				if (laser->position.x > entities[brick]->position.x - entities[brick]->scale.x &&
 					laser->position.x < entities[brick]->position.x + entities[brick]->scale.x) {
-					DestroyBrick(viewer, static_cast<Ball*>(entities[MainBall]), brick);
+					DestroyBrick(static_cast<Ball*>(entities[MainBall]), brick);
 				}
 			}
 			laser->charges--;
@@ -105,7 +105,7 @@ bool Game::DoCollision(Ball* ball, int objectIndex) {
 	return false;
 }
 
-void Game::DestroyBrick(Viewer& viewer, Ball* ball, int brickIndex) {
+void Game::DestroyBrick(Ball* ball, int brickIndex) {
 	Brick* brick = static_cast<Brick*>(entities[brickIndex]);
 	brick->lives--;
 	if (brick->lives == 0) {
@@ -127,7 +127,7 @@ void Game::DestroyBrick(Viewer& viewer, Ball* ball, int brickIndex) {
 	}
 }
 
-void Game::Setup(Viewer& viewer, int activeLevel) {
+void Game::Setup(int activeLevel) {
 	CleanUp();
 	start = false;
 	end = false;
@@ -172,10 +172,10 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	entities[GameOver]->destroyed = true;
 
 	SelectLevel(activeLevel);
-	PopulateGrid(viewer);
+	PopulateGrid();
 }
 
-void Game::PopulateGrid(Viewer& viewer) {
+void Game::PopulateGrid() {
 	std::string type;
 	int i = 0;
 	int j;
@@ -202,7 +202,7 @@ void Game::PopulateGrid(Viewer& viewer) {
 	}
 }
 
-void Game::InitializeResources(Viewer& viewer) {
+void Game::InitializeResources() {
 	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball", "addBall", "bar", "crackedBrick",
 		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall", "laser", "victory", "gameOver"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"),

@@ -18,11 +18,11 @@ int main() {
 	Viewer viewer(WINDOW_NAME);
 	ImGuiIO& io = UI::Initialize(viewer.window);
 
-	Game game;
+	Game game(viewer);
 
 	srand(time(NULL));
-	game.InitializeResources(viewer);
-	game.Setup(viewer, 4);
+	game.InitializeResources();
+	game.Setup(4);
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))
@@ -39,7 +39,7 @@ int main() {
 				// Handles camera inputs (delete this if you have disabled VSync)
 				if (!game.camera.locked) game.camera.Inputs(viewer.window, viewer.dt);
 				// Updates and exports the camera matrix to the Vertex Shader
-				game.Inputs(viewer);
+				game.Inputs();
 			}
 		}
 		game.camera.updateMatrix(45.0f, 0.1f, 1000.0f);
@@ -50,7 +50,7 @@ int main() {
 		}
 
 		// UPDATE
-		if (!game.paused && game.controlsActive && game.start && !game.end) game.Update(viewer, viewer.dt);
+		if (!game.paused && game.controlsActive && game.start && !game.end) game.Update();
 
 		// RENDER
 		// Specify the color of the background
@@ -60,9 +60,9 @@ int main() {
 
 		UI::NewFrame();
 		
-		game.Draw(viewer);
+		game.Draw();
 
-		game.DrawUI(viewer.window, io, viewer.dt);
+		game.DrawUI(io);
 		UI::Render();
 
 		viewer.FpsCounter();

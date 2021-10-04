@@ -1,8 +1,8 @@
 #include "Game.h"
 
-void Game::DrawUI(GLFWwindow* window, ImGuiIO& io, float dt) {
-	if (showAbout) DrawAbout(&showAbout, &showMetrics, &showControls, io, window);
-	if (showMetrics) DrawMetrics(&showMetrics, dt);
+void Game::DrawUI(ImGuiIO& io) {
+	if (showAbout) DrawAbout(&showAbout, &showMetrics, &showControls, io, viewer.window);
+	if (showMetrics) DrawMetrics(&showMetrics, viewer.dt);
 	if (showControls) DrawControls(&showControls, io);
 }
 
