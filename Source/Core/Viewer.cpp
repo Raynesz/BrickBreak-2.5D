@@ -127,7 +127,7 @@ void Viewer::drawSkybox(Camera& camera) {
 void Viewer::drawEntities(Camera& camera, std::vector<Entity*> entities) {
 	for (int i = 0; i < entities.size(); i++) {
 		if (!entities[i]->destroyed) models[entities[i]->modelIndex].model.Draw(shaders[entities[i]->shaderIndex].program,
-			camera, entities[i]->position, entities[i]->rotation, entities[i]->scale);
+			camera, entities[i]->position, entities[i]->rotation, entities[i]->scale, entities[i]->baseColor);
 	}
 }
 

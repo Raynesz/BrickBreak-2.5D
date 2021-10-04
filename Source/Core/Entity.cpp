@@ -51,3 +51,7 @@ void Entity::SetModel(std::vector<modelStruct>& models, std::string newModel) {
 		if (newModel == models[i].name) modelIndex = i;
 	}
 }
+
+void Entity::SetColor(glm::vec4 newColor) {
+	Entity::baseColor = newColor;
+}

@@ -21,6 +21,8 @@ uniform vec4 lightColor;
 uniform vec3 lightPos;
 // Gets the position of the camera from the main function
 uniform vec3 camPos;
+// Get the base color of the object
+uniform vec4 baseColor;
 
 
 vec4 pointLight()

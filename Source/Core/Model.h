@@ -16,7 +16,8 @@ public:
 		Camera& camera,
 		glm::vec3 translation,
 		glm::quat rotation,
-		glm::vec3 scale
+		glm::vec3 scale,
+		glm::vec4 baseColor
 	);
 
 private:

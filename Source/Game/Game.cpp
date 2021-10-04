@@ -10,7 +10,6 @@ void Game::Update(Viewer& viewer, double dt) {
 
 	Bar* bar = static_cast<Bar*>(entities[MainBar]);
 	bar->Update(dt);
-	static_cast<Laser*>(entities[MainLaser])->Update(bar->position);
 
 	// Do Collisions
 	//		Bar to left wall
@@ -18,6 +17,8 @@ void Game::Update(Viewer& viewer, double dt) {
 	entities[Jupiter]->Rotate(0.0, 1.0, 0.0, glm::radians(dt * 45.0f));
 	//		Bar to right wall
 	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
+
+	static_cast<Laser*>(entities[MainLaser])->Update(bar->position);
 
 	for (int ballIndex : balls) {	
 		Ball* ball = static_cast<Ball*>(entities[ballIndex]);
@@ -50,16 +51,18 @@ void Game::Update(Viewer& viewer, double dt) {
 }
 
 void Game::ShootLaser(Viewer& viewer) {
-	Laser* laser = static_cast<Laser*>(entities[MainLaser]);
-	if (laser->charges > 0) {
-		PlaySound(TEXT("Resources/Sounds/laser.wav"), NULL, SND_ASYNC);
-		for (int brick : bricks) {
-			if (laser->position.x > entities[brick]->position.x - entities[brick]->scale.x &&
-				laser->position.x < entities[brick]->position.x + entities[brick]->scale.x) {
-				DestroyBrick(viewer, static_cast<Ball*>(entities[MainBall]), brick);
+	if (!end && !paused) {
+		Laser* laser = static_cast<Laser*>(entities[MainLaser]);
+		if (laser->charges > 0) {
+			PlaySound(TEXT("Resources/Sounds/laser.wav"), NULL, SND_ASYNC);
+			for (int brick : bricks) {
+				if (laser->position.x > entities[brick]->position.x - entities[brick]->scale.x &&
+					laser->position.x < entities[brick]->position.x + entities[brick]->scale.x) {
+					DestroyBrick(viewer, static_cast<Ball*>(entities[MainBall]), brick);
+				}
 			}
+			laser->charges--;
 		}
-		laser->charges--;
 	}
 }
 
@@ -142,7 +145,7 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 		glm::vec3(0.0f, 15.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 15.5, 0.5));
 
 	entities.push_back(new Laser("laser", "laser", "baseColor", viewer.models, viewer.shaders,				// Laser: 4
-		entities[MainBar]->position, glm::vec3(1.0f, 1.0f, 1.0f)));
+		entities[MainBar]->position, glm::vec3(0.15f, 10.0f, 0.15f)));
 
 	entities.push_back(new Entity("j", "unused/jupiter", "default", viewer.models, viewer.shaders,			// J: 5	
 		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
@@ -151,6 +154,7 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,					// Main Ball: 6
 		glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
 
+	entities[MainLaser]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));   // Paint laser red
 	static_cast<Wall*>(entities[3])->Rotate(0.0, 0.0, 1.0, glm::radians(90.0f));
 
 	SelectLevel(activeLevel);

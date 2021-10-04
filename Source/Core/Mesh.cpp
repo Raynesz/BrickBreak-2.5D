@@ -54,7 +54,8 @@ void Mesh::Draw
 	glm::mat4 matrix,
 	glm::vec3 translation,
 	glm::quat rotation,
-	glm::vec3 scale
+	glm::vec3 scale,
+	glm::vec4 baseColor
 )
 {
 	// Bind shader to be able to access uniforms
@@ -100,6 +101,7 @@ void Mesh::Draw
 
 		glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(matrix));
 		glUniformMatrix4fv(glGetUniformLocation(shader.ID, "transform"), 1, GL_FALSE, glm::value_ptr(transformation));
+		glUniform4f(glGetUniformLocation(shader.ID, "baseColor"), baseColor.x, baseColor.y, baseColor.z, baseColor.w);
 
 		// Draw the actual mesh
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
