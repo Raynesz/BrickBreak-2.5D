@@ -20,6 +20,9 @@ int main() {
 
 	Game game(viewer);
 
+	glfwSetWindowUserPointer(viewer.window, &game);
+	glfwSetKeyCallback(viewer.window, key_callback);
+
 	srand(time(NULL));
 	game.InitializeResources();
 	game.Setup(4);

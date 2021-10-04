@@ -1,5 +1,79 @@
 #include "Game.h"
 
+// Keys in this function are activated once per key event
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	Game* game = reinterpret_cast<Game*>(glfwGetWindowUserPointer(window));
+	if (key == GLFW_KEY_1 && action == GLFW_PRESS)						// 1
+	{
+		game->Setup(1);
+	}
+	if (key == GLFW_KEY_2 && action == GLFW_PRESS)						// 2
+	{
+		game->Setup(2);
+	}
+	if (key == GLFW_KEY_3 && action == GLFW_PRESS)						// 3
+	{
+		game->Setup(3);
+	}
+	if (key == GLFW_KEY_4 && action == GLFW_PRESS)						// 4
+	{
+		game->Setup(4);
+	}
+
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)					// Esc
+	{
+		game->showAbout = !game->showAbout;
+		game->showControls = false;
+	}
+	if (key == GLFW_KEY_F && action == GLFW_PRESS)						// F
+	{
+		game->ShootLaser();
+	}
+	if (key == GLFW_KEY_C && action == GLFW_PRESS)						// C
+	{
+		game->camera.Set(game->viewer.width, game->viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+	}
+	if (key == GLFW_KEY_V && action == GLFW_PRESS)						// V
+	{
+		game->camera.locked = false;
+		game->camera.firstClick = true;
+	}
+	if (key == GLFW_KEY_B && action == GLFW_PRESS)						// B
+	{
+		game->camera.type = FREE_FPV;
+	}
+	if (key == GLFW_KEY_N && action == GLFW_PRESS)						// N
+	{
+
+	}
+	if (key == GLFW_KEY_J && action == GLFW_PRESS)						// J
+	{
+		game->viewer.useSkybox(NO_SKYBOX);
+	}
+	if (key == GLFW_KEY_K && action == GLFW_PRESS)					// K
+	{
+		game->viewer.useSkybox("skyfly");
+	}
+	if (key == GLFW_KEY_L && action == GLFW_PRESS)						// L
+	{
+		game->viewer.useSkybox("space");
+	}
+	if (key == GLFW_KEY_M && action == GLFW_PRESS)						// M
+	{
+		
+	}
+	if (key == GLFW_KEY_O && action == GLFW_PRESS)						// O
+	{
+		
+	}
+	if (key == GLFW_KEY_P && action == GLFW_PRESS)						// P
+	{
+		game->paused = !game->paused;
+	}
+}
+
+// Called every frame
 void Game::Inputs() {
 	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						// UP
 	{
@@ -37,74 +111,6 @@ void Game::Inputs() {
 	else if (glfwGetKey(viewer.window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
 	{
 		static_cast<Bar*>(entities[MainBar])->move.right = false;
-	}
-
-	if (glfwGetKey(viewer.window, GLFW_KEY_1) == GLFW_PRESS)						// 1
-	{
-		Setup(1);
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_2) == GLFW_PRESS)						// 2
-	{
-		Setup(2);
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_3) == GLFW_PRESS)						// 3
-	{
-		Setup(3);
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_4) == GLFW_PRESS)						// 4
-	{
-		Setup(4);
-	}
-
-	if (glfwGetKey(viewer.window, GLFW_KEY_ESCAPE) == GLFW_PRESS)					// Esc
-	{
-		showAbout = true;
-	}
-
-	if (glfwGetKey(viewer.window, GLFW_KEY_F) == GLFW_PRESS)						// F
-	{
-		ShootLaser();
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_C) == GLFW_PRESS)						// C
-	{
-		camera.Set(viewer.width, viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_V) == GLFW_PRESS)						// V
-	{
-		camera.locked = false;
-		camera.firstClick = true;
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_B) == GLFW_PRESS)						// B
-	{
-		
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_N) == GLFW_PRESS)						// N
-	{
-		
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_J) == GLFW_PRESS)						// J
-	{
-		viewer.useSkybox(NO_SKYBOX);
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_K) == GLFW_PRESS)						// K
-	{
-		viewer.useSkybox("skyfly");
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_L) == GLFW_PRESS)						// L
-	{
-		viewer.useSkybox("space");
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_M) == GLFW_PRESS)						// M
-	{
-		camera.type = FREE_FPV;
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_O) == GLFW_PRESS)						// O
-	{
-		paused = false;
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_P) == GLFW_PRESS)						// P
-	{
-		paused = true;
 	}
 }
 

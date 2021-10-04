@@ -8,6 +8,8 @@
 #include "Wall.h"
 #include "Laser.h"
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 struct Level {
 	std::vector<std::vector<std::string> > layout{ 6, std::vector<std::string>(14, "0") };
 	int totalBricks;
@@ -25,6 +27,8 @@ public:
 	bool start = false;
 	bool end = false;
 	int createBall = 0;
+	bool showAbout = false;
+	bool showControls = false;
 
 	Game(Viewer& _viewer) : viewer(_viewer) {}
 	void Setup(int);
@@ -38,6 +42,7 @@ public:
 	void DrawAbout(bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
 	void DrawMetrics(bool*, double);
 	void Draw();
+	void ShootLaser();
 
 private:
 	std::vector<Entity*> entities = {};
@@ -45,9 +50,7 @@ private:
 	std::vector<int> bricks = {};
 	Level levelData;
 
-	bool showAbout = false;
 	bool showMetrics = true;
-	bool showControls = false;
 
 	void SelectLevel(int);
 	Entity* get(std::string);
@@ -56,5 +59,4 @@ private:
 	void PopulateGrid();
 	bool DoCollision(Ball*, int);
 	void DestroyBrick(Ball*, int);
-	void ShootLaser();
 };
