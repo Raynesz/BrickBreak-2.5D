@@ -24,9 +24,7 @@ void Game::Update(Viewer& viewer, double dt) {
 		if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
 			ball->Update(dt);
 			for (int brickIndex : bricks) {
-				if (DoCollision(ball, brickIndex)) {
-					DestroyBrick(viewer, ball, brickIndex);
-				}
+				if (DoCollision(ball, brickIndex)) DestroyBrick(viewer, ball, brickIndex);
 			}
 			DoCollision(ball, MainBar);
 			DoCollision(ball, RightWall);
@@ -143,8 +141,8 @@ void Game::Setup(Viewer& viewer, int activeLevel) {
 	entities.push_back(new Wall("topWall", "wall", "default", viewer.models, viewer.shaders,				// TopW: 3	
 		glm::vec3(0.0f, 15.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 15.5, 0.5));
 
-	entities.push_back(new Laser("laser", "laser", "default", viewer.models, viewer.shaders,				// Laser: 4
-		entities[MainBar]->position, glm::vec3(0.2f, 0.2f, 0.2f)));
+	entities.push_back(new Laser("laser", "laser", "baseColor", viewer.models, viewer.shaders,				// Laser: 4
+		entities[MainBar]->position, glm::vec3(1.0f, 1.0f, 1.0f)));
 
 	entities.push_back(new Entity("j", "unused/jupiter", "default", viewer.models, viewer.shaders,			// J: 5	
 		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
@@ -187,9 +185,10 @@ void Game::PopulateGrid(Viewer& viewer) {
 }
 
 void Game::InitializeResources(Viewer& viewer) {
-	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball","addBall", "bar", "crackedBrick",
-		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall"};
-	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default") };
+	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball", "addBall", "bar", "crackedBrick",
+		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall", "laser"};
+	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"),
+	shaderInput("baseColor", "default", "baseColor")};
 	std::vector<std::string> skyboxes = { "skyfly", "space" };
 
 	viewer.loadModels(models);

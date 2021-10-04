@@ -286,10 +286,11 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <None Include="Source\Resources\Levels\level1.csv" />
     <None Include="Source\Resources\Levels\level2.csv" />
     <None Include="Source\Resources\Levels\level3.csv" />
-    <None Include="src\Resources\shaders\default.frag" />
-    <None Include="src\Resources\shaders\default.vert" />
-    <None Include="src\Resources\shaders\skybox.frag" />
-    <None Include="src\Resources\shaders\skybox.vert" />
+    <None Include="Source\Resources\Shaders\baseColor.frag" />
+    <None Include="Source\Resources\Shaders\default.frag" />
+    <None Include="Source\Resources\Shaders\default.vert" />
+    <None Include="Source\Resources\Shaders\skybox.frag" />
+    <None Include="Source\Resources\Shaders\skybox.vert" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Game\BrickBreak-2.5D.rc" />

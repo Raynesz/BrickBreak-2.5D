@@ -135,5 +135,4 @@ void Game::CleanUp() {
 	bricks.clear();
 	for (auto entity : entities) delete entity;
 	entities.clear();
-
 }

@@ -73,19 +73,6 @@ Viewer::Viewer(std::string windowName) {
 }
 
 Viewer::~Viewer() {
-	// Delete all the objects we've created
-	for (int i = 0; i < shaders.size(); i++) shaders[i].program.Delete();
-
-	for (int i = 0; i < models.size(); i++) {
-		for (int j = 0; j < models[i].model.meshes.size(); j++) {
-			for (int k = 0; k < models[i].model.meshes[j].textures.size(); k++) models[i].model.meshes[j].textures[k].Delete();
-			models[i].model.meshes[j].VAO.Delete();
-		}
-		for (int l = 0; l < models[i].model.meshes.size(); l++) models[i].model.loadedTex[l].Delete();
-	}
-
-	skybox.Delete();
-
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
 	// Terminate GLFW before ending the program

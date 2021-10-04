@@ -9,4 +9,5 @@ Laser::Laser(std::string name, std::string modelID, std::string shaderID, std::v
 
 void Laser::Update(glm::vec3 barPosition) {
 	position = barPosition;
+	destroyed = charges > 0 ? false : true;
 }
