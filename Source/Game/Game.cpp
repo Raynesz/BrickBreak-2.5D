@@ -2,7 +2,7 @@
 
 void Game::Update() {
 	entities[Jupiter]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
-	if (!paused && controlsActive && start && end) {
+	if (!paused && controlsActive && start && !end) {
 		while (createBall > 0) {
 			balls.push_back(entities.size());
 			entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,

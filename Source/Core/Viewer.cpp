@@ -25,6 +25,9 @@ Viewer::Viewer(std::string windowName) {
 
 		width = mode->width;
 		height = mode->height;
+		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
 		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
 		window = glfwCreateWindow(width, height, windowName.c_str(), primary, NULL);
@@ -138,7 +141,7 @@ void Viewer::Inputs() {
 void Viewer::FpsCounter() {
 	currentTime = glfwGetTime();
 	dt = currentTime - previousTime;
-	if (dt > 0.2) dt = 0.2;
+	if (dt > 0.1) dt = 0.1;
 
 	/*
 	// Creates new title
