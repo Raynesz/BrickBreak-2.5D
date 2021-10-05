@@ -30,7 +30,7 @@ Viewer::Viewer(std::string windowName) {
 		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
 		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-		window = glfwCreateWindow(width, height, windowName.c_str(), primary, NULL);
+		window = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 
 		// Error check if the window fails to create
 		if (window == NULL)
