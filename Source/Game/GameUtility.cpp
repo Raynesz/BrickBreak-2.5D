@@ -4,6 +4,26 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	Game* game = reinterpret_cast<Game*>(glfwGetWindowUserPointer(window));
+	if (key == GLFW_KEY_UP && action == GLFW_PRESS)						// UP
+	{
+		if (!game->start) {
+			Ball* ball = static_cast<Ball*>(game->entities[MainBall]);
+			ball->speed = ball->normal;
+		}
+		game->start = true;
+	}
+	else if (key == GLFW_KEY_UP && action == GLFW_RELEASE)
+	{
+
+	}
+	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)						// DOWN
+	{
+		game->camera.type = CLICK_FPV;
+	}
+	else if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE)
+	{
+
+	}
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS)						// 1
 	{
 		game->Setup(1);
@@ -75,27 +95,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 // Called every frame
 void Game::Inputs() {
-	if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_PRESS)						// UP
-	{
-		if (!start) {
-			Ball* ball = static_cast<Ball*>(entities[MainBall]);
-			ball->speed = ball->normal;
-		}
-		start = true;
-	}
-	else if (glfwGetKey(viewer.window, GLFW_KEY_UP) == GLFW_RELEASE)
-	{
-
-	}
-	if (glfwGetKey(viewer.window, GLFW_KEY_DOWN) == GLFW_PRESS)						// DOWN
-	{
-		camera.type = CLICK_FPV;
-	}
-	else if (glfwGetKey(viewer.window, GLFW_KEY_DOWN) == GLFW_RELEASE)
-	{
-
-	}
-
 	if (glfwGetKey(viewer.window, GLFW_KEY_LEFT) == GLFW_PRESS)						// LEFT
 	{
 		static_cast<Bar*>(entities[MainBar])->move.left = true;

@@ -6,7 +6,7 @@ Ball::Ball(std::string name, std::string modelID, std::string shaderID, std::vec
 {
 	Ball::radius = radius;
 	this->Scale(radius, radius, radius);
-	direction = glm::rotate(up, glm::radians(random(-50.0f, 50.0f)), glm::vec3(0, 0, 1));
+	direction = glm::normalize(glm::rotate(up, glm::radians(random(-50.0f, 50.0f)), glm::vec3(0, 0, 1)));
 }
 
 void Ball::Update(float deltaTime) {

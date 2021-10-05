@@ -2,7 +2,7 @@
 
 void Game::DrawUI(ImGuiIO& io) {
 	if (showAbout) DrawAbout(&showAbout, &showMetrics, &showControls, io, viewer.window);
-	if (showMetrics) DrawMetrics(&showMetrics, viewer.dt, static_cast<Laser*>(entities[MainLaser])->charges);
+	if (showMetrics) DrawMetrics(&showMetrics, viewer.dt);
 	if (showControls) DrawControls(&showControls, io);
 }
 
@@ -58,7 +58,7 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO&
 	ImGui::End();
 }
 
-void Game::DrawMetrics(bool* show, double dt, int data) {
+void Game::DrawMetrics(bool* show, double dt) {
 	ImGui::SetNextWindowPos(ImVec2(10, 10));
 	ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
 	if (ImGui::Begin("Metrics", show, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize
@@ -70,7 +70,6 @@ void Game::DrawMetrics(bool* show, double dt, int data) {
 		ImGui::Text("%.3f ms per frame", dt);
 		ImGui::Separator();
 		ImGui::Text("Press ESC for info.");
-		ImGui::Text("%d", data);
 	}
 	ImGui::End();
 }

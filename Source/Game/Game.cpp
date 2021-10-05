@@ -4,7 +4,7 @@ void Game::Update() {
 	while (createBall > 0) {
 		balls.push_back(entities.size());
 		entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
-			static_cast<Ball*>(entities[MainBall])->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
+			static_cast<Ball*>(entities[MainBall])->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.35));
 		createBall--;
 	}
 
@@ -95,6 +95,20 @@ bool Game::DoCollision(Ball* ball, int objectIndex) {
 			else // vertical collision
 			{
 				ball->direction.y = -ball->direction.y; // reverse vertical velocity
+				if (objectIndex == MainBar) {
+					float offAngle = 0.0f;
+					if (static_cast<Bar*>(entities[objectIndex])->move.right) {
+						offAngle = -0.2f;
+					}
+					else if (static_cast<Bar*>(entities[objectIndex])->move.left) {
+						offAngle = 0.2f;
+					}
+					ball->direction = glm::normalize(glm::rotate(ball->direction, offAngle, glm::vec3(0, 0, 1)));
+					if (acos(glm::dot(entities[objectIndex]->up, ball->direction)) > 0.9f) {
+						if (ball->direction.x <= 0) ball->direction = glm::normalize(glm::rotate(entities[objectIndex]->up, 0.9f, glm::vec3(0, 0, 1)));
+						else ball->direction = glm::normalize(glm::rotate(entities[objectIndex]->up, -0.9f, glm::vec3(0, 0, 1)));
+					}
+				}
 				// relocate
 				float penetration = ball->radius - std::abs(diff_vector.y);
 				if (dir == UP)
@@ -157,7 +171,7 @@ void Game::Setup(int activeLevel) {
 
 	balls.push_back(entities.size());
 	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,					// Main Ball: 6
-		glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.4));
+		glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.35));
 
 	entities.push_back(new Entity("victory", "victory", "default", viewer.models, viewer.shaders,			// Victory Panel: 7	
 		glm::vec3(0.0f, 6.0f, 1.1f), glm::vec3(9.0f, 1.0f, 9.0f)));
