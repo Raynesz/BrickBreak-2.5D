@@ -233,6 +233,9 @@
     <ClInclude Include="Source\Game\Laser.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Libraries\include\gltext\gltext.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Resources\Levels\level1.csv">

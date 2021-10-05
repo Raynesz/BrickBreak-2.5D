@@ -248,6 +248,7 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClCompile Include="Source\Game\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libraries\include\gltext\gltext.h" />
     <ClInclude Include="Libraries\include\imgui\imconfig.h" />
     <ClInclude Include="Libraries\include\imgui\imgui.h" />
     <ClInclude Include="Libraries\include\imgui\imgui_impl_glfw.h" />

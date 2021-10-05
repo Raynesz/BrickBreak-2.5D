@@ -40,7 +40,7 @@ public:
 	void DrawUI(ImGuiIO&);
 	void DrawControls(bool*, ImGuiIO&);
 	void DrawAbout(bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
-	void DrawMetrics(bool*, double);
+	void DrawMetrics(bool*, double, int);
 	void Draw();
 	void ShootLaser();
 

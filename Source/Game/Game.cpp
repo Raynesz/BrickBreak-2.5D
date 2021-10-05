@@ -18,7 +18,7 @@ void Game::Update() {
 	//		Bar to right wall
 	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
 
-	static_cast<Laser*>(entities[MainLaser])->Update(bar->position);
+	static_cast<Laser*>(entities[MainLaser])->Update(bar->position, viewer.dt);
 
 	for (int ballIndex : balls) {	
 		Ball* ball = static_cast<Ball*>(entities[ballIndex]);
@@ -58,12 +58,15 @@ void Game::ShootLaser() {
 		if (laser->charges > 0) {
 			PlaySound(TEXT("Resources/Sounds/laser.wav"), NULL, SND_ASYNC);
 			for (int brick : bricks) {
-				if (laser->position.x > entities[brick]->position.x - entities[brick]->scale.x &&
-					laser->position.x < entities[brick]->position.x + entities[brick]->scale.x) {
-					DestroyBrick(static_cast<Ball*>(entities[MainBall]), brick);
+				if (!entities[brick]->destroyed) {
+					if (laser->position.x > entities[brick]->position.x - entities[brick]->scale.x &&
+						laser->position.x < entities[brick]->position.x + entities[brick]->scale.x) {
+						DestroyBrick(static_cast<Ball*>(entities[MainBall]), brick);
+					}
 				}
 			}
 			laser->charges--;
+			laser->state = Fired;
 		}
 	}
 }
@@ -162,7 +165,7 @@ void Game::Setup(int activeLevel) {
 	entities.push_back(new Entity("gameOver", "gameOver", "default", viewer.models, viewer.shaders,			// GameOver Panel: 8	
 		glm::vec3(0.0f, 6.0f, 1.1f), glm::vec3(9.0f, 1.0f, 9.0f)));
 
-	entities[MainLaser]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));   // Paint laser red
+	//entities[MainLaser]->SetColor(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));   // Paint laser red
 	entities[TopWall]->Rotate(0.0, 0.0, 1.0, glm::radians(90.0f));
 	entities[Victory]->Rotate(0.0, 0.0, 1.0, glm::radians(-90.0f));
 	entities[Victory]->Rotate(1.0, 0.0, 0.0, glm::radians(-90.0f));
