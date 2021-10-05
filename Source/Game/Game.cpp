@@ -1,54 +1,56 @@
 #include "Game.h"
 
 void Game::Update() {
-	while (createBall > 0) {
-		balls.push_back(entities.size());
-		entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
-			static_cast<Ball*>(entities[MainBall])->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.35));
-		createBall--;
-	}
-
-	Bar* bar = static_cast<Bar*>(entities[MainBar]);
-	bar->Update(viewer.dt);
-
-	// Do Collisions
-	//		Bar to left wall
-	if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
 	entities[Jupiter]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
-	//		Bar to right wall
-	if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
+	if (!paused && controlsActive && start && end) {
+		while (createBall > 0) {
+			balls.push_back(entities.size());
+			entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
+				static_cast<Ball*>(entities[MainBall])->position, glm::vec3(1.0f, 1.0f, 1.0f), 0.35));
+			createBall--;
+		}
 
-	static_cast<Laser*>(entities[MainLaser])->Update(bar->position, viewer.dt);
+		Bar* bar = static_cast<Bar*>(entities[MainBar]);
+		bar->Update(viewer.dt);
 
-	for (int ballIndex : balls) {	
-		Ball* ball = static_cast<Ball*>(entities[ballIndex]);
-		if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
-			ball->Update(viewer.dt);
-			for (int brickIndex : bricks) {
-				if (DoCollision(ball, brickIndex)) DestroyBrick(ball, brickIndex);
+		// Do Collisions
+		//		Bar to left wall
+		if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
+		//		Bar to right wall
+		if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
+
+		static_cast<Laser*>(entities[MainLaser])->Update(bar->position, viewer.dt);
+
+		for (int ballIndex : balls) {
+			Ball* ball = static_cast<Ball*>(entities[ballIndex]);
+			if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
+				ball->Update(viewer.dt);
+				for (int brickIndex : bricks) {
+					if (DoCollision(ball, brickIndex)) DestroyBrick(ball, brickIndex);
+				}
+				DoCollision(ball, MainBar);
+				DoCollision(ball, RightWall);
+				DoCollision(ball, LeftWall);
+				DoCollision(ball, TopWall);
 			}
-			DoCollision(ball, MainBar);
-			DoCollision(ball, RightWall);
-			DoCollision(ball, LeftWall);
-			DoCollision(ball, TopWall);
+			else {
+				ball->destroyed = true;
+			}
 		}
-		else {
-			ball->destroyed = true;
+
+		// Check if player won
+		if (levelData.totalBricks <= 0) {
+			end = true;
+			PlaySound(TEXT("Resources/Sounds/victory.wav"), NULL, SND_ASYNC);
+			entities[Victory]->destroyed = false;
 		}
-	}
 
-	// Check if player won
-	if (levelData.totalBricks <= 0) {
-		end = true;
-		PlaySound(TEXT("Resources/Sounds/victory.wav"), NULL, SND_ASYNC);
-		entities[Victory]->destroyed = false;
-	}
-
-	// Check if player lost
-	if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
-		end = true;
-		PlaySound(TEXT("Resources/Sounds/fail.wav"), NULL, SND_ASYNC);
-		entities[GameOver]->destroyed = false;
+		// Check if player lost
+		if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
+			end = true;
+			PlaySound(TEXT("Resources/Sounds/fail.wav"), NULL, SND_ASYNC);
+			entities[GameOver]->destroyed = false;
+		}
 	}
 }
 
@@ -148,7 +150,7 @@ void Game::Setup(int activeLevel) {
 	CleanUp();
 	start = false;
 	end = false;
-	camera.Set(viewer.width, viewer.height, FREE_FPV, false, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+	camera.Set(viewer.width, viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 
 	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,						// Bar: 0
@@ -167,7 +169,7 @@ void Game::Setup(int activeLevel) {
 		entities[MainBar]->position, glm::vec3(0.15f, 10.0f, 0.15f)));
 
 	entities.push_back(new Entity("j", "unused/jupiter", "default", viewer.models, viewer.shaders,			// J: 5	
-		glm::vec3(-30.0f, 0.0f, 60.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
+		glm::vec3(-30.0f, 0.0f, 1000.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
 
 	balls.push_back(entities.size());
 	entities.push_back(new Ball("ball", "ball", "default", viewer.models, viewer.shaders,					// Main Ball: 6

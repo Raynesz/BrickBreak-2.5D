@@ -53,7 +53,7 @@ int main() {
 		}
 
 		// UPDATE
-		if (!game.paused && game.controlsActive && game.start && !game.end) game.Update();
+		game.Update();
 
 		// RENDER
 		// Specify the color of the background

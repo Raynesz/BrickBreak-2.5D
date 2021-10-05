@@ -12,10 +12,14 @@ void Game::DrawControls(bool* show, ImGuiIO& io) {
 	ImGui::Begin("Controls", show, ImGuiWindowFlags_NoCollapse);
 	ImGui::Text("Left arrow - Move player bar left.");
 	ImGui::Text("Right arrow - Move player bar right.");
-	ImGui::Text("Up arrow - Start level.");
+	ImGui::Text("Up arrow - Launch ball.");
+	ImGui::Text("Down arrow - Pause game.");
 	ImGui::Text("F - Fire laser when ready.");
-	ImGui::Text("R - Pause/unpause game.");
-	ImGui::Text("C - Toggle lock/unlock camera.");
+	ImGui::Text("1, 2, 3 - Choose level.");
+	ImGui::Text("4 - Play random level.");
+	ImGui::TextWrapped("C - Switch between free to look and click to look camera.");
+	ImGui::Text("V - Toggle lock/unlock camera.");
+	ImGui::Text("R - Reset camera.");
 	ImGui::Text("W - Move camera forward.");
 	ImGui::Text("A - Move camera left.");
 	ImGui::Text("S - Move camera backwards.");
@@ -37,15 +41,17 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO&
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 	// ImGUI window creation
 	ImGui::Begin("About", show, ImGuiWindowFlags_NoCollapse);
-	ImGui::Text("BrickBreak 2.5D v0.1.0");
+	ImGui::Text("BrickBreak 2.5D v1.0.0");
 	ImGui::Text("Developed by github.com/raynesz");
+	ImGui::Separator();
+	ImGui::Text("How to play:");
+	ImGui::Text("Break every brick to win. Moving the bar, while the ball hits it, changes the ball's trajectory. Lose the main ball and you lose!");
 	ImGui::Separator();
 	ImGui::TextWrapped("This game is a remastered version of a project I made during my student years."
 		"It now uses a modern OpenGL renderer based on tutorials by Victor Gordan and learnopengl.com and some of the in-game assets were made anew.");
-	ImGui::Text("Textures for the wooden bar provided for free by vecteezy.com. Contains assets from ambientCG.com,"
-		" licensed under CC0 1.0 Universal.");
-	ImGui::Text("Game winning sound created by Mativve from Freesound.org");
-	ImGui::Text("Libraries / Frameworks used: GLFW/glad, glm, Dear ImGui, stb image loader, nlohmann's json parser.");
+	ImGui::TextWrapped("Textures for the wooden bar provided for free by vecteezy.com. Contains assets from ambientCG.com,"
+		" licensed under CC0 1.0 Universal. Game winning sound created by Mativve from Freesound.org.");
+	ImGui::Text("Libraries/Frameworks used: GLFW/glad, glm, Dear ImGui, stb image loader, nlohmann's json parser.");
 	ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
 	ImGui::Separator();
 	ImGui::Checkbox("Show Metrics", showMetrics);

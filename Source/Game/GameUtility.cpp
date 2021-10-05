@@ -18,7 +18,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)						// DOWN
 	{
-		game->camera.type = CLICK_FPV;
+		game->paused = !game->paused;
 	}
 	else if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE)
 	{
@@ -50,46 +50,32 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		game->ShootLaser();
 	}
-	if (key == GLFW_KEY_C && action == GLFW_PRESS)						// C
+	if (key == GLFW_KEY_R && action == GLFW_PRESS)						// R
 	{
 		game->camera.Set(game->viewer.width, game->viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	}
+	if (key == GLFW_KEY_C && action == GLFW_PRESS)						// C
+	{
+		if (game->camera.type == CLICK_FPV) game->camera.type = FREE_FPV;
+		else game->camera.type = CLICK_FPV;
+	}
 	if (key == GLFW_KEY_V && action == GLFW_PRESS)						// V
 	{
-		game->camera.locked = false;
+		if (game->camera.locked == false) game->camera.locked = true;
+		else game->camera.locked = false;
 		game->camera.firstClick = true;
-	}
-	if (key == GLFW_KEY_B && action == GLFW_PRESS)						// B
-	{
-		game->camera.type = FREE_FPV;
-	}
-	if (key == GLFW_KEY_N && action == GLFW_PRESS)						// N
-	{
-
 	}
 	if (key == GLFW_KEY_J && action == GLFW_PRESS)						// J
 	{
 		game->viewer.useSkybox(NO_SKYBOX);
 	}
-	if (key == GLFW_KEY_K && action == GLFW_PRESS)					// K
+	if (key == GLFW_KEY_K && action == GLFW_PRESS)						// K
 	{
 		game->viewer.useSkybox("skyfly");
 	}
 	if (key == GLFW_KEY_L && action == GLFW_PRESS)						// L
 	{
 		game->viewer.useSkybox("space");
-	}
-	if (key == GLFW_KEY_M && action == GLFW_PRESS)						// M
-	{
-		
-	}
-	if (key == GLFW_KEY_O && action == GLFW_PRESS)						// O
-	{
-		
-	}
-	if (key == GLFW_KEY_P && action == GLFW_PRESS)						// P
-	{
-		game->paused = !game->paused;
 	}
 }
 
