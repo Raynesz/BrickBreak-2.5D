@@ -2,10 +2,10 @@
 
 void Bar::Update(float deltaTime) {
 	if (shrinkDuration > 0.0) {
-		setLength(1.4);
+		setLength(BAR_LENGTH_SHRUNK);
 		shrinkDuration -= deltaTime;
 	}
-	else setLength(2.4);
+	else setLength(BAR_LENGTH);
 
 	if (move.left)
 		position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));

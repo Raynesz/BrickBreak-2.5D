@@ -6,7 +6,7 @@ class Laser : public Entity {
 public:
 	int state = Inactive;
 	int prevState = Inactive;
-	int charges = 0;
+	int charges = LASER_INITIAL_CHARGES;
 	int show = 0;
 
 	Laser(std::string name, std::string modelID, std::string shaderID, std::vector<modelStruct>& models, std::vector<shaderStruct>& shaders,

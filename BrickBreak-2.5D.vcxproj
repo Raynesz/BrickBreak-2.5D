@@ -116,11 +116,13 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -150,6 +152,8 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -170,11 +174,13 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -204,6 +210,8 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
       <Command>

@@ -13,8 +13,8 @@ extern "C" {
 
 #include "Game.h"
 
-//int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
-int main() {
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+//int main() {
 	Viewer viewer(WINDOW_NAME);
 	ImGuiIO& io = UI::Initialize(viewer.window);
 
