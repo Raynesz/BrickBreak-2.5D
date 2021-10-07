@@ -8,7 +8,6 @@ public:
 
 	// Loads in a model from a file and stores tha information in 'data', 'JSON', and 'file'
 	Model(const char* file, unsigned int instancing = 1, std::vector<glm::mat4> instanceMatrix = {});
-	//Model(const char* file);
 
 	void Draw
 	(
