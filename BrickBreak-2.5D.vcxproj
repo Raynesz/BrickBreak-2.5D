@@ -130,7 +130,8 @@
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y
+xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,7 +164,8 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y
+xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -190,7 +192,8 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y
+xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -223,7 +226,8 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
-xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
+xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y
+xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -371,6 +375,9 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Game\BrickBreak-2.5D.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Source\Game\READ_ME.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
