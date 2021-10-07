@@ -45,7 +45,8 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO&
 	ImGui::Text("Developed by github.com/raynesz");
 	ImGui::Separator();
 	ImGui::Text("How to play:");
-	ImGui::Text("Break every brick to win. Moving the bar, while the ball hits it, changes the ball's trajectory. Lose the main ball and you lose!");
+	ImGui::TextWrapped("Break every brick to win. Drop the main ball and you lose! Moving the bar, while the ball hits it, changes the ball's trajectory."
+	" Edit the level files in the Resources folder to create your own 14x6 brick levels (numbers 0 to 6 for every brick type).");
 	ImGui::Separator();
 	ImGui::TextWrapped("This game is a remastered version of a project I made during my student years."
 		"It now uses a modern OpenGL renderer based on tutorials by Victor Gordan and learnopengl.com and some of the in-game assets were made anew.");

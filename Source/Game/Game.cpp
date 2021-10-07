@@ -26,7 +26,10 @@ void Game::Update() {
 			if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
 				ball->Update(viewer.dt);
 				for (int brickIndex : bricks) {
-					if (DoCollision(ball, brickIndex)) DestroyBrick(ball, brickIndex);
+					if (DoCollision(ball, brickIndex)) {
+						DestroyBrick(ball, brickIndex);
+						break;
+					}
 				}
 				DoCollision(ball, MainBar);
 				DoCollision(ball, RightWall);
@@ -88,13 +91,16 @@ bool Game::DoCollision(Ball* ball, int objectIndex) {
 			glm::vec2 diff_vector = std::get<2>(collision);
 			if (dir == LEFT || dir == RIGHT) // horizontal collision
 			{
-				ball->direction.x = -ball->direction.x; // reverse horizontal velocity
 				// relocate
 				float penetration = ball->radius - std::abs(diff_vector.x);
-				if (dir == LEFT)
+				if (dir == LEFT) {
+					ball->direction.x = abs(ball->direction.x);
 					ball->position.x += penetration; // move ball to right
-				else
+				} 
+				else {
+					ball->direction.x = -abs(ball->direction.x);
 					ball->position.x -= penetration; // move ball to left;
+				}
 			}
 			else // vertical collision
 			{
@@ -272,7 +278,7 @@ void Game::SelectLevel(int levelNumber) {
 void Game::RandomizeLevelLayout() {
 	for (int i = 0; i < levelData.layout.size(); i++) {
 		for (int j = 0; j < levelData.layout[i].size(); j++) {
-			if (random(0, 100) >= 50) levelData.layout[i][j] = std::to_string(random(2, 6));
+			if (random(1, 100) <= SPECIAL_BRICK_CHANCE) levelData.layout[i][j] = std::to_string(random(2, 6));
 			else levelData.layout[i][j] = "1";
 			if (levelData.layout[i][j] != "0") levelData.totalBricks++;
 		}
