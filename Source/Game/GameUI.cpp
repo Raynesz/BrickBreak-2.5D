@@ -42,7 +42,7 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO&
 	// ImGUI window creation
 	ImGui::Begin("About", show, ImGuiWindowFlags_NoCollapse);
 	ImGui::Text("BrickBreak 2.5D v1.0.0");
-	ImGui::Text("Developed by github.com/raynesz");
+	ImGui::Text("Developed by raynesz.dev");
 	ImGui::Separator();
 	ImGui::Text("How to play:");
 	ImGui::TextWrapped("Break every brick to win. Drop the main ball and you lose! Moving the bar, while the ball hits it, changes the ball's trajectory."
@@ -52,7 +52,7 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO&
 		"It now uses a modern OpenGL renderer based on tutorials by Victor Gordan and learnopengl.com and some of the in-game assets were made anew.");
 	ImGui::TextWrapped("Textures for the wooden bar provided for free by vecteezy.com. Contains assets from ambientCG.com,"
 		" licensed under CC0 1.0 Universal. Game winning sound created by Mativve from Freesound.org.");
-	ImGui::Text("Libraries/Frameworks used: GLFW/glad, glm, Dear ImGui, stb image loader, nlohmann's json parser.");
+	ImGui::Text("Libraries/Frameworks used: GLFW/glad, glm, Dear ImGui, SoLoud, stb image loader, nlohmann's json parser.");
 	ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
 	ImGui::Separator();
 	ImGui::Checkbox("Show Metrics", showMetrics);

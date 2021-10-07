@@ -81,7 +81,7 @@ BEGIN
             VALUE "FileDescription", "BrickBreak 2.5D Game"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "BrickBreak-2.5D.rc"
-            VALUE "LegalCopyright", "Copyright (C) 2021 github.com/raynesz"
+            VALUE "LegalCopyright", "Copyright (C) 2021 raynesz.dev"
             VALUE "OriginalFilename", "BrickBreak-2.5D.exe"
             VALUE "ProductName", "BrickBreak 2.5D"
             VALUE "ProductVersion", "1.0.0.0"
