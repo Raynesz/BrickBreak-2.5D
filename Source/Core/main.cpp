@@ -15,17 +15,16 @@ extern "C" {
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 //int main() {
-	Viewer viewer(WINDOW_NAME);
+	SoLoud::Soloud soloud;	// Sound Engine core
+	soloud.init();	// Initialize SoLoud (automatic back-end selection)
+	Viewer viewer(WINDOW_NAME, soloud);	// Create viewer and attach sound engine
 	ImGuiIO& io = UI::Initialize(viewer.window);
 
-	Game game(viewer);
+	srand(time(NULL));
+	Game game(viewer);	// Create game and attach it to the the viewer
 
 	glfwSetWindowUserPointer(viewer.window, &game);
 	glfwSetKeyCallback(viewer.window, key_callback);
-
-	srand(time(NULL));
-	game.InitializeResources();
-	game.Setup(4);
 
 	// Main while loop
 	while (!glfwWindowShouldClose(viewer.window))
@@ -74,6 +73,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		glfwSwapBuffers(viewer.window);
 	}
 
+	viewer.soloud.deinit();
 	game.CleanUp();
 	UI::Terminate();
 

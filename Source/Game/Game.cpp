@@ -41,14 +41,16 @@ void Game::Update() {
 		// Check if player won
 		if (levelData.totalBricks <= 0) {
 			end = true;
-			PlaySound(TEXT("Resources/Sounds/victory.wav"), NULL, SND_ASYNC);
+			viewer.soloud.stop(music); // Silence!
+			viewer.soloud.play(*sounds[Victory_S]);
 			entities[Victory]->destroyed = false;
 		}
 
 		// Check if player lost
 		if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
 			end = true;
-			PlaySound(TEXT("Resources/Sounds/fail.wav"), NULL, SND_ASYNC);
+			viewer.soloud.stop(music); // Silence!
+			viewer.soloud.play(*sounds[Fail_S]);
 			entities[GameOver]->destroyed = false;
 		}
 	}
@@ -58,7 +60,7 @@ void Game::ShootLaser() {
 	if (!end && !paused) {
 		Laser* laser = static_cast<Laser*>(entities[MainLaser]);
 		if (laser->charges > 0) {
-			PlaySound(TEXT("Resources/Sounds/laser.wav"), NULL, SND_ASYNC);
+			viewer.soloud.play(*sounds[Laser_S]);
 			for (int brick : bricks) {
 				if (!entities[brick]->destroyed) {
 					if (laser->position.x > entities[brick]->position.x - entities[brick]->scale.x &&
@@ -81,7 +83,7 @@ bool Game::DoCollision(Ball* ball, int objectIndex) {
 		Physics::Collision collision = Physics::CheckBallCollision(ball->position, ball->radius, object->position, size);
 		if (std::get<0>(collision)) // if collision is true
 		{
-			PlaySound(TEXT("Resources/Sounds/hit.wav"), NULL, SND_ASYNC);
+			viewer.soloud.play(*sounds[Hit_S]);
 			Direction dir = std::get<1>(collision);
 			glm::vec2 diff_vector = std::get<2>(collision);
 			if (dir == LEFT || dir == RIGHT) // horizontal collision
@@ -148,6 +150,8 @@ void Game::DestroyBrick(Ball* ball, int brickIndex) {
 
 void Game::Setup(int activeLevel) {
 	CleanUp();
+	music = viewer.soloud.play(*sounds[Music_S]);
+	viewer.soloud.setLooping(music, true);
 	start = false;
 	end = false;
 	camera.Set(viewer.width, viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
@@ -226,10 +230,17 @@ void Game::InitializeResources() {
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"),
 	shaderInput("baseColor", "default", "baseColor")};
 	std::vector<std::string> skyboxes = { "skyfly", "space" };
+	std::vector<std::string> soundFiles = { "hit", "laser", "victory", "fail", "music"};
 
 	viewer.loadModels(models);
 	viewer.loadShaders(shaders);
 	viewer.loadSkyboxes(skyboxes);
+
+	for (int i = 0; i < soundFiles.size(); i++) {
+		sounds.push_back(new SoLoud::Wav());
+		std::string fileName = "Resources/Sounds/" + soundFiles[i] + ".wav";
+		sounds[i]->load(fileName.c_str());
+	}
 }
 
 void Game::SelectLevel(int levelNumber) {
@@ -274,4 +285,10 @@ void Game::CountBricks() {
 			if (levelData.layout[i][j] != "0") levelData.totalBricks++;
 		}
 	}
+}
+
+Game::Game(Viewer& _viewer) : viewer(_viewer) {
+	InitializeResources();
+	music = viewer.soloud.play(*sounds[Music_S]);
+	Setup(4);
 }

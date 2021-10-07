@@ -1,6 +1,8 @@
 #pragma once
 
 #include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -24,6 +26,8 @@
 #include <stb/stb_image.h>
 #include <json/json.h>
 #include <csv.h>
+#include "soLoud/soloud.h"
+#include "soLoud/soloud_wav.h"
 
 #include "constants.h"
 #include "util.h"
@@ -46,13 +50,14 @@ public:
 	unsigned int height;
 
 	GLFWwindow* window;
+	SoLoud::Soloud& soloud;
 
 	double dt = 0.01666f;
 
 	std::vector<shaderStruct> shaders = {};
 	std::vector<modelStruct> models = {};
 
-	Viewer(std::string);
+	Viewer(std::string, SoLoud::Soloud&);
 	~Viewer();
 
 	void loadModels(std::vector<std::string>&);

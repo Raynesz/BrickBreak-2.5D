@@ -17,13 +17,17 @@ struct Level {
 
 enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, Jupiter, MainBall, Victory, GameOver};
 
+enum Sounds {Hit_S, Laser_S, Victory_S, Fail_S, Music_S};
+
 class Game {
 public:
 	Viewer& viewer;
 	glm::vec4 clearColor = glm::vec4(0.07f, 0.13f, 0.17f, 1.0f);
 	Camera camera;
 	std::vector<Entity*> entities = {};
-	bool controlsActive;
+	std::vector<SoLoud::Wav*> sounds = {};
+	int music;
+	bool controlsActive = true;
 	bool paused = false;
 	bool start = false;
 	bool end = false;
@@ -31,7 +35,7 @@ public:
 	bool showAbout = false;
 	bool showControls = false;
 
-	Game(Viewer& _viewer) : viewer(_viewer) {}
+	Game(Viewer& _viewer);
 	void Setup(int);
 	void Update();
 	void InitializeResources();

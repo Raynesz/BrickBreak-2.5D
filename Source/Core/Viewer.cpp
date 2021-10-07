@@ -1,6 +1,6 @@
 #include "Viewer.h"
 
-Viewer::Viewer(std::string windowName) {
+Viewer::Viewer(std::string windowName, SoLoud::Soloud& _soloud) : soloud(_soloud) {
 	try {
 		// Initialize GLFW
 		glfwInit();

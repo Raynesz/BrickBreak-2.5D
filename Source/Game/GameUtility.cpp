@@ -18,7 +18,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)						// DOWN
 	{
-		game->paused = !game->paused;
+		if (game->paused) {
+			game->paused = false;
+			game->viewer.soloud.setPauseAll(0); // resumes playback of all channels
+		}
+		else {
+			game->paused = true;
+			game->viewer.soloud.setPauseAll(1); // resumes playback of all channels
+		}
 	}
 	else if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE)
 	{
@@ -117,6 +124,8 @@ bool Game::windowsOpen() {
 }
 
 void Game::CleanUp() {
+	viewer.soloud.stop(music); // Silence!
+
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 6; j++) levelData.layout[i][j] = "0";
 	}

@@ -110,7 +110,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WITH_MINIAUDIO</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -139,10 +139,12 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WITH_MINIAUDIO</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>MaxSpeed</Optimization>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -168,7 +170,7 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WITH_MINIAUDIO</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -197,10 +199,12 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;WITH_MINIAUDIO</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>MaxSpeed</Optimization>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -231,6 +235,30 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClCompile Include="Libraries\include\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Libraries\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="Libraries\include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\dr_impl.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_audiosource.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_bus.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_3d.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_basicops.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_faderops.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_filterops.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_getters.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_setters.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_voicegroup.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_core_voiceops.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_fader.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_fft.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_fft_lut.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_file.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_filter.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_miniaudio.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_misc.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_queue.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_thread.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_wav.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\soloud_wavstream.cpp" />
+    <ClCompile Include="Libraries\include\soLoud\stb_vorbis.c" />
     <ClCompile Include="Libraries\include\stb\stb.cpp" />
     <ClCompile Include="Source\Core\EBO.cpp" />
     <ClCompile Include="Source\Core\Entity.cpp" />
@@ -266,6 +294,46 @@ xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y</Command>
     <ClInclude Include="Libraries\include\imgui\imstb_rectpack.h" />
     <ClInclude Include="Libraries\include\imgui\imstb_textedit.h" />
     <ClInclude Include="Libraries\include\imgui\imstb_truetype.h" />
+    <ClInclude Include="Libraries\include\soLoud\dr_flac.h" />
+    <ClInclude Include="Libraries\include\soLoud\dr_mp3.h" />
+    <ClInclude Include="Libraries\include\soLoud\dr_wav.h" />
+    <ClInclude Include="Libraries\include\soLoud\miniaudio.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_audiosource.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_bassboostfilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_biquadresonantfilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_bus.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_c.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_dcremovalfilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_echofilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_error.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_fader.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_fft.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_fftfilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_file.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_file_hack_off.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_file_hack_on.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_filter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_flangerfilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_freeverbfilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_internal.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_lofifilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_misc.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_monotone.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_noise.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_openmpt.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_queue.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_robotizefilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_sfxr.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_speech.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_tedsid.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_thread.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_vic.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_vizsn.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_wav.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_waveshaperfilter.h" />
+    <ClInclude Include="Libraries\include\soLoud\soloud_wavstream.h" />
+    <ClInclude Include="Libraries\include\soLoud\stb_vorbis.h" />
     <ClInclude Include="Source\Core\constants.h" />
     <ClInclude Include="Source\Core\csv.h" />
     <ClInclude Include="Source\Core\EBO.h" />
