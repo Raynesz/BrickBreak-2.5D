@@ -15,7 +15,7 @@ struct Level {
 	int totalBricks;
 };
 
-enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, Jupiter, MainBall, Victory, GameOver};
+enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, J, MainBall, Victory, GameOver};
 
 enum Sounds {Hit_S, Laser_S, Victory_S, Fail_S, Music_S};
 

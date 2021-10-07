@@ -47,7 +47,7 @@ Viewer::Viewer(std::string windowName, SoLoud::Soloud& _soloud) : soloud(_soloud
 		glfwSetWindowIcon(window, 1, images);
 		stbi_image_free(images[0].pixels);
 
-		//Load GLAD so it configures OpenGL
+		// Load GLAD so it configures OpenGL
 		gladLoadGL();
 		// Specify the viewport of OpenGL in the Window
 		// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800

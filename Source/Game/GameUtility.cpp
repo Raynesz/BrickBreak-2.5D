@@ -122,17 +122,3 @@ bool Game::windowsOpen() {
 	if (isOpen) camera.firstClick = true;
 	return isOpen;
 }
-
-void Game::CleanUp() {
-	viewer.soloud.stop(music); // Silence!
-
-	for (int i = 0; i < 6; i++) {
-		for (int j = 0; j < 6; j++) levelData.layout[i][j] = "0";
-	}
-	levelData.totalBricks = 0;
-
-	balls.clear();
-	bricks.clear();
-	for (auto entity : entities) delete entity;
-	entities.clear();
-}

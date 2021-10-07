@@ -1,7 +1,7 @@
 #include "Game.h"
 
 void Game::Update() {
-	entities[Jupiter]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
+	entities[J]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
 	if (!paused && controlsActive && start && !end) {
 		while (createBall > 0) {
 			balls.push_back(entities.size());
@@ -172,7 +172,7 @@ void Game::Setup(int activeLevel) {
 	entities.push_back(new Laser("laser", "laser", "baseColor", viewer.models, viewer.shaders,				// Laser: 4
 		entities[MainBar]->position, glm::vec3(0.15f, 10.0f, 0.15f)));
 
-	entities.push_back(new Entity("j", "unused/jupiter", "default", viewer.models, viewer.shaders,			// J: 5	
+	entities.push_back(new Entity("j", "j", "default", viewer.models, viewer.shaders,			// J: 5	
 		glm::vec3(-30.0f, 0.0f, 1000.0f), glm::vec3(0.2f, 0.2f, 0.2f)));
 
 	balls.push_back(entities.size());
@@ -225,7 +225,7 @@ void Game::PopulateGrid() {
 }
 
 void Game::InitializeResources() {
-	std::vector<std::string> models = { "unused/airplane", "unused/jupiter", "ball", "addBall", "bar", "crackedBrick",
+	std::vector<std::string> models = { "j", "ball", "addBall", "bar", "crackedBrick",
 		"laserBrick", "shrinkBrick", "splitBrick", "armoredBrick", "speedBrick", "brick", "wall", "laser", "victory", "gameOver"};
 	std::vector<shaderInput> shaders = { shaderInput("skybox", "skybox", "skybox"), shaderInput("default", "default", "default"),
 	shaderInput("baseColor", "default", "baseColor")};
@@ -291,4 +291,18 @@ Game::Game(Viewer& _viewer) : viewer(_viewer) {
 	InitializeResources();
 	music = viewer.soloud.play(*sounds[Music_S]);
 	Setup(4);
+}
+
+void Game::CleanUp() {
+	viewer.soloud.stop(music); // Silence!
+
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 6; j++) levelData.layout[i][j] = "0";
+	}
+	levelData.totalBricks = 0;
+
+	balls.clear();
+	bricks.clear();
+	for (auto entity : entities) delete entity;
+	entities.clear();
 }

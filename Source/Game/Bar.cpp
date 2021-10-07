@@ -32,31 +32,3 @@ void Bar::setLength(float newLength) {
 	length = newLength;
 	this->Scale(newLength, this->scale.y, this->scale.z);
 }
-
-/*
-if (move.forward)
-	position += (deltaTime * speed) * direction;
-if (move.back)
-	position += (deltaTime * speed) * -direction;
-if (!move.forward && !move.back)
-	position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
-if (move.left)
-	position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));
-if (move.right)
-	position += (deltaTime * speed) * glm::normalize(glm::cross(direction, up));
-if (!move.left && !move.right)
-	position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
-*/
-
-/*
-	if (move.left)
-		direction = glm::vec3(-1.0f, 0.0f, 0.0f);
-		//position += (deltaTime * speed) * -glm::normalize(glm::cross(direction, up));
-	if (move.right)
-		direction = glm::vec3(1.0f, 0.0f, 0.0f);
-		//position += (deltaTime * speed) * glm::normalize(glm::cross(direction, up));
-	if (!move.left && !move.right)
-		direction = glm::vec3(0.0f, 0.0f, 0.0f);
-		//position += (deltaTime * speed) * glm::vec3(0.0f, 0.0f, 0.0f);
-	position += (deltaTime * speed) * direction;
-*/
