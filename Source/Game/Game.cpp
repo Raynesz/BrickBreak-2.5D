@@ -114,6 +114,7 @@ bool Game::DoCollision(Ball* ball, int objectIndex) {
 			}
 			else // vertical collision
 			{
+				if (dir == UP && objectIndex == MainBar) return false;
 				ball->direction.y = -ball->direction.y; // reverse vertical velocity
 				if (objectIndex == MainBar) {
 					float offAngle = 0.0f;
