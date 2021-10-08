@@ -1,7 +1,7 @@
 #include "Game.h"
 
 void Game::DrawUI(ImGuiIO& io) {
-	if (showAbout) DrawAbout(&showAbout, &showMetrics, &showControls, io, viewer.window);
+	if (showAbout) DrawAbout(&showAbout, &showMetrics, &showControls, &playMusic.current, io, viewer.window);
 	if (showMetrics) DrawMetrics(&showMetrics, viewer.dt);
 	if (showControls) DrawControls(&showControls, io);
 }
@@ -36,12 +36,12 @@ void Game::DrawControls(bool* show, ImGuiIO& io) {
 	ImGui::End();
 }
 
-void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO& io, GLFWwindow* window) {
+void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* playMusic, ImGuiIO& io, GLFWwindow* window) {
 	ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 	// ImGUI window creation
 	ImGui::Begin("About", show, ImGuiWindowFlags_NoCollapse);
-	ImGui::Text("BrickBreak 2.5D v1.0.0");
+	ImGui::Text("BrickBreak 2.5D v1.1.0");
 	ImGui::Text("Developed by raynesz.dev");
 	ImGui::Separator();
 	ImGui::Text("How to play:");
@@ -55,9 +55,11 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, ImGuiIO&
 	ImGui::Text("Libraries/Frameworks used: GLFW/glad, glm, Dear ImGui, SoLoud, stb image loader, nlohmann's json parser.");
 	ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
 	ImGui::Separator();
-	ImGui::Checkbox("Show Metrics", showMetrics);
-	ImGui::SameLine(150);
 	if (ImGui::Button("Controls", ImVec2(90, 30))) *showControls = true;
+	ImGui::SameLine(150);
+	ImGui::Checkbox("Show Metrics", showMetrics);
+	ImGui::SameLine(300);
+	ImGui::Checkbox("Play Music", playMusic);
 	ImGui::Text("");
 	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 45);
 	if (ImGui::Button("Quit Game", ImVec2(90, 30))) glfwSetWindowShouldClose(window, GL_TRUE);

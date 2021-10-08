@@ -57,6 +57,16 @@ void Game::Update() {
 			entities[GameOver]->destroyed = false;
 		}
 	}
+	if (playMusic.current && !playMusic.prev) {
+		music = viewer.soloud.play(*sounds[Music_S]);
+		viewer.soloud.setLooping(music, true);
+		float v = viewer.soloud.getVolume(music); // Get current volume
+		viewer.soloud.setVolume(music, v / 10);    // Reduce it
+	}
+	else if (!playMusic.current && playMusic.prev) {
+		viewer.soloud.stop(music); // Silence!
+	}
+	playMusic.prev = playMusic.current;
 }
 
 void Game::ShootLaser() {
@@ -156,8 +166,12 @@ void Game::DestroyBrick(Ball* ball, int brickIndex) {
 
 void Game::Setup(int activeLevel) {
 	CleanUp();
-	music = viewer.soloud.play(*sounds[Music_S]);
-	viewer.soloud.setLooping(music, true);
+	if (playMusic.current) {
+		music = viewer.soloud.play(*sounds[Music_S]);
+		viewer.soloud.setLooping(music, true);
+		float v = viewer.soloud.getVolume(music); // Get current volume
+		viewer.soloud.setVolume(music, v / 10);    // Reduce it
+	}
 	start = false;
 	end = false;
 	camera.Set(viewer.width, viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));

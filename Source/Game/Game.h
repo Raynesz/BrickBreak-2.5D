@@ -15,6 +15,11 @@ struct Level {
 	int totalBricks;
 };
 
+struct PlayMusic {
+	bool current = true;
+	bool prev = true;
+};
+
 enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, J, MainBall, Victory, GameOver};
 
 enum Sounds {Hit_S, Laser_S, Victory_S, Fail_S, Music_S};
@@ -27,6 +32,7 @@ public:
 	std::vector<Entity*> entities = {};
 	std::vector<SoLoud::Wav*> sounds = {};
 	int music;
+	PlayMusic playMusic;
 	bool controlsActive = true;
 	bool paused = false;
 	bool start = false;
@@ -44,7 +50,7 @@ public:
 	bool windowsOpen();
 	void DrawUI(ImGuiIO&);
 	void DrawControls(bool*, ImGuiIO&);
-	void DrawAbout(bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
+	void DrawAbout(bool*, bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
 	void DrawMetrics(bool*, double);
 	void Draw();
 	void ShootLaser();

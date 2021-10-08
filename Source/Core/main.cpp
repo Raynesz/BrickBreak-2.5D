@@ -21,7 +21,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ImGuiIO& io = UI::Initialize(viewer.window);
 
 	srand(time(NULL));
-	Game game(viewer);	// Create game and attach it to the the viewer
+	Game game(viewer);	// Create game and attach it to the viewer
 
 	glfwSetWindowUserPointer(viewer.window, &game);
 	glfwSetKeyCallback(viewer.window, key_callback);
