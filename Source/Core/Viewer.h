@@ -28,6 +28,8 @@
 #include <csv.h>
 #include "soLoud/soloud.h"
 #include "soLoud/soloud_wav.h"
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "constants.h"
 #include "util.h"
@@ -44,6 +46,13 @@
 #include "Entity.h"
 #include "ui.h"
 
+struct Character {
+	unsigned int TextureID; // ID handle of the glyph texture
+	glm::ivec2   Size;      // Size of glyph
+	glm::ivec2   Bearing;   // Offset from baseline to left/top of glyph
+	unsigned int Advance;   // Horizontal offset to advance to next glyph
+};
+
 class Viewer {
 public:
 	unsigned int width;
@@ -51,6 +60,9 @@ public:
 
 	GLFWwindow* window;
 	SoLoud::Soloud& soloud;
+
+	std::map<GLchar, Character> textCharacters;
+	unsigned int textVAO, textVBO;
 
 	double dt = 0.01666f;
 
@@ -68,6 +80,8 @@ public:
 	void drawEntities(Camera&, std::vector<Entity*>);
 	void Inputs();
 	void FpsCounter();
+	int TextInit();
+	void RenderText(std::string text, float x, float y, float scale, glm::vec3 color);
 
 private:
 	std::string windowName;

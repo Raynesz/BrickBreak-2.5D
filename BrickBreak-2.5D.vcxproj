@@ -91,20 +91,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
-    <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ReferencePath>$(VC_ReferencesPath_x64);$(SolutionDir)\Libraries\lib;$(SolutionDir);</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
-    <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ReferencePath>$(VC_ReferencesPath_x64);$(SolutionDir)\Libraries\lib;$(SolutionDir);</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,7 +120,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
       <EntryPointSymbol>
@@ -152,7 +154,7 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
       <EntryPointSymbol>
@@ -180,7 +182,7 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
       <EntryPointSymbol>
@@ -193,7 +195,8 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
 xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y
-xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
+xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y
+copy /Y "$(SolutionDir)Libraries\lib\freetype.dll" "$(TargetDir)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -214,7 +217,7 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).lib</ImportLibrary>
       <EntryPointSymbol>
@@ -227,7 +230,8 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     <PreBuildEvent>
       <Command>if not exist "$(TargetDir)Resources\" mkdir "$(TargetDir)Resources\"
 xcopy "$(SolutionDir)Source\Resources" "$(TargetDir)Resources\" /E /Y
-xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
+xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y
+copy /Y "$(SolutionDir)Libraries\lib\freetype.dll" "$(TargetDir)"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -372,6 +376,8 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
     <None Include="Source\Resources\Shaders\default.vert" />
     <None Include="Source\Resources\Shaders\skybox.frag" />
     <None Include="Source\Resources\Shaders\skybox.vert" />
+    <None Include="Source\Resources\Shaders\text.frag" />
+    <None Include="Source\Resources\Shaders\text.vert" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Game\BrickBreak-2.5D.rc" />

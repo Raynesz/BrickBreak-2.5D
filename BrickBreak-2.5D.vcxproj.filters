@@ -466,6 +466,12 @@
     <None Include="Source\Resources\Shaders\default.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="Source\Resources\Shaders\text.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Source\Resources\Shaders\text.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Game\BrickBreak-2.5D.rc">
