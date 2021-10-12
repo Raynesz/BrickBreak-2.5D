@@ -73,20 +73,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
-    <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ReferencePath>$(VC_ReferencesPath_x86);$(SolutionDir)\Libraries\lib;</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)\Libraries\include;$(IncludePath);</IncludePath>
-    <LibraryPath>$(SolutionDir)\Libraries/lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <ReferencePath>$(VC_ReferencesPath_x86);$(SolutionDir)\Libraries\lib;</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -96,7 +98,7 @@
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
-    <ReferencePath>$(VC_ReferencesPath_x64);$(SolutionDir)\Libraries\lib;$(SolutionDir);</ReferencePath>
+    <ReferencePath>$(VC_ReferencesPath_x64);$(SolutionDir)\Libraries\lib;</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -106,7 +108,7 @@
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\BrickBreak-2.5D\</OutDir>
     <IntDir>$(Configuration)\$(PlatformTarget)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
-    <ReferencePath>$(VC_ReferencesPath_x64);$(SolutionDir)\Libraries\lib;$(SolutionDir);</ReferencePath>
+    <ReferencePath>$(VC_ReferencesPath_x64);$(SolutionDir)\Libraries\lib;</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
