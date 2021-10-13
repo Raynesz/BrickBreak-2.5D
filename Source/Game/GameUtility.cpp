@@ -18,14 +18,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)						// DOWN
 	{
-		if (game->paused) {
-			game->paused = false;
-			game->viewer.soloud.setPauseAll(0); // resumes playback of all channels
-		}
-		else {
-			game->paused = true;
-			game->viewer.soloud.setPauseAll(1); // resumes playback of all channels
-		}
+		if (game->paused) game->paused = false;
+		else game->paused = true;
 	}
 	else if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE)
 	{

@@ -60,8 +60,6 @@ Viewer::Viewer(std::string windowName, SoLoud::Soloud& _soloud) : soloud(_soloud
 		glEnable(GL_CULL_FACE);
 		// Keeps front faces
 		glCullFace(GL_FRONT);
-		// Uses counter clock-wise standard
-		glFrontFace(GL_CCW);
 
 		glEnable(GL_MULTISAMPLE); // MSAA ON
 
@@ -222,10 +220,6 @@ void Viewer::RenderText(std::string text, float x, float y, float scale, glm::ve
 }
 
 int Viewer::TextInit() {
-	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CW);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	Shader shader("Resources/Shaders/text.vert", "Resources/Shaders/text.frag");
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));
 	shader.Activate();

@@ -6,6 +6,12 @@ void Game::DrawUI(ImGuiIO& io) {
 	if (showControls) DrawControls(&showControls, io);
 }
 
+void Game::DrawText() {
+	if (paused) viewer.RenderText("PAUSE", viewer.width / 2.0f - 2.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.0f, glm::vec3(0.5f, 0.5f, 0.5f));
+	if (end == 1) viewer.RenderText("VICTORY", viewer.width / 2.0f - 3.5 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(0.55f, 0.7f, 0.4f));
+	if (end == 2) viewer.RenderText("DEFEAT", viewer.width / 2.0f - 3 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(0.8f, 0.4f, 0.35f));
+}
+
 void Game::DrawControls(bool* show, ImGuiIO& io) {
 	ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));

@@ -36,7 +36,7 @@ public:
 	bool controlsActive = true;
 	bool paused = false;
 	bool start = false;
-	bool end = false;
+	int end = 0;       // 0: Game hasn't ended, 1: Victory, 2: Defeat
 	int createBall = 0;
 	bool showAbout = false;
 	bool showControls = false;
@@ -49,6 +49,7 @@ public:
 	void CleanUp();
 	bool windowsOpen();
 	void DrawUI(ImGuiIO&);
+	void DrawText();
 	void DrawControls(bool*, ImGuiIO&);
 	void DrawAbout(bool*, bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
 	void DrawMetrics(bool*, double);

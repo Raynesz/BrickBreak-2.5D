@@ -59,16 +59,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		glClearColor(game.clearColor.r, game.clearColor.g, game.clearColor.b, game.clearColor.a);
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// Draw 3D Game Objects
 		glFrontFace(GL_CCW);
-		UI::NewFrame();
-		
+		glDisable(GL_BLEND);
 		game.Draw();
 
+		// Draw Text
+		glFrontFace(GL_CW);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		game.DrawText();
+
+		// Draw UI
+		UI::NewFrame();
 		game.DrawUI(io);
 		UI::Render();
-
-		glFrontFace(GL_CW);
-		viewer.RenderText("Pause", 800.0f, 500.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 		viewer.FpsCounter();
 

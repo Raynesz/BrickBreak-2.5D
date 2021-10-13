@@ -2,7 +2,7 @@
 
 void Game::Update() {
 	entities[J]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
-	if (!paused && controlsActive && start && !end) {
+	if (!paused && controlsActive && start && end == 0) {
 		while (createBall > 0) {
 			balls.push_back(entities.size());
 			entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
@@ -43,7 +43,7 @@ void Game::Update() {
 
 		// Check if player won
 		if (levelData.totalBricks <= 0) {
-			end = true;
+			end = 1;
 			viewer.soloud.stop(music); // Silence!
 			viewer.soloud.play(*sounds[Victory_S]);
 			entities[Victory]->destroyed = false;
@@ -51,7 +51,7 @@ void Game::Update() {
 
 		// Check if player lost
 		if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
-			end = true;
+			end = 2;
 			viewer.soloud.stop(music); // Silence!
 			viewer.soloud.play(*sounds[Fail_S]);
 			entities[GameOver]->destroyed = false;
@@ -70,7 +70,7 @@ void Game::Update() {
 }
 
 void Game::ShootLaser() {
-	if (!end && !paused) {
+	if (end == 0 && !paused) {
 		Laser* laser = static_cast<Laser*>(entities[MainLaser]);
 		if (laser->charges > 0) {
 			viewer.soloud.play(*sounds[Laser_S]);
@@ -174,7 +174,7 @@ void Game::Setup(int activeLevel) {
 		viewer.soloud.setVolume(music, v / 10);    // Reduce it
 	}
 	start = false;
-	end = false;
+	end = 0;
 	camera.Set(viewer.width, viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	viewer.useSkybox(RANDOM_SKYBOX);
 
