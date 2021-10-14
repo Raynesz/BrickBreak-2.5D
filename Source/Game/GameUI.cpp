@@ -1,18 +1,20 @@
 #include "Game.h"
 
 void Game::DrawUI(ImGuiIO& io) {
-	if (showAbout) DrawAbout(&showAbout, &showMetrics, &showControls, &playMusic.current, io, viewer.window);
+	if (showAbout) DrawAbout(&showAbout, &showMetrics, &showControls, &showText, &playMusic.current, io, viewer.window);
 	if (showMetrics) DrawMetrics(&showMetrics, viewer.dt);
 	if (showControls) DrawControls(&showControls, io);
 }
 
 void Game::DrawText() {
-	if (splashScreen) SplashScreen();
-	if (static_cast<Laser*>(entities[MainLaser])->charges > 0 && !splashScreen)
-		viewer.RenderText(std::to_string(static_cast<Laser*>(entities[MainLaser])->charges), viewer.width / 2.0f - 0.5 * viewer.width / 50.0f, viewer.height / 11.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-	if (paused) viewer.RenderText("PAUSE", viewer.width / 2.0f - 2.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
-	if (end == 1) viewer.RenderText("VICTORY", viewer.width / 2.0f - 3.5 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
-	if (end == 2) viewer.RenderText("DEFEAT", viewer.width / 2.0f - 3 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+	if (showText) {
+		if (splashScreen) SplashScreen();
+		if (static_cast<Laser*>(entities[MainLaser])->charges > 0 && !splashScreen)
+			viewer.RenderText(std::to_string(static_cast<Laser*>(entities[MainLaser])->charges), viewer.width / 2.0f - 0.5 * viewer.width / 50.0f, viewer.height / 11.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+		if (paused) viewer.RenderText("PAUSE", viewer.width / 2.0f - 2.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+		if (end == 1) viewer.RenderText("VICTORY", viewer.width / 2.0f - 3.5 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+		if (end == 2) viewer.RenderText("DEFEAT", viewer.width / 2.0f - 3 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+	}
 }
 
 void Game::DrawControls(bool* show, ImGuiIO& io) {
@@ -45,7 +47,7 @@ void Game::DrawControls(bool* show, ImGuiIO& io) {
 	ImGui::End();
 }
 
-void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* playMusic, ImGuiIO& io, GLFWwindow* window) {
+void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* showText, bool* playMusic, ImGuiIO& io, GLFWwindow* window) {
 	ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 	// ImGUI window creation
@@ -68,6 +70,8 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* pl
 	ImGui::SameLine(150);
 	ImGui::Checkbox("Show Metrics", showMetrics);
 	ImGui::SameLine(300);
+	ImGui::Checkbox("Show Text", showText);
+	ImGui::SameLine(450);
 	ImGui::Checkbox("Play Music", playMusic);
 	ImGui::Text("");
 	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 45);

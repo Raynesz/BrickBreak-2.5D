@@ -40,6 +40,7 @@ public:
 	int createBall = 0;
 	bool showAbout = false;
 	bool showControls = false;
+	bool showText = true;
 	bool splashScreen = true;
 	float splashScreenDuration = 4.0f;
 
@@ -54,7 +55,7 @@ public:
 	void DrawUI(ImGuiIO&);
 	void DrawText();
 	void DrawControls(bool*, ImGuiIO&);
-	void DrawAbout(bool*, bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
+	void DrawAbout(bool*, bool*, bool*, bool*, bool*, ImGuiIO&, GLFWwindow*);
 	void DrawMetrics(bool*, double);
 	void Draw();
 	void ShootLaser();
