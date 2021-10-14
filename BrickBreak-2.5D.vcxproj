@@ -120,7 +120,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
@@ -152,7 +152,7 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
       <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -182,7 +182,7 @@ xcopy "$(SolutionDir)Source\Game\READ_ME.txt" "$(TargetDir)" /Y</Command>
       <AdditionalIncludeDirectories>$(SolutionDir)Libraries\include\imgui;$(LocalDebuggerWorkingDirectory)\Core;$(LocalDebuggerWorkingDirectory)\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(ProjectDir)$(IntermediateOutputPath)$(TargetName).pdb</ProgramDatabaseFile>
@@ -215,7 +215,7 @@ copy /Y "$(SolutionDir)Libraries\lib\freetype.dll" "$(TargetDir)"</Command>
       <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>

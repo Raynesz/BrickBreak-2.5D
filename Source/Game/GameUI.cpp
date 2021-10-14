@@ -7,9 +7,12 @@ void Game::DrawUI(ImGuiIO& io) {
 }
 
 void Game::DrawText() {
-	if (paused) viewer.RenderText("PAUSE", viewer.width / 2.0f - 2.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.0f, glm::vec3(0.5f, 0.5f, 0.5f));
-	if (end == 1) viewer.RenderText("VICTORY", viewer.width / 2.0f - 3.5 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(0.55f, 0.7f, 0.4f));
-	if (end == 2) viewer.RenderText("DEFEAT", viewer.width / 2.0f - 3 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(0.8f, 0.4f, 0.35f));
+	if (splashScreen) SplashScreen();
+	if (static_cast<Laser*>(entities[MainLaser])->charges > 0 && !splashScreen)
+		viewer.RenderText(std::to_string(static_cast<Laser*>(entities[MainLaser])->charges), viewer.width / 2.0f - 0.5 * viewer.width / 50.0f, viewer.height / 11.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	if (paused) viewer.RenderText("PAUSE", viewer.width / 2.0f - 2.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+	if (end == 1) viewer.RenderText("VICTORY", viewer.width / 2.0f - 3.5 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+	if (end == 2) viewer.RenderText("DEFEAT", viewer.width / 2.0f - 3 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
 }
 
 void Game::DrawControls(bool* show, ImGuiIO& io) {
@@ -79,12 +82,7 @@ void Game::DrawMetrics(bool* show, double dt) {
 	if (ImGui::Begin("Metrics", show, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize
 		| ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove))
 	{
-		ImGui::Text("Metrics");
-		ImGui::Separator();
-		ImGui::Text("FPS: %.1f", 1.0f / dt);
-		ImGui::Text("%.3f ms per frame", dt);
-		ImGui::Separator();
-		ImGui::Text("Press ESC for info.");
+		ImGui::Text("FPS: %.1f | %.3f ms per frame", 1.0f / dt, dt);
 	}
 	ImGui::End();
 }

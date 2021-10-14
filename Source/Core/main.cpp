@@ -13,8 +13,8 @@ extern "C" {
 
 #include "Game.h"
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
-//int main() {
+//int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+int main() {
 	SoLoud::Soloud soloud;	// Sound Engine core
 	soloud.init();	// Initialize SoLoud (automatic back-end selection)
 	Viewer viewer(WINDOW_NAME, soloud);	// Create viewer and attach sound engine
@@ -35,7 +35,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 		game.controlsActive = !game.windowsOpen() && glfwGetWindowAttrib(viewer.window, GLFW_FOCUSED);
 
-		if (game.controlsActive) {
+		if (game.controlsActive && !game.splashScreen) {
 			if (!io.WantCaptureMouse) { // Game input is disabled if mouse is hovering over UI elements
 				viewer.Inputs();
 				// Handles camera inputs (delete this if you have disabled VSync)

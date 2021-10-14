@@ -40,8 +40,11 @@ public:
 	int createBall = 0;
 	bool showAbout = false;
 	bool showControls = false;
+	bool splashScreen = true;
+	float splashScreenDuration = 4.0f;
 
 	Game(Viewer& _viewer);
+	void SplashScreen();
 	void Setup(int);
 	void Update();
 	void InitializeResources();
@@ -61,7 +64,7 @@ private:
 	std::vector<int> bricks = {};
 	Level levelData;
 
-	bool showMetrics = true;
+	bool showMetrics = false;
 
 	void SelectLevel(int);
 	Entity* get(std::string);

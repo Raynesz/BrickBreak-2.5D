@@ -1,72 +1,83 @@
 #include "Game.h"
 
+void Game::SplashScreen() {
+	clearColor = glm::vec4(1.0f, 0.4f, 0.0f, 1.0f);
+	viewer.RenderText("BrickBreak 2.5D", viewer.width / 2.0f - 6.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.5f, glm::vec3(1.0f, 1.0f, 1.0f));
+}
+
 void Game::Update() {
-	entities[J]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
-	if (!paused && controlsActive && start && end == 0) {
-		while (createBall > 0) {
-			balls.push_back(entities.size());
-			entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
-				static_cast<Ball*>(entities[MainBall])->position, glm::vec3(1.0f, 1.0f, 1.0f), BALL_RADIUS));
-			createBall--;
-		}
+	if (splashScreen && splashScreenDuration >= 0.0f) {
+		splashScreenDuration -= viewer.dt;
+	}
+	else {
+		splashScreen = false;
+		entities[J]->Rotate(0.0, 1.0, 0.0, glm::radians(viewer.dt * 45.0f));
+		if (!paused && controlsActive && start && end == 0) {
+			while (createBall > 0) {
+				balls.push_back(entities.size());
+				entities.push_back(new Ball("addBall", "addBall", "default", viewer.models, viewer.shaders,
+					static_cast<Ball*>(entities[MainBall])->position, glm::vec3(1.0f, 1.0f, 1.0f), BALL_RADIUS));
+				createBall--;
+			}
 
-		Bar* bar = static_cast<Bar*>(entities[MainBar]);
-		bar->Update(viewer.dt);
+			Bar* bar = static_cast<Bar*>(entities[MainBar]);
+			bar->Update(viewer.dt);
 
-		// Do Collisions
-		//		Bar to left wall
-		if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
-		//		Bar to right wall
-		if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
+			// Do Collisions
+			//		Bar to left wall
+			if ((bar->position.x - bar->length) < bar->border.left) bar->position.x = bar->border.left + bar->length;
+			//		Bar to right wall
+			if ((bar->position.x + bar->length) > bar->border.right) bar->position.x = bar->border.right - bar->length;
 
-		static_cast<Laser*>(entities[MainLaser])->Update(bar->position, viewer.dt);
+			static_cast<Laser*>(entities[MainLaser])->Update(bar->position, viewer.dt);
 
-		for (int ballIndex : balls) {
-			Ball* ball = static_cast<Ball*>(entities[ballIndex]);
-			if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
-				ball->Update(viewer.dt);
-				for (int brickIndex : bricks) {
-					if (DoCollision(ball, brickIndex)) {
-						DestroyBrick(ball, brickIndex);
-						break;
+			for (int ballIndex : balls) {
+				Ball* ball = static_cast<Ball*>(entities[ballIndex]);
+				if (!ball->destroyed && ball->position.y > bar->position.y - 3.0) {
+					ball->Update(viewer.dt);
+					for (int brickIndex : bricks) {
+						if (DoCollision(ball, brickIndex)) {
+							DestroyBrick(ball, brickIndex);
+							break;
+						}
 					}
+					DoCollision(ball, MainBar);
+					DoCollision(ball, RightWall);
+					DoCollision(ball, LeftWall);
+					DoCollision(ball, TopWall);
 				}
-				DoCollision(ball, MainBar);
-				DoCollision(ball, RightWall);
-				DoCollision(ball, LeftWall);
-				DoCollision(ball, TopWall);
+				else {
+					ball->destroyed = true;
+				}
 			}
-			else {
-				ball->destroyed = true;
+
+			// Check if player won
+			if (levelData.totalBricks <= 0) {
+				end = 1;
+				viewer.soloud.stop(music); // Silence!
+				viewer.soloud.play(*sounds[Victory_S]);
+				entities[Victory]->destroyed = false;
+			}
+
+			// Check if player lost
+			if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
+				end = 2;
+				viewer.soloud.stop(music); // Silence!
+				viewer.soloud.play(*sounds[Fail_S]);
+				entities[GameOver]->destroyed = false;
 			}
 		}
-
-		// Check if player won
-		if (levelData.totalBricks <= 0) {
-			end = 1;
-			viewer.soloud.stop(music); // Silence!
-			viewer.soloud.play(*sounds[Victory_S]);
-			entities[Victory]->destroyed = false;
+		if (playMusic.current && !playMusic.prev) {
+			music = viewer.soloud.play(*sounds[Music_S]);
+			viewer.soloud.setLooping(music, true);
+			float v = viewer.soloud.getVolume(music); // Get current volume
+			viewer.soloud.setVolume(music, v / 10);    // Reduce it
 		}
-
-		// Check if player lost
-		if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
-			end = 2;
+		else if (!playMusic.current && playMusic.prev) {
 			viewer.soloud.stop(music); // Silence!
-			viewer.soloud.play(*sounds[Fail_S]);
-			entities[GameOver]->destroyed = false;
 		}
+		playMusic.prev = playMusic.current;
 	}
-	if (playMusic.current && !playMusic.prev) {
-		music = viewer.soloud.play(*sounds[Music_S]);
-		viewer.soloud.setLooping(music, true);
-		float v = viewer.soloud.getVolume(music); // Get current volume
-		viewer.soloud.setVolume(music, v / 10);    // Reduce it
-	}
-	else if (!playMusic.current && playMusic.prev) {
-		viewer.soloud.stop(music); // Silence!
-	}
-	playMusic.prev = playMusic.current;
 }
 
 void Game::ShootLaser() {
@@ -167,6 +178,7 @@ void Game::DestroyBrick(Ball* ball, int brickIndex) {
 
 void Game::Setup(int activeLevel) {
 	CleanUp();
+	clearColor = glm::vec4(0.07f, 0.13f, 0.17f, 1.0f);
 	if (playMusic.current) {
 		music = viewer.soloud.play(*sounds[Music_S]);
 		viewer.soloud.setLooping(music, true);
@@ -311,6 +323,7 @@ void Game::CountBricks() {
 Game::Game(Viewer& _viewer) : viewer(_viewer) {
 	InitializeResources();
 	music = viewer.soloud.play(*sounds[Music_S]);
+	SplashScreen();
 	Setup(4);
 }
 
