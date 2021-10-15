@@ -13,8 +13,8 @@ extern "C" {
 
 #include "Game.h"
 
-//int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
-int main() {
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
+//int main() {
 	SoLoud::Soloud soloud;	// Sound Engine core
 	soloud.init();	// Initialize SoLoud (automatic back-end selection)
 	Viewer viewer(WINDOW_NAME, soloud);	// Create viewer and attach sound engine

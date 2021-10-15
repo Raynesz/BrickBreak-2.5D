@@ -9,11 +9,15 @@ void Game::DrawUI(ImGuiIO& io) {
 void Game::DrawText() {
 	if (showText) {
 		if (splashScreen) SplashScreen();
-		if (static_cast<Laser*>(entities[MainLaser])->charges > 0 && !splashScreen)
-			viewer.RenderText(std::to_string(static_cast<Laser*>(entities[MainLaser])->charges), viewer.width / 2.0f - 0.5 * viewer.width / 50.0f, viewer.height / 11.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-		if (paused) viewer.RenderText("PAUSE", viewer.width / 2.0f - 2.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
-		if (end == 1) viewer.RenderText("VICTORY", viewer.width / 2.0f - 3.5 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
-		if (end == 2) viewer.RenderText("DEFEAT", viewer.width / 2.0f - 3 * viewer.width / 25.0f, viewer.height / 2.0f + viewer.height / 3.7f, 2.0f, glm::vec3(1.0f, 1.0f, 0.0f));
+		Laser* laser = static_cast<Laser*>(entities[MainLaser]);
+		if (laser->charges > 0 && !splashScreen) {
+			std::string chargesText = std::to_string(laser->charges);
+			TextSize chargesTextSize = viewer.GetTextSize(chargesText, 1.0f);
+			viewer.RenderText(chargesText, (viewer.width - chargesTextSize.w) / 2, viewer.height / 12.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+		}
+		if (paused) viewer.RenderText(texts[Pause_T].text, (viewer.width - texts[Pause_T].w) / 2, viewer.height / 3, texts[Pause_T].scale, glm::vec3(1.0f, 1.0f, 0.0f));
+		if (end == 1) viewer.RenderText(texts[Victory_T].text, (viewer.width - texts[Victory_T].w) / 2, 3 * viewer.height / 4, texts[Victory_T].scale, glm::vec3(1.0f, 1.0f, 0.0f));
+		if (end == 2) viewer.RenderText(texts[Defeat_T].text, (viewer.width - texts[Defeat_T].w) / 2, 3 * viewer.height / 4, texts[Defeat_T].scale, glm::vec3(1.0f, 1.0f, 0.0f));
 	}
 }
 
@@ -52,7 +56,7 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* sh
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 	// ImGUI window creation
 	ImGui::Begin("About", show, ImGuiWindowFlags_NoCollapse);
-	ImGui::Text("BrickBreak 2.5D v1.1.0");
+	ImGui::Text("BrickBreak 2.5D v1.2.0");
 	ImGui::Text("Developed by raynesz.dev");
 	ImGui::Separator();
 	ImGui::Text("How to play:");
@@ -63,7 +67,7 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* sh
 		"It now uses a modern OpenGL renderer based on tutorials by Victor Gordan and learnopengl.com and some of the in-game assets were made anew.");
 	ImGui::TextWrapped("Textures for the wooden bar provided for free by vecteezy.com. Contains assets from ambientCG.com,"
 		" licensed under CC0 1.0 Universal. Game winning sound created by Mativve from Freesound.org.");
-	ImGui::Text("Libraries/Frameworks used: GLFW/glad, glm, Dear ImGui, SoLoud, stb image loader, nlohmann's json parser.");
+	ImGui::Text("Libraries/Frameworks used: GLFW/glad, glm, Dear ImGui, SoLoud, FreeType, stb image loader, nlohmann's json parser.");
 	ImGui::Text("Additionally, Blender was used as the 3D modeling tool.");
 	ImGui::Separator();
 	if (ImGui::Button("Controls", ImVec2(90, 30))) *showControls = true;

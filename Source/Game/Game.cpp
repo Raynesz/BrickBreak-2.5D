@@ -1,8 +1,7 @@
 #include "Game.h"
 
 void Game::SplashScreen() {
-	clearColor = glm::vec4(1.0f, 0.4f, 0.0f, 1.0f);
-	viewer.RenderText("BrickBreak 2.5D", viewer.width / 2.0f - 6.5 * viewer.width / 50.0f, viewer.height / 2.0f, 1.5f, glm::vec3(1.0f, 1.0f, 1.0f));
+	viewer.RenderText(texts[Name_T].text, (viewer.width - texts[Name_T].w)/2, viewer.height/2, texts[Name_T].scale, glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 void Game::Update() {
@@ -63,7 +62,7 @@ void Game::Update() {
 			if (static_cast<Ball*>(entities[MainBall])->position.y < bar->position.y) {
 				end = 2;
 				viewer.soloud.stop(music); // Silence!
-				viewer.soloud.play(*sounds[Fail_S]);
+				viewer.soloud.play(*sounds[Defeat_S]);
 				entities[GameOver]->destroyed = false;
 			}
 		}
@@ -178,7 +177,6 @@ void Game::DestroyBrick(Ball* ball, int brickIndex) {
 
 void Game::Setup(int activeLevel) {
 	CleanUp();
-	clearColor = glm::vec4(0.07f, 0.13f, 0.17f, 1.0f);
 	if (playMusic.current) {
 		music = viewer.soloud.play(*sounds[Music_S]);
 		viewer.soloud.setLooping(music, true);
@@ -273,6 +271,24 @@ void Game::InitializeResources() {
 		sounds.push_back(new SoLoud::Wav());
 		std::string fileName = "Resources/Sounds/" + soundFiles[i] + ".wav";
 		sounds[i]->load(fileName.c_str());
+	}
+
+	std::vector<std::string> textSamples = { "BrickBreak 2.5D", "PAUSE", "VICTORY", "DEFEAT" };
+	for (int i = 0; i < textSamples.size(); i++) {
+		Text newText;
+		newText.text = textSamples[i];
+		texts.push_back(newText);
+	}
+
+	texts[Name_T].scale = 1.0f;
+	texts[Pause_T].scale = 1.0f;
+	texts[Victory_T].scale = 2.0f;
+	texts[Defeat_T].scale = 2.0f;
+
+	for (int i = 0; i < texts.size(); i++) {
+		TextSize textSize = viewer.GetTextSize(texts[i].text, texts[i].scale);
+		texts[i].w = textSize.w;
+		texts[i].h = textSize.h;
 	}
 }
 

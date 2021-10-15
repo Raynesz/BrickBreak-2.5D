@@ -53,6 +53,11 @@ struct Character {
 	unsigned int Advance;   // Horizontal offset to advance to next glyph
 };
 
+struct TextSize {
+	float w;
+	float h;
+};
+
 class Viewer {
 public:
 	unsigned int width;
@@ -81,6 +86,7 @@ public:
 	void Inputs();
 	void FpsCounter();
 	int TextInit();
+	TextSize GetTextSize(std::string text, float scale);
 	void RenderText(std::string text, float x, float y, float scale, glm::vec3 color);
 
 private:

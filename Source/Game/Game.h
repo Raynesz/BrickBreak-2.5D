@@ -20,17 +20,27 @@ struct PlayMusic {
 	bool prev = true;
 };
 
-enum MainObjects {MainBar, LeftWall, RightWall, TopWall, MainLaser, J, MainBall, Victory, GameOver};
+struct Text {
+	std::string text;
+	float w;
+	float h;
+	float scale;
+};
 
-enum Sounds {Hit_S, Laser_S, Victory_S, Fail_S, Music_S};
+enum MainObjectsEnum {MainBar, LeftWall, RightWall, TopWall, MainLaser, J, MainBall, Victory, GameOver};
+
+enum SoundsEnum {Hit_S, Laser_S, Victory_S, Defeat_S, Music_S};
+
+enum TextsEnum {Name_T, Pause_T, Victory_T, Defeat_T};
 
 class Game {
 public:
 	Viewer& viewer;
-	glm::vec4 clearColor = glm::vec4(0.07f, 0.13f, 0.17f, 1.0f);
+	glm::vec4 clearColor = glm::vec4(0.0f, 0.13f, 0.25f, 1.0f);
 	Camera camera;
 	std::vector<Entity*> entities = {};
 	std::vector<SoLoud::Wav*> sounds = {};
+	std::vector<Text> texts = {};
 	int music;
 	PlayMusic playMusic;
 	bool controlsActive = true;

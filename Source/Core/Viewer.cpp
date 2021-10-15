@@ -174,6 +174,21 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }
 
+TextSize Viewer::GetTextSize(std::string text, float scale) {
+	float textWidth = 0.0f;
+	float textHeight = 0.0f;
+	std::string::const_iterator c;
+	for (c = text.begin(); c != text.end(); c++) {
+		Character ch = textCharacters[*c];
+		textWidth += scale * ch.Advance / 64;
+		if (ch.Size.y > textHeight) textHeight = ch.Size.y;
+	}
+	TextSize textSize;
+	textSize.w = textWidth;
+	textSize.h = scale * textHeight;
+	return textSize;
+}
+
 void Viewer::RenderText(std::string text, float x, float y, float scale, glm::vec3 color)
 {
 	// activate corresponding render state	
