@@ -10,6 +10,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			if (!game->start) {
 				Ball* ball = static_cast<Ball*>(game->entities[MainBall]);
 				ball->speed = ball->normal;
+				game->showHint = false;
 			}
 			game->start = true;
 		}
@@ -47,6 +48,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			game->showAbout = !game->showAbout;
 			game->showControls = false;
+			game->showHint = false;
 		}
 		if (key == GLFW_KEY_F && action == GLFW_PRESS)						// F
 		{

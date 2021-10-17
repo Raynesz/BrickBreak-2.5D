@@ -9,6 +9,7 @@ void Game::DrawUI(ImGuiIO& io) {
 void Game::DrawText() {
 	if (showText) {
 		if (splashScreen) SplashScreen();
+		if (!splashScreen && showHint) viewer.RenderText(texts[Hint_T].text, (viewer.width - texts[Hint_T].w) / 2, viewer.height - texts[Hint_T].h - 60, texts[Hint_T].scale, glm::vec3(1.0f, 1.0f, 0.0f));
 		Laser* laser = static_cast<Laser*>(entities[MainLaser]);
 		if (laser->charges > 0 && !splashScreen) {
 			std::string chargesText = std::to_string(laser->charges);
@@ -27,7 +28,7 @@ void Game::DrawControls(bool* show, ImGuiIO& io) {
 	ImGui::Begin("Controls", show, ImGuiWindowFlags_NoCollapse);
 	ImGui::Text("Left arrow - Move player bar left.");
 	ImGui::Text("Right arrow - Move player bar right.");
-	ImGui::Text("Up arrow - Launch ball.");
+	ImGui::Text("Up arrow - Start game.");
 	ImGui::Text("Down arrow - Pause game.");
 	ImGui::Text("F - Fire laser when ready.");
 	ImGui::Text("1, 2, 3 - Choose level.");
@@ -56,7 +57,7 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* sh
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 	// ImGUI window creation
 	ImGui::Begin("About", show, ImGuiWindowFlags_NoCollapse);
-	ImGui::Text("BrickBreak 2.5D v1.2.0");
+	ImGui::Text("BrickBreak 2.5D v1.2.1");
 	ImGui::Text("Developed by raynesz.dev");
 	ImGui::Separator();
 	ImGui::Text("How to play:");

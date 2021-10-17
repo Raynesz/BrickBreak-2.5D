@@ -16,7 +16,6 @@ VBO::VBO(std::vector<glm::mat4>& mat4s)
 
 VBO::~VBO() {
 	Unbind();
-	glDeleteBuffers(1, &ID);
 }
 
 // Binds the VBO

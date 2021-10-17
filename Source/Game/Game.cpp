@@ -273,7 +273,7 @@ void Game::InitializeResources() {
 		sounds[i]->load(fileName.c_str());
 	}
 
-	std::vector<std::string> textSamples = { "BrickBreak 2.5D", "PAUSE", "VICTORY", "DEFEAT" };
+	std::vector<std::string> textSamples = { "BrickBreak 2.5D", "Press Esc for info", "PAUSE", "VICTORY", "DEFEAT" };
 	for (int i = 0; i < textSamples.size(); i++) {
 		Text newText;
 		newText.text = textSamples[i];
@@ -281,6 +281,7 @@ void Game::InitializeResources() {
 	}
 
 	texts[Name_T].scale = 1.0f;
+	texts[Hint_T].scale = 1.0f;
 	texts[Pause_T].scale = 1.0f;
 	texts[Victory_T].scale = 2.0f;
 	texts[Defeat_T].scale = 2.0f;

@@ -31,7 +31,7 @@ enum MainObjectsEnum {MainBar, LeftWall, RightWall, TopWall, MainLaser, J, MainB
 
 enum SoundsEnum {Hit_S, Laser_S, Victory_S, Defeat_S, Music_S};
 
-enum TextsEnum {Name_T, Pause_T, Victory_T, Defeat_T};
+enum TextsEnum {Name_T, Hint_T, Pause_T, Victory_T, Defeat_T};
 
 class Game {
 public:
@@ -51,6 +51,7 @@ public:
 	bool showAbout = false;
 	bool showControls = false;
 	bool showText = true;
+	bool showHint = true;
 	bool splashScreen = true;
 	float splashScreenDuration = 4.0f;
 

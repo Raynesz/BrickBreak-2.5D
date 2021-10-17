@@ -10,7 +10,6 @@ EBO::EBO(std::vector<GLuint>& indices)
 
 EBO::~EBO() {
 	Unbind();
-	glDeleteBuffers(1, &ID);
 }
 
 // Binds the EBO
