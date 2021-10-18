@@ -186,7 +186,6 @@ void Game::Setup(int activeLevel) {
 	start = false;
 	end = 0;
 	camera.Set(viewer.width, viewer.height, FREE_FPV, true, glm::vec3(0.0f, 5.0f, 35.0f), glm::vec3(0.0f, 0.0f, -1.0f));
-	viewer.useSkybox(RANDOM_SKYBOX);
 
 	entities.push_back(new Bar("bar", "bar", "default", viewer.models, viewer.shaders,						// Bar: 0
 		glm::vec3(0.0f, -5.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), BAR_LENGTH, 0.5, 15.0f, 0.5f));
@@ -341,6 +340,7 @@ Game::Game(Viewer& _viewer) : viewer(_viewer) {
 	InitializeResources();
 	music = viewer.soloud.play(*sounds[Music_S]);
 	SplashScreen();
+	viewer.useSkybox("space");
 	Setup(4);
 }
 

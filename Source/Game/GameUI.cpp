@@ -9,7 +9,7 @@ void Game::DrawUI(ImGuiIO& io) {
 void Game::DrawText() {
 	if (showText) {
 		if (splashScreen) SplashScreen();
-		if (!splashScreen && showHint) viewer.RenderText(texts[Hint_T].text, (viewer.width - texts[Hint_T].w) / 2, viewer.height - texts[Hint_T].h - 60, texts[Hint_T].scale, glm::vec3(1.0f, 1.0f, 0.0f));
+		if (!splashScreen && showHint) viewer.RenderText(texts[Hint_T].text, (viewer.width - texts[Hint_T].w) / 2, viewer.height - texts[Hint_T].h - 20, texts[Hint_T].scale, glm::vec3(1.0f, 1.0f, 0.0f));
 		Laser* laser = static_cast<Laser*>(entities[MainLaser]);
 		if (laser->charges > 0 && !splashScreen) {
 			std::string chargesText = std::to_string(laser->charges);
