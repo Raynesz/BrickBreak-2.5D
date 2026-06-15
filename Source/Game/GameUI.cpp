@@ -57,7 +57,7 @@ void Game::DrawAbout(bool* show, bool* showMetrics, bool* showControls, bool* sh
 	ImGui::SetNextWindowSize(ImVec2(0.0f, 0.0f));
 	// ImGUI window creation
 	ImGui::Begin("About", show, ImGuiWindowFlags_NoCollapse);
-	ImGui::Text("BrickBreak 2.5D v1.2.1");
+	ImGui::Text("BrickBreak 2.5D v1.2.2");
 	ImGui::Text("Developed by raynesz.dev");
 	ImGui::Separator();
 	ImGui::Text("How to play:");
