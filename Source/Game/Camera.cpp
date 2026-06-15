@@ -39,11 +39,11 @@ void Camera::Inputs(GLFWwindow* window, float dt)
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
-		speed = 20.0f;
+		speed = 50.0f;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
 	{
-		speed = 5.0f;
+		speed = 10.0f;
 	}
 
 	if (type == FREE_FPV) useFreeFPV(window, dt);
@@ -65,11 +65,11 @@ void Camera::useFreeFPV(GLFWwindow* window, float dt) {
 
 	// Normalizes and shifts the coordinates of the cursor such that they begin in the middle of the screen
 	// and then "transforms" them into degrees 
-	float rotX = dt * sensitivity * (float)(mouseY - (height / 2)) / height;
-	float rotY = dt * sensitivity * (float)(mouseX - (width / 2)) / width;
+	float rotX = sensitivity * (float)(mouseY - (height / 2)) / height;
+	float rotY = sensitivity * (float)(mouseX - (width / 2)) / width;
 
 	// Calculates upcoming vertical change in the Orientation
-	glm::vec3 newOrientation = glm::rotate(Orientation, glm::radians(-rotX), glm::normalize(glm::cross(Orientation, Up)));
+	glm::vec3 newOrientation = glm::normalize(glm::rotate(Orientation, glm::radians(-rotX), glm::normalize(glm::cross(Orientation, Up))));
 
 	// Decides whether or not the next vertical Orientation is legal or not
 	if (abs(glm::angle(newOrientation, Up) - glm::radians(90.0f)) <= glm::radians(85.0f))
@@ -78,7 +78,7 @@ void Camera::useFreeFPV(GLFWwindow* window, float dt) {
 	}
 
 	// Rotates the Orientation left and right
-	Orientation = glm::rotate(Orientation, glm::radians(-rotY), Up);
+	Orientation = glm::normalize(glm::rotate(Orientation, glm::radians(-rotY), Up));
 
 	// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
 	glfwSetCursorPos(window, (width / 2), (height / 2));

@@ -76,10 +76,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 		game->DrawUI(io);
 		UI::Render();
 
-		viewer.FpsCounter();
-
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(viewer.window);
+
+		viewer.FpsCounter();
 	}
 
 	viewer.soloud.deinit();
